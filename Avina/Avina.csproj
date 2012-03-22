@@ -243,7 +243,9 @@
   <ItemGroup>
     <None Include="Content\extensions\safari\avina.safariextension\Info.plist" />
     <Content Include="Views\Home\Index.cshtml" />
-    <None Include="Content\extensions\safari\avina.safariextz" />
+    <None Include="Content\extensions\safari\avina.safariextz">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="readme.md" />
     <None Include="Scripts\DataTables-1.9.0\extras\AutoFill\media\js\AutoFill.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\ColReorder\media\js\ColReorder.min.js.gz" />
