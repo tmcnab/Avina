@@ -40,3 +40,5 @@ C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\obj\Deb
 C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\obj\Debug\Avina.pdb
 C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\RequestReduce.dll
 C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\RequestReduce.pdb
+C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Content\extensions\safari\avina.safariextz
+C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Content\extensions\avina.safariextz
