@@ -1,0 +1,16 @@
+﻿<configuration>
+  <configSections>
+    <section name="RequestReduce" type="RequestReduce.Configuration.RequestReduceConfigSection, RequestReduce" requirePermission="false" />
+  </configSections>
+  <system.web>
+    <httpModules>
+      <add name="RequestReduce" type="RequestReduce.Module.RequestReduceModule, RequestReduce" />
+    </httpModules>
+  </system.web>
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false"/>
+		<modules>
+      <add name="RequestReduce" type="RequestReduce.Module.RequestReduceModule, RequestReduce" />
+		</modules>
+	</system.webServer>
+</configuration>
