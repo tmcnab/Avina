@@ -1,28 +1,33 @@
 ﻿namespace Avina.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
     using Avina.Models;
-    using System.Collections.Generic;
-    using Newtonsoft.Json;
 
     public class HomeController : Controller
     {
         Repository repository = new Repository();
 
-        public ActionResult Index()
+        public ActionResult Index(string q = "")
         {
-            var model = repository.GetAll()
-                                  .OrderByDescending(r => r.hits)
-                                  .ThenByDescending(r => r.duplicates)
-                                  .Take(50);
+            IEnumerable<SiteRecord> model;
+            //if (q.IsNullEmptyOrWhitespace())
+            //{
+                model = repository.GetAll()
+                            .OrderByDescending(r => r.hits)
+                            .ThenByDescending(r => r.duplicates)
+                            .Take(50);
+            //}
+            //else
+            //{
+            //    model = repository.Search(q);
+            //}
             return View(model);
         }
 
         public ActionResult DataTables(DataTableParameterModel model)
         {
-            System.Diagnostics.Debug.WriteLine(JsonConvert.SerializeObject(model));
             return Json(repository.DataTableQuery(model), JsonRequestBehavior.AllowGet);
         }
     }

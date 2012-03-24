@@ -90,6 +90,22 @@
                        .ToList();
         }
 
+        public IOrderedQueryable<SiteRecord> Search(string sSearch)
+        {
+            var records = from r in this.Database.GetCollection<SiteRecord>("UrlList").FindAll().AsQueryable()
+                          select r;
+
+            if (sSearch.IsNullEmptyOrWhitespace())
+            {
+                records = this.SearchQuery(records, sSearch);
+            }
+
+            records = this.SortQuery(records, sSearch);
+            records = this.PagedQuery(records, 0, 10);
+
+            return records as IOrderedQueryable<SiteRecord>;
+        }
+
         public object DataTableQuery(DataTableParameterModel model)
         {
             model = model ?? new DataTableParameterModel();
@@ -99,13 +115,13 @@
                           
             if (!model.sSearch.IsNullEmptyOrWhitespace())
             {
-                records = this.SearchQuery(records, model);
+                records = this.SearchQuery(records, model.sSearch);
             }
 
             var nRecords = records.Count();
 
             records = this.SortQuery(records, model);
-            records = this.PagedQuery(records, model);
+            records = this.PagedQuery(records, model.iDisplayStart, model.iDisplayLength);
             records = records.Take(500);
 
             var aaData = new List<object>();
@@ -129,10 +145,10 @@
 
         #region DataTable Backend Methods
 
-        private IQueryable<SiteRecord> SearchQuery(IQueryable<SiteRecord> records, DataTableParameterModel parameters)
+        private IQueryable<SiteRecord> SearchQuery(IQueryable<SiteRecord> records, string sSearch)
         {
             // Split keywords into tokens
-            var keywords = parameters.sSearch.Split(new[]{' '}, StringSplitOptions.RemoveEmptyEntries);
+            var keywords = sSearch.Split(new[]{' '}, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var item in keywords)
             {
@@ -149,6 +165,45 @@
             }
 
             return records;
+        }
+
+        private IOrderedQueryable<SiteRecord> SortQuery(IQueryable<SiteRecord> records, string sSearch)
+        {
+            var orderedQuery = (IOrderedQueryable<SiteRecord>)records;
+
+            if (records.Count() > 1 && !sSearch.IsNullEmptyOrWhitespace())
+            {
+                var keywords = sSearch.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var table = new Dictionary<string, long>();
+
+                foreach (var item in records)
+                {
+                    long n = 0;
+                    foreach (var keyword in keywords)
+                    {
+                        if (!keyword.StartsWith("-"))
+                        {
+                            if (item.title.ToLowerInvariant().Contains(keyword.ToLowerInvariant())) n += 1;
+                        }
+                    }
+                    table.Add(item.url, n);
+                }
+
+                var sortedTable = table.OrderByDescending(d => d.Value);
+
+                var sortedRecords = new List<SiteRecord>();
+                foreach (var kvp in table.OrderByDescending(d => d.Value))
+                {
+                    Debug.WriteLine(string.Format("{0}:{1}", kvp.Value, kvp.Key));
+                    sortedRecords.Add(orderedQuery.Single(u => u.url == kvp.Key));
+                }
+
+                return (IOrderedQueryable<SiteRecord>)sortedRecords.AsQueryable<SiteRecord>();
+            }
+            else
+            {
+                return orderedQuery;
+            }
         }
 
         private IOrderedQueryable<SiteRecord> SortQuery(IQueryable<SiteRecord> records, DataTableParameterModel parameters)
@@ -230,10 +285,10 @@
             return orderBy;
         }
 
-        private IQueryable<SiteRecord> PagedQuery(IQueryable<SiteRecord> records, DataTableParameterModel parameters)
+        private IQueryable<SiteRecord> PagedQuery(IQueryable<SiteRecord> records, int displayStart, int displayLength)
         {
-            return records.Skip(parameters.iDisplayStart)
-                          .Take(parameters.iDisplayLength);
+            return records.Skip(displayStart)
+                          .Take(displayLength);
         }
 
         #endregion

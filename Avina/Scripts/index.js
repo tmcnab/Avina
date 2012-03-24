@@ -66,5 +66,4 @@ $().ready(function () {
     $('div[role="grid"]').children().first().remove();
 
     $('#T_Results').find('th').attr('tabindex', '-1');
-    $('input[type="text"][aria-controls="T_Results"]').focus();
 });
