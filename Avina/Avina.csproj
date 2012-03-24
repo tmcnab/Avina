@@ -150,7 +150,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap.datatables.css" />
-    <Content Include="Content\extensions\bin\chrome.crx">
+    <Content Include="Content\extensions\bin\avina.safariextz">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\extensions\bin\avina.crx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Content\extensions\chrome\manifest.json" />
@@ -267,9 +270,6 @@
   <ItemGroup>
     <Content Include="Content\extensions\safari\avina.safariextension\Info.plist" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Content\extensions\bin\avina.safariextz">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="readme.md" />
     <None Include="Scripts\DataTables-1.9.0\extras\AutoFill\media\js\AutoFill.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\ColReorder\media\js\ColReorder.min.js.gz" />
