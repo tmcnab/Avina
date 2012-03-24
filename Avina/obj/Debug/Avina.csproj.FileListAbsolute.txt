@@ -46,3 +46,5 @@ C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Htm
 C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Newtonsoft.Json.dll
 C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Newtonsoft.Json.pdb
 C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Newtonsoft.Json.xml
+C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Content\files\avina.safariextz
+C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Content\files\avina.crx
