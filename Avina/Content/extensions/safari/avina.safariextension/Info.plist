@@ -9,7 +9,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>Avina</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.avina</string>
+	<string>com.seditioustechnologies.avina</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>

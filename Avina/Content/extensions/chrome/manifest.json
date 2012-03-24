@@ -1,0 +1,19 @@
+﻿{
+  "name": "Avina",
+  "version": "1.0",
+  "description": "Avina CrowdSearch Extension",
+  "background_page": "bg.html",
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*", "ftp://*/*"],
+      "js": ["zepto.min.js", "avina.js"]
+    }
+  ],
+  "permissions": [
+    "http://localhost:28462/",
+	"https://avina.apphb.com/"
+  ]
+}

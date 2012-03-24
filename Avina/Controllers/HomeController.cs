@@ -1,8 +1,11 @@
 ﻿namespace Avina.Controllers
 {
     using System.Linq;
+    using System.Web;
     using System.Web.Mvc;
     using Avina.Models;
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
 
     public class HomeController : Controller
     {
@@ -10,20 +13,17 @@
 
         public ActionResult Index()
         {
-            return View(repository.GetAll().OrderByDescending(r => r.hits).ThenByDescending(r => r.duplicates));
+            var model = repository.GetAll()
+                                  .OrderByDescending(r => r.hits)
+                                  .ThenByDescending(r => r.duplicates)
+                                  .Take(50);
+            return View(model);
         }
 
-        // Not in use yet
-        public ActionResult DataTables(DataTablesParameterModel model)
+        public ActionResult DataTables(DataTableParameterModel model)
         {
-            var dtData = from r in repository.GetAll()
-                         select new { r.url, r.title, r.hits, r.duplicates };
-            return Json(new {
-                sEcho = model.sEcho,
-                iTotalRecords = dtData.Count(),
-                iTotalDisplayRecords = dtData.Count(),
-                aaData = dtData.ToArray()
-            }, JsonRequestBehavior.AllowGet);
+            System.Diagnostics.Debug.WriteLine(JsonConvert.SerializeObject(model));
+            return Json(repository.DataTableQuery(model), JsonRequestBehavior.AllowGet);
         }
     }
 }

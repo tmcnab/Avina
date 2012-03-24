@@ -25,5 +25,20 @@
         public string submitter { get; set; }
 
         public DateTime submitted { get; set; }
+
+        public string textPreview { get; set; }
+
+        public class DistinctItemComparer : IEqualityComparer<SiteRecord>
+        {
+            public bool Equals(SiteRecord x, SiteRecord y)
+            {
+                return (x.url == y.url) && (x.title == y.title);
+            }
+
+            public int GetHashCode(SiteRecord obj)
+            {
+                return obj.GetHashCode();
+            }
+        }
     }
 }

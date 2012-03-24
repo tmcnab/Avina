@@ -40,5 +40,11 @@ C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\obj\Deb
 C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\obj\Debug\Avina.pdb
 C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\RequestReduce.dll
 C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\RequestReduce.pdb
-C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Content\extensions\safari\avina.safariextz
-C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Content\extensions\avina.safariextz
+C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Content\extensions\bin\avina.safariextz
+C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Content\extensions\bin\chrome.crx
+C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\HtmlAgilityPack.dll
+C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\HtmlAgilityPack.pdb
+C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\HtmlAgilityPack.xml
+C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Newtonsoft.Json.dll
+C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Newtonsoft.Json.pdb
+C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Newtonsoft.Json.xml

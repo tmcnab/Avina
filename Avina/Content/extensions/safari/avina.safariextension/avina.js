@@ -2,6 +2,7 @@
     $.ajaxSettings.beforeSend = function (xhr) {
         xhr.withCredentials = true;
     };
+    try {
     $.ajax({
         type: 'POST',
         data: {
@@ -9,7 +10,10 @@
             title: document.title,
             referrer: document.referrer
         },
-        url: 'http://avina.apphb.com/Submit/'
+        url: 'http://avina.apphb.com/Submit/',
+        //url: 'http://localhost:28462/Submit/'
+        error: function() {}
     });
-    //'http://localhost:28462/Submit/'
+    }
+    catch(e) {}
 })();

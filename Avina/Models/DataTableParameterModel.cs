@@ -1,7 +1,15 @@
 ﻿namespace Avina.Models
 {
-    public class DataTablesParameterModel
+    public class DataTableParameterModel
     {
+        public DataTableParameterModel()
+        {
+            iDisplayStart = 0;
+            iDisplayLength = 15;
+            sColumns = "";
+            sSearch = "";
+        }
+
         /// <summary>
         /// Request sequence number sent by DataTable,
         /// same value must be returned in response
@@ -12,6 +20,11 @@
         /// Text used for filtering
         /// </summary>
         public string sSearch { get; set; }
+
+        /// <summary>
+        /// An array of searchabilty flags, one per column
+        /// </summary>
+        public bool[] bSearchable { get; set; }
 
         /// <summary>
         /// Number of records that should be shown in table
@@ -32,6 +45,21 @@
         /// Number of columns that are used in sorting
         /// </summary>
         public int iSortingCols { get; set; }
+
+        /// <summary>
+        /// Array of sortability flags, one per column
+        /// </summary>
+        public bool[] bSortable { get; set; }
+
+        /// <summary>
+        /// Array of column ids to sort, one per sort column. The size of this array is iSortingCols
+        /// </summary>
+        public int[] iSortCol { get; set; }
+
+        /// <summary>
+        /// The direction of each sort, one per sort column. The size of this array is iSortingCols
+        /// </summary>
+        public string[] sSortDir { get; set; }
 
         /// <summary>
         /// Comma separated list of column names

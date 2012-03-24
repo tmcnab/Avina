@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.3\lib\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -45,6 +48,9 @@
     </Reference>
     <Reference Include="MongoDB.Driver">
       <HintPath>..\packages\mongocsharpdriver.1.3.1\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RequestReduce">
       <HintPath>..\packages\RequestReduce.1.8.13\Lib\net40\RequestReduce.dll</HintPath>
@@ -131,7 +137,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataTablesParameterModel.cs" />
+    <Compile Include="Models\DataTableParameterModel.cs" />
+    <Compile Include="Models\DataTableParameterModelBinder.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Models\SiteRecord.cs" />
     <Compile Include="Models\SubmissionModel.cs" />
@@ -143,12 +150,24 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap.datatables.css" />
+    <Content Include="Content\extensions\bin\chrome.crx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Content\extensions\chrome\manifest.json" />
+    <Content Include="Content\extensions\chrome\bg.html" />
+    <Content Include="Content\extensions\chrome\avina.js" />
+    <Content Include="Content\extensions\chrome\icon.png" />
+    <Content Include="Content\extensions\chrome\zepto.min.js" />
     <Content Include="Content\images\back_disabled.png" />
     <Content Include="Content\images\back_enabled.png" />
     <Content Include="Content\images\back_enabled_hover.png" />
+    <Content Include="Content\images\ChromeIcon.png" />
+    <Content Include="Content\images\ChromeIcon_128x128.png" />
     <Content Include="Content\images\forward_disabled.png" />
     <Content Include="Content\images\forward_enabled.png" />
     <Content Include="Content\images\forward_enabled_hover.png" />
+    <Content Include="Content\images\SafariIcon.png" />
+    <Content Include="Content\images\SafariIcon_128x128.png" />
     <Content Include="Content\images\sort_asc.png" />
     <Content Include="Content\images\sort_asc_disabled.png" />
     <Content Include="Content\images\sort_both.png" />
@@ -159,6 +178,9 @@
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\datatables.setFilteringDisplay.js" />
+    <Content Include="Scripts\jquery.hotkeys.min.js" />
+    <Content Include="Scripts\jquery.hotkeys.js" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\bootstrap.datatables.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -234,6 +256,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\ExtensionsModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -244,10 +267,7 @@
   <ItemGroup>
     <Content Include="Content\extensions\safari\avina.safariextension\Info.plist" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Content\extensions\safari\avina.safariextz">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\extensions\avina.safariextz">
+    <Content Include="Content\extensions\bin\avina.safariextz">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="readme.md" />

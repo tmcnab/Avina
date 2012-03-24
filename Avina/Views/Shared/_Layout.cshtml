@@ -15,24 +15,20 @@
 </head>
 <body>
     <div class="container">
-        <div class="navbar">
+        <div class="navbar" style="margin-bottom:10px;">
         <div class="navbar-inner">
             <div class="container">
-                <a class="brand" href="/">Avina</a>
+                <a tabindex="-1" class="brand" href="/"><i class="icon-signal icon-white"  style="margin-top:6px;"></i> Avina <span style="font-size:10px">Powered by You</span></a>
                 <form class="navbar-search">
                 </form>
-                <ul class="nav nav-select">
-                </ul>
-                <ul class="nav pull-right">
-                    <li><a href="/Content/extensions/avina.safariextz">Avina Safari Extension</a></li>
-                </ul>
+                <a tabindex="-1" href="#ExtensionsModal" data-toggle="modal" class="btn btn-inverse pull-right"><i class="icon-flag icon-white"></i> Help Avina</a>
             </div>
         </div>
     </div>
         @RenderBody()
     </div>
     <footer class="footer">
-        <p>Avina is a <a href="http://seditious-tech.com/">Seditious Technologies</a> Experiment. Hosted by <a href="http://appharbor.com">AppHarbor</a>. </p>
+        <p>Avina is a <a tabindex="-1" href="http://seditious-tech.com/">Seditious Technologies</a> Experiment. Hosted by <a tabindex="-1" href="http://appharbor.com">AppHarbor</a>. </p>
     </footer>
     <script src="~/Scripts/jquery-1.7.1.js" type="text/javascript"></script>
     <script src="~/Scripts/bootstrap.js" type="text/javascript"></script>
