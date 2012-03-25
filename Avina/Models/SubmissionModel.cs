@@ -101,7 +101,8 @@
             @"(http|https):\/\/[w.]+facebook.com\/plugins\/like",
             @"(http|https):\/\/[w.]+bing.com\/search",
             @"(http|https):\/\/[A-Za-z].yahoo.com/search",
-            @"(http|https):\/\/platform.twitter"
+            @"(http|https):\/\/platform.twitter",
+            @"(http|https):\/\/duckduckgo.com/?q=",
         };
     }
 }

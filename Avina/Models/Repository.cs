@@ -69,6 +69,12 @@
             this.Add(new SubmissionModel(model.Referrer, model.HostIP));
         }
 
+        public void Remove(string url)
+        {
+            this.Database.GetCollection<SiteRecord>("UrlList")
+                                     .Remove(Query.EQ("url", url));
+        }
+
         public void IncrementClick(string url)
         {
             var record = this.Database.GetCollection<SiteRecord>("UrlList")

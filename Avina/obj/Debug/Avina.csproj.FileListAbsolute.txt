@@ -48,3 +48,4 @@ C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\New
 C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Newtonsoft.Json.xml
 C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Content\files\avina.safariextz
 C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\Content\files\avina.crx
+C:\Users\Tristan McNab\Documents\Visual Studio 2010\Projects\Avina\Avina\bin\NBrowserID.dll

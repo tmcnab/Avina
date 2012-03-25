@@ -1,0 +1,32 @@
+﻿@{ 
+    ViewBag.Title = "ACP";
+    Layout = "~/Views/Shared/_PrivateLayout.cshtml";
+ }
+
+ <div class="row">
+    <div class="span6">
+        <div class="page-header">
+            <h3>Remove Listing</h3>
+        </div>
+        <form id="removeListingForm" class="form-inline">
+            <input id="removeListingUrl" type="url" class="span5" placeholder="URL to Delete" />
+            <button type="submit" class="btn btn-danger"><i class="icon-remove icon-white"></i> Kill</button>
+        </form>
+    </div>
+ </div>
+
+ @section Scripts {
+    @*<script src="../../Scripts/jquery-1.7.1-vsdoc.js" type="text/javascript"></script>*@
+    <script type="text/javascript">
+        $('#removeListingForm').submit(function () {
+            $.post('/ACP/DeleteUrl', $('#removeListingUrl').val(), function (stat) {
+                if (stat) {
+                    $('#removeListingForm').val().attr('placeholder', 'Url Deleted');
+                }
+                else {
+                    $('#removeListingForm').val().attr('placeholder', 'Error Deleting Url');
+                }
+            });
+        });
+    </script>
+ }
