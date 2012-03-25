@@ -22,10 +22,10 @@
             e.preventDefault();
             $.post('/ACP/DeleteUrl', $('#removeListingUrl').val(), function (stat) {
                 if (stat) {
-                    $('#removeListingForm').val().attr('placeholder', 'Url Deleted');
+                    $('#removeListingUrl').attr('placeholder', 'Url Deleted').val('');
                 }
                 else {
-                    $('#removeListingForm').val().attr('placeholder', 'Error Deleting Url');
+                    $('#removeListingUrl').attr('placeholder', 'Error Deleting Url').val();
                 }
             });
         });
