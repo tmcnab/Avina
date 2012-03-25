@@ -1,11 +1,11 @@
 ﻿namespace Avina.Controllers
 {
+    using System.Diagnostics;
     using System.Web.Mvc;
     using System.Web.Security;
-    using NBrowserID;
-    using System.Diagnostics;
-    using Avina.Models;
     using Avina.Extensions;
+    using Avina.Models;
+    using NBrowserID;
 
     public class ACPController : Controller
     {

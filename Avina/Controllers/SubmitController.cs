@@ -8,6 +8,10 @@
 
     public class SubmitController : Controller
     {
+        /// <summary>
+        /// When the browser extension fires, it sends a packet of JSON here to be (possibly)
+        /// added to the index.
+        /// </summary>
         [HttpPost]
         [AllowCrossSiteJson]
         public ActionResult Index()
