@@ -214,13 +214,16 @@
                     table.Add(item.url, n);
                 }
 
-                var sortedTable = table.OrderByDescending(d => d.Value);
+                var sortedTable = table.OrderByDescending(d => d.Value)
+                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).duplicates)
+                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).hits);
+
 
                 var sortedRecords = new List<SiteRecord>();
-                foreach (var kvp in table.OrderByDescending(d => d.Value))
+                foreach (var kvp in sortedTable)
                 {
                     Debug.WriteLine(string.Format("{0}:{1}", kvp.Value, kvp.Key));
-                    sortedRecords.Add(orderedQuery.Single(u => u.url == kvp.Key));
+                    sortedRecords.Add(records.Single(u => u.url == kvp.Key));
                 }
 
                 return (IOrderedQueryable<SiteRecord>)sortedRecords.AsQueryable<SiteRecord>();
