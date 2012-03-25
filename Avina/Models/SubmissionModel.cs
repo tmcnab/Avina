@@ -103,6 +103,7 @@
             @"(http|https):\/\/[A-Za-z].yahoo.com/search",
             @"(http|https):\/\/platform.twitter",
             @"(http|https):\/\/duckduckgo.com/?q=",
+            @"(http|https):\/\/[A-Za-z0.9\-\.]+\/search"
         };
     }
 }
