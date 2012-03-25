@@ -1,7 +1,5 @@
 ﻿namespace Avina.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Mvc;
     using Avina.Models;
 
@@ -9,21 +7,9 @@
     {
         Repository repository = new Repository();
 
-        public ActionResult Index(string q = "")
+        public ActionResult Index()
         {
-            IEnumerable<SiteRecord> model;
-            //if (q.IsNullEmptyOrWhitespace())
-            //{
-                model = repository.GetAll()
-                            .OrderByDescending(r => r.hits)
-                            .ThenByDescending(r => r.duplicates)
-                            .Take(50);
-            //}
-            //else
-            //{
-            //    model = repository.Search(q);
-            //}
-            return View(model);
+            return View();
         }
 
         public ActionResult DataTables(DataTableParameterModel model)

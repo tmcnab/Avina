@@ -17,7 +17,6 @@ $().ready(function () {
         });
     });
 
-    $('#T_Results > tbody > tr').remove();
     $('#T_Results').dataTable({
         "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
         "aaSorting": [[1, "desc"], [2, "desc"]],

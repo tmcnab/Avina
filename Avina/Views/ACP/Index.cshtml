@@ -18,7 +18,8 @@
  @section Scripts {
     @*<script src="../../Scripts/jquery-1.7.1-vsdoc.js" type="text/javascript"></script>*@
     <script type="text/javascript">
-        $('#removeListingForm').submit(function () {
+        $('#removeListingForm').submit(function (e) {
+            e.preventDefault();
             $.post('/ACP/DeleteUrl', $('#removeListingUrl').val(), function (stat) {
                 if (stat) {
                     $('#removeListingForm').val().attr('placeholder', 'Url Deleted');

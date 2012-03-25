@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Avina.Models.SiteRecord>
+﻿
 @{ ViewBag.Title = "Avina"; }
 <table id="T_Results" class="table">
     <thead>
@@ -9,10 +9,6 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-        <tr><td><a data-purpose="external-click" href="@item.url">@item.title</a></td><td><span class="badge">@item.hits</span></td><td><span class="badge">@item.duplicates</span></td></tr>
-        }
     </tbody>
 </table>
 <hr />
