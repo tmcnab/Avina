@@ -92,11 +92,12 @@
             return true;
         }
 
-        private static string[] RegexFilters = new string[] {
+        public static string[] RegexFilters = new string[] {
             @"(http|https):\/\/avina",
             @"(http|https):\/\/localhost",
             @"(http|https):\/\/[w.]+google.[A-Za-z.]+\/search",
             @"(http|https):\/\/[w.]+google.[A-Za-z.]+\/webhp",
+            @"(http|https):\/\/[w.]+google.[A-Za-z.]+\/imgres",
             @"(http|https):\/\/[w.]+facebook.com\/plugins\/like",
             @"(http|https):\/\/[w.]+bing.com\/search",
             @"(http|https):\/\/[A-Za-z].yahoo.com/search",

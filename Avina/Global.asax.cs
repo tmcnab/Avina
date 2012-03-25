@@ -39,6 +39,9 @@
 
             BundleTable.Bundles.RegisterTemplateBundles();
             ModelBinders.Binders.Add(typeof(DataTableParameterModel), new DataTableParameterModelBinder());
+
+            // Clean the DB
+            new Repository().ApplyFiltersRetro();
         }
     }
 }

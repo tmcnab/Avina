@@ -81,6 +81,25 @@
         }
 
         /// <summary>
+        /// Have a look through the database and apply all of the
+        /// url filters retroactively
+        /// </summary>
+        public void ApplyFiltersRetro()
+        {
+            foreach (var record in this.GetAll().ToList())
+            {
+                foreach (var regex in SubmissionModel.RegexFilters)
+                {
+                    if (Regex.IsMatch(record.url, regex))
+                    {
+                        this.Database.GetCollection<SiteRecord>("UrlList")
+                                     .Remove(Query.EQ("url", record.url));
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Returns every single URL Submission
         /// </summary>
         public IEnumerable<SiteRecord> GetAll()
