@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.Mvc;
-using Avina.Extensions;
-using NBrowserID;
-
-namespace Avina.Controllers
+﻿namespace Avina.Controllers
 {
+    using System.Web.Mvc;
+    using System.Web.Security;
+    using NBrowserID;
+    using System.Diagnostics;
+    using Avina.Models;
+
     public class ACPController : Controller
     {
+        Repository repository = new Repository();
+
         public ActionResult SignIn()
         {
             return View();
@@ -42,6 +41,8 @@ namespace Avina.Controllers
         public ActionResult DeleteUrl()
         {
             var url = Request.InputStream.AsString();
+            Debug.WriteLine(url);
+            repository.Remove(url);
             return Json(true);
         }
     }
