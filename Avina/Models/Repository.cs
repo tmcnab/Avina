@@ -170,17 +170,23 @@
 
         #region DataTable Backend Methods
 
+        /// <summary>
+        /// This is a horrible, horrible way of doing a keyword search
+        /// </summary>
         private IQueryable<SiteRecord> SearchQuery(IQueryable<SiteRecord> records, string sSearch)
         {
             // Split keywords into tokens
             var keywords = sSearch.Split(new[]{' '}, StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (var item in keywords)
+            // Grab all the records the (partially) contain the keyword
+            foreach (var word in keywords)
             {
-                if (!item.StartsWith("-")){
-                    records = records.Where(k => k.title.ToLowerInvariant().Contains(item.ToLowerInvariant()));
+                if (!word.StartsWith("-")){
+                    records = records.Where(k => k.title.ToLowerInvariant().Contains(word.ToLowerInvariant()));
                 }
             }
+
+            // This lower refinement don't work.
             foreach (var item in keywords)
             {
                 if (item.StartsWith("-"))

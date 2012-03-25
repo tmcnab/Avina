@@ -4,7 +4,6 @@
     using Avina.Models;
     using Avina.Extensions;
 
-    [HandleError]
     public class HomeController : Controller
     {
         Repository repository = new Repository();
@@ -24,6 +23,11 @@
         public ActionResult DataTables(DataTableParameterModel model)
         {
             return Json(repository.DataTableQuery(model), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Error()
+        {
+            return View("Error");
         }
     }
 }
