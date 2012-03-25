@@ -4,6 +4,7 @@
     using Avina.Models;
     using Avina.Extensions;
 
+    [HandleError]
     public class HomeController : Controller
     {
         Repository repository = new Repository();

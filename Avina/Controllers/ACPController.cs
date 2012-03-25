@@ -7,6 +7,7 @@
     using Avina.Models;
     using NBrowserID;
 
+    [HandleError]
     public class ACPController : Controller
     {
         Repository repository = new Repository();

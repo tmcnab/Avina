@@ -7,6 +7,7 @@ using Avina.Models;
 
 namespace Avina.Controllers
 {
+    [HandleError]
     public class SearchController : Controller
     {
         Repository repository = new Repository();

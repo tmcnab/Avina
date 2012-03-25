@@ -51,7 +51,7 @@ $().ready(function () {
                     }
                 }
             ]
-    }).fnSetFilteringDelay(500);
+    }).fnSetFilteringDelay(300);
 
 
     var searchBox = $('input[type="text"][aria-controls="T_Results"]')

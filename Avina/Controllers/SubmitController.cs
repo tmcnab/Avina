@@ -6,6 +6,7 @@
     using Avina.Extensions;
     using Avina.Models;
 
+    [HandleError]
     public class SubmitController : Controller
     {
         /// <summary>
