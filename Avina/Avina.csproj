@@ -166,6 +166,7 @@
     <Content Include="Content\extensions\chrome\avina.js" />
     <Content Include="Content\extensions\chrome\icon.png" />
     <Content Include="Content\extensions\chrome\zepto.min.js" />
+    <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\back_disabled.png" />
     <Content Include="Content\images\back_enabled.png" />
     <Content Include="Content\images\back_enabled_hover.png" />
