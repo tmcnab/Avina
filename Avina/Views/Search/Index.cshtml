@@ -1,0 +1,57 @@
+﻿@model IOrderedQueryable<Avina.Models.SiteRecord>
+@{ ViewBag.Title = "Search Results for " + ViewBag.SearchTerm + " - Avina" ; }
+@section Styles {
+    <link href="~/Content/css/bootstrap.datatables.css" rel="stylesheet" type="text/css" />
+}
+
+<table id="T_Results" class="table">
+    <thead>
+        <tr>
+            <th>Site</th>
+            <th tabindex="-1">Clicks</th>
+            <th tabindex="-1">Submits</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model)
+        {
+        <tr>
+            <td>
+                <h3><a href="@record.url">@record.title</a></h3>
+                <h5>@record.textPreview</h5>
+            </td>
+            <td><span class="badge badge-success">@record.hits</span></td>
+            <td><span class="badge badge-info">@record.duplicates</span></td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @*<script src="../../Scripts/jquery-1.7.1-vsdoc.js" type="text/javascript"></script>*@
+    <script src="/Scripts/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="/Scripts/bootstrap.datatables.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $().ready(function () {
+            $('form.navbar-search').replaceWith('<ul class="nav"><li><a><em>Search results for "@ViewBag.SearchTerm"</em></a></li></ul>');
+            $('#T_Results').dataTable({
+                "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+                "aaSorting": [[1, "desc"], [2, "desc"]],
+                "sPaginationType": "bootstrap",
+                "iDisplayLength": 10,
+                "aoColumns": [{
+                    "bSortable": false
+                },
+                {
+                    "sWidth": "55px"
+                },
+                {
+                    "sWidth": "70px"
+                }
+            ]
+            });
+            $('#T_Results_wrapper > div.row').first().remove();
+        });
+        //onclick="$.ajax({async:false,type:\'POST\',data:\'' + (obj.aData[0])[0] + '\',url:\'/submit/click\'});" data-purpose="external-link" href="' + (obj.aData[0])[0] + '">
+    </script>
+}
