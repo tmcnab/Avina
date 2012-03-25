@@ -36,22 +36,26 @@
             $('form.navbar-search').replaceWith('<ul class="nav"><li><a><em>Search results for "@ViewBag.SearchTerm"</em></a></li></ul>');
             $('#T_Results').dataTable({
                 "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+                //                "bPaginate": true,
+		        "bLengthChange": false,
+		        "bFilter": false,
+		        "bSort": false,
                 "sPaginationType": "bootstrap",
-                "iDisplayLength": 10,
-                "aoColumns": [{
-                    "bSortable": false
-                },
-                {
-                    "sWidth": "55px",
-                    "bSortable": false
-                },
-                {
-                    "sWidth": "70px",
-                    "bSortable": false
-                }
-            ]
+                "iDisplayLength": 10
+//                "aoColumns": [{
+//                    "bSortable": false
+//                },
+//                {
+//                    "sWidth": "55px",
+//                    "bSortable": false
+//                },
+//                {
+//                    "sWidth": "70px",
+//                    "bSortable": false
+//                }
+            //]
             });
-            $('#T_Results_wrapper > div.row').first().remove();
+            //$('#T_Results_wrapper > div.row').first().remove();
         });
         //onclick="$.ajax({async:false,type:\'POST\',data:\'' + (obj.aData[0])[0] + '\',url:\'/submit/click\'});" data-purpose="external-link" href="' + (obj.aData[0])[0] + '">
     </script>

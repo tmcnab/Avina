@@ -120,7 +120,7 @@
             var records = from r in this.Database.GetCollection<SiteRecord>("UrlList").FindAll().AsQueryable()
                           select r;
 
-            if (sSearch.IsNullEmptyOrWhitespace())
+            if (!sSearch.IsNullEmptyOrWhitespace())
             {
                 records = this.SearchQuery(records, sSearch);
             }
@@ -194,8 +194,6 @@
 
         private IOrderedQueryable<SiteRecord> SortQuery(IQueryable<SiteRecord> records, string sSearch)
         {
-            var orderedQuery = (IOrderedQueryable<SiteRecord>)records;
-
             if (records.Count() > 1 && !sSearch.IsNullEmptyOrWhitespace())
             {
                 var keywords = sSearch.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -222,15 +220,15 @@
                 var sortedRecords = new List<SiteRecord>();
                 foreach (var kvp in sortedTable)
                 {
-                    Debug.WriteLine(string.Format("{0}:{1}", kvp.Value, kvp.Key));
                     sortedRecords.Add(records.Single(u => u.url == kvp.Key));
+                    
                 }
 
                 return (IOrderedQueryable<SiteRecord>)sortedRecords.AsQueryable<SiteRecord>();
             }
             else
             {
-                return orderedQuery;
+                return records as IOrderedQueryable<SiteRecord>;
             }
         }
 
@@ -262,7 +260,6 @@
                 var sortedRecords = new List<SiteRecord>();
                 foreach (var kvp in sortedTable)
                 {
-                    Debug.WriteLine(string.Format("{0}:{1}", kvp.Value, kvp.Key));
                     sortedRecords.Add(records.Single(u => u.url == kvp.Key));
                 }
 
