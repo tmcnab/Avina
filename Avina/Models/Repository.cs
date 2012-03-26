@@ -220,7 +220,8 @@
 
                 var sortedTable = table.OrderByDescending(d => d.Value)
                                        .ThenByDescending(d => records.Single(r => r.url == d.Key).duplicates)
-                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).hits);
+                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).hits)
+                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).submitted);
 
 
                 var sortedRecords = new List<SiteRecord>();
@@ -260,7 +261,8 @@
 
                 var sortedTable = table.OrderByDescending(d => d.Value)
                                        .ThenByDescending(d => records.Single(r => r.url == d.Key).duplicates)
-                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).hits);
+                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).hits)
+                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).submitted);
 
 
                 var sortedRecords = new List<SiteRecord>();
@@ -273,7 +275,7 @@
             }
 
 
-            var orderedQuery = (IOrderedQueryable<SiteRecord>)records;
+            var orderedQuery = (IOrderedQueryable<SiteRecord>)records.OrderByDescending(d => d.submitted);
             if (parameters.sSortDir == null) return orderedQuery;
 
             for (int i = 0; i < parameters.iSortingCols; ++i)
