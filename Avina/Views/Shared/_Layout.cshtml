@@ -1,42 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-responsive.css" rel="stylesheet" type="text/css" media="media screen and (max-device-width : 768px)" />
     <style>
         footer { text-align:center; }
         footer p { font-size:small; color:Gray; }
-        .brand { margin-right:50px; }
+        .brand { margin-right:25px; }
     </style>
     @RenderSection("Styles", false)
-    <script src="~/Scripts/modernizr-2.5.3.js" type="text/javascript"></script>
 </head>
 <body>
     <div class="container">
         <div class="navbar" style="margin-bottom:10px;">
-        <div class="navbar-inner">
-            <div class="container">
-                <a tabindex="-1" class="brand" href="/"><i class="icon-signal icon-white"  style="margin-top:6px;"></i> Avina <span style="font-size:10px">Powered by You</span></a>
-                <form class="navbar-search">
-                </form>
-                <a tabindex="-1" href="#ExtensionsModal" data-toggle="modal" class="btn btn-inverse pull-right"><i class="icon-flag icon-white"></i> Help Avina</a>
+            <div class="navbar-inner">
+                <div class="container">
+                    <a tabindex="-1" class="brand" href="/"><i class="icon-signal icon-white"  style="margin-top:6px;"></i> Avina <span style="font-size:10px">Powered by You</span></a>
+                    <form class="navbar-search">
+                    </form>
+                    <div class="btn-group pull-right">
+                        <a tabindex="-1" data-toggle="modal" class="btn btn-inverse" href="#ExtensionsModal" ><i class="icon-flag icon-white"></i> Help Avina</a>
+                        <a tabindex="-1" data-toggle="modal" class="btn btn-inverse" href="#AboutModal">About</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
         @RenderBody()
-        <hr />
-        @Html.Partial("ExtensionsModal")
     </div>
+    <hr />
     <footer class="footer">
         <p>Avina is a <a tabindex="-1" href="http://seditious-tech.com/">Seditious Technologies</a> Experiment. Hosted by <a tabindex="-1" href="http://appharbor.com">AppHarbor</a>. </p>
     </footer>
+    @Html.Partial("ExtensionsModal")
+    @Html.Partial("AboutModal")
     <script src="~/Scripts/jquery-1.7.1.js" type="text/javascript"></script>
     <script src="~/Scripts/bootstrap.js" type="text/javascript"></script>
     @RenderSection("Scripts", false)
     <script type="text/javascript">
-
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-30310300-1']);
         _gaq.push(['_trackPageview']);
@@ -46,7 +49,6 @@
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
-
-</script>
+    </script>
 </body>
 </html>

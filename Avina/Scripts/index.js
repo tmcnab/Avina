@@ -56,7 +56,7 @@ $().ready(function () {
 
     var searchBox = $('input[type="text"][aria-controls="T_Results"]')
                                 .detach()
-                                .addClass('span6')
+                                .addClass('span7')
                                 .attr('x-webkit-speech', 'x-webkit-speech')
                                 .attr('placeholder', 'Search Avina')
                                 .css('margin-bottom', 0);

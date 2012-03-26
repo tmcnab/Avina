@@ -271,6 +271,7 @@
     <Content Include="Views\Shared\_PrivateLayout.cshtml" />
     <Content Include="Views\ACP\SignIn.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Shared\AboutModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
