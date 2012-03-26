@@ -258,11 +258,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\ExtensionsModal.cshtml" />
     <Content Include="Views\ACP\Index.cshtml" />
-    <Content Include="Views\Shared\_PrivateLayout.cshtml" />
     <Content Include="Views\ACP\SignIn.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\AboutModal.cshtml" />
     <Content Include="Views\ACP\ViewIndex.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

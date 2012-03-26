@@ -77,8 +77,9 @@
         public ActionResult IndexStatus()
         {
             return Json(new { 
-                totalItems = InvertedIndex.Total,
-                currentItems = InvertedIndex.Current,
+                totalEntries = InvertedIndex.TotalEntries,
+                totalItems = InvertedIndex.ProcessingTotal,
+                currentItems = InvertedIndex.ProcessingCurrent,
                 isRebuilding = InvertedIndex.Rebuilding
             } , JsonRequestBehavior.AllowGet);
         }

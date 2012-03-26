@@ -15,9 +15,17 @@
 
         public static bool Rebuilding { get; private set; }
 
-        public static long Current { get; private set; }
+        public static long ProcessingCurrent { get; private set; }
 
-        public static long Total { get; private set; }
+        public static long ProcessingTotal { get; private set; }
+
+        public static long TotalEntries
+        {
+            get
+            {
+                return Database.GetCollection<InvertedIndexModel>("InvertedIndex").FindAll().Count();
+            }
+        }
 
         static InvertedIndex()
         {
@@ -42,8 +50,8 @@
             var invertedIndex = Database.GetCollection<InvertedIndexModel>("InvertedIndex");
             var records = Database.GetCollection<SiteRecord>("UrlList").FindAll();
 
-            Total = records.Count();
-            Current = 0;
+            ProcessingTotal = records.Count();
+            ProcessingCurrent = 0;
 
             // Iterate over EVERY. SINGLE. ITEM. and apply it to the invidx
             foreach (var record in records)
@@ -67,7 +75,7 @@
                 }
 
                 // Update the number processed
-                Current += 1;
+                ProcessingCurrent += 1;
             }
 
             Rebuilding = false;

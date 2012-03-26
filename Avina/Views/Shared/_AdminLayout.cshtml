@@ -5,11 +5,6 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
-    <style>
-        footer { text-align:center; }
-        footer p { font-size:small; color:Gray; }
-        .brand { margin-right:50px; }
-    </style>
     @RenderSection("Styles", false)
 </head>
 <body>
@@ -17,7 +12,9 @@
         <div class="navbar" style="margin-bottom:10px;">
         <div class="navbar-inner">
             <div class="container">
-                <a tabindex="-1" class="brand" href="/"><i class="icon-signal icon-white"  style="margin-top:6px;"></i> Avina <span style="font-size:10px">Powered by You</span></a>
+                <ul class="nav">
+                    <li><a href="/ACP"><i class="icon-home icon-white"></i> ACP</a></li>
+                </ul>
             </div>
         </div>
     </div>

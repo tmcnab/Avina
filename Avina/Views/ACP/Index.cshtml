@@ -1,34 +1,56 @@
 ﻿@{ 
     ViewBag.Title = "ACP";
-    Layout = "~/Views/Shared/_PrivateLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
  }
 
  <div class="row">
     <div class="span6">
-        <div class="page-header">
-            <h3>Remove Listing</h3>
-        </div>
-        <form id="removeListingForm" class="form-inline">
-            <input id="removeListingUrl" type="url" class="span5" placeholder="URL to Delete" />
-            <button type="submit" class="btn btn-danger"><i class="icon-remove icon-white"></i> Kill</button>
+        <form>
+            <fieldset>
+                <legend>Engine Index</legend>
+                <table id="T_IndexStatus" class="table table-condensed table-bordered">
+                </table>
+                <div class="progress">
+                    <div id="PB_IndexStatus" class="bar" style="width:0%">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <a class="btn btn-info">View</a>
+                    <a id="RebuildIndex_Button" class="btn btn-danger">Rebuild</a>
+                </div>
+            </fieldset>
         </form>
     </div>
     <div class="span6">
-        <div class="page-header">
-            <h3>Filter/Purge Bad Entries</h3>
-        </div>
-        <a id="FilterPurge_Button" class="btn btn-large btn-danger">Purge this Shit</a>
+        <form id="removeListingForm">
+            <fieldset>
+                <legend>Remove Listing</legend>
+                <input id="removeListingUrl" type="url" class="span6" placeholder="URL to Delete" />
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                </div>
+            </fieldset>
+        </form>
     </div>
     <div class="span6">
-        <hr />
-        <h3>Search Engine Index</h3>
-        <div>
-            <a id="RebuildIndex_Button" class="btn btn-large btn-danger">Rebuild Index</a>
-        </div>
-        <table id="T_IndexStatus" class="table table-condensed table-bordered"></table>
-        <div class="progress">
-            <div id="PB_IndexStatus" class="bar" style="width:0%;"></div>
-        </div>
+         <form class="form-inline">
+            <fieldset>
+                <legend>Submission Filters</legend>
+                <table class="table table-condensed">
+                    <tbody></tbody>
+                </table>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="input-append">
+                            <input class="span5" type="text" class="span6" value="(http|https):\/\/" /><a class="btn btn-success"><i class="icon-plus icon-white"></i> Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <a id="FilterPurge_Button" class="btn btn-danger">Reapply Filters</a>
+                </div>
+            </fieldset>
+         </form>
     </div>
  </div>
 
@@ -46,34 +68,33 @@
                 }
             });
         });
-
         $('#FilterPurge_Button').click(function () {
             $.post('/ACP/PurgeWithFilters', null, function (result) {
                 if (result) $('#PurgeFilters_Button').text('Purged').delay(2500).text('Purge');
                 else        $('#PurgeFilters_Button').text('Error').delay(2500).text('Purge');
             });
         });
-
         $('#RebuildIndex_Button').click(function () {
             $.post('/ACP/RebuildIndex', null, function (result) {
-                if (result) $('#RebuildIndex_Button').text('Rebuilding');
+                if (result) $('#RebuildIndex_Button').text('Rebuilding').addClass('disabled');
             });
         });
-
         $().ready(function () {
             setInterval(function () {
                 $.getJSON('/ACP/IndexStatus', function (result) {
                     if (!result.isRebuilding) {
-                        $('#RebuildIndex_Button').text('Rebuild Index');
+                        $('#RebuildIndex_Button').text('Rebuild Index')
+                                                 .removeClass('disabled');
                     }
                     else {
-                        var percent = (parseFloat(result.currentItems) / parseFloat(result.totalItems)) * 100;
+                        var percent = (parseFloat(result.currentItems) / parseFloat(result.totalItems)) * 100.0;
                         $('#PB_IndexStatus').css('width', percent + '%');
                     }
                     $('#T_IndexStatus > tbody > tr').remove();
 
-                    $('#T_IndexStatus').append('<tr><td>Total Items  </td><td>' + result.totalItems + '</td></tr>')
-                                       .append('<tr><td>Current Items</td><td>' + result.currentItems + '</td></tr>');
+                    $('#T_IndexStatus').append('<tr><td>Total Entries       </td><td>' + result.totalEntries + '</td></tr>')
+                                       .append('<tr><td>Processing (Total)  </td><td>' + result.totalItems + '</td></tr>')
+                                       .append('<tr><td>Processing (Current)</td><td>' + result.currentItems + '</td></tr>');
                 });
             }, 1000);
         });
