@@ -100,9 +100,9 @@
             @"(http|https):\/\/[w.]+google.[A-Za-z.]+\/imgres",
             @"(http|https):\/\/[w.]+facebook.com\/plugins\/like",
             @"(http|https):\/\/[w.]+bing.com\/search",
-            @"(http|https):\/\/[A-Za-z].yahoo.com/search",
+            @"(http|https):\/\/[A-Za-z].yahoo.com\/search",
             @"(http|https):\/\/platform.twitter",
-            @"(http|https):\/\/duckduckgo.com/?q=",
+            @"(http|https):\/\/duckduckgo.com\/?q=",
             @"(http|https):\/\/[A-Za-z0.9\-\.]+\/search",
             @"(http|https):\/\/stackoverflow.com\/questions\/tagged"
         };
