@@ -190,6 +190,7 @@
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\acp.js" />
     <Content Include="Scripts\datatables.setFilteringDisplay.js" />
     <Content Include="Scripts\jquery.hotkeys.min.js" />
     <Content Include="Scripts\jquery.hotkeys.js" />

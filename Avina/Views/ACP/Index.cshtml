@@ -5,38 +5,10 @@
 
  <div class="row">
     <div class="span6">
-        <form>
-            <fieldset>
-                <legend>Engine Index</legend>
-                <table id="T_IndexStatus" class="table table-condensed table-bordered">
-                </table>
-                <div class="progress">
-                    <div id="PB_IndexStatus" class="bar" style="width:0%">
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <a class="btn btn-info">View</a>
-                    <a id="RebuildIndex_Button" class="btn btn-danger">Rebuild</a>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-    <div class="span6">
-        <form id="removeListingForm">
-            <fieldset>
-                <legend>Remove Listing</legend>
-                <input id="removeListingUrl" type="url" class="span6" placeholder="URL to Delete" />
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-danger">Remove</button>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-    <div class="span6">
          <form class="form-inline">
             <fieldset>
                 <legend>Submission Filters</legend>
-                <table class="table table-condensed">
+                <table id="T_ActiveFilters" class="table table-condensed">
                     <tbody></tbody>
                 </table>
                 <div class="control-group">
@@ -52,51 +24,41 @@
             </fieldset>
          </form>
     </div>
+    <div class="span6">
+        <form>
+            <fieldset>
+                <legend>Engine Index</legend>
+                <table id="T_IndexStatus" class="table table-condensed">
+                </table>
+                <div class="progress">
+                    <div id="PB_IndexStatus" class="bar" style="width:0%">
+                    </div>
+                </div>
+                <div class="btn-toolbar" style="text-align:center">
+                    <div class="btn-group">
+                        <a class="btn btn-info" href="/ACP/ViewIndex">View Index</a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn btn-danger" id="RebuildIndex_Button">Rebuild</a>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+    <div class="span6">
+        <form id="removeListingForm">
+            <fieldset>
+                <legend>Remove Listing</legend>
+                <input id="removeListingUrl" type="url" class="span6" placeholder="URL to Delete" />
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
  </div>
 
- @section Scripts {
-    @*<script src="../../Scripts/jquery-1.7.1-vsdoc.js" type="text/javascript"></script>*@
-    <script type="text/javascript">
-        $('#removeListingForm').submit(function (e) {
-            e.preventDefault();
-            $.post('/ACP/DeleteUrl', $('#removeListingUrl').val(), function (stat) {
-                if (stat) {
-                    $('#removeListingUrl').attr('placeholder', 'Url Deleted').val('');
-                }
-                else {
-                    $('#removeListingUrl').attr('placeholder', 'Error Deleting Url').val();
-                }
-            });
-        });
-        $('#FilterPurge_Button').click(function () {
-            $.post('/ACP/PurgeWithFilters', null, function (result) {
-                if (result) $('#PurgeFilters_Button').text('Purged').delay(2500).text('Purge');
-                else        $('#PurgeFilters_Button').text('Error').delay(2500).text('Purge');
-            });
-        });
-        $('#RebuildIndex_Button').click(function () {
-            $.post('/ACP/RebuildIndex', null, function (result) {
-                if (result) $('#RebuildIndex_Button').text('Rebuilding').addClass('disabled');
-            });
-        });
-        $().ready(function () {
-            setInterval(function () {
-                $.getJSON('/ACP/IndexStatus', function (result) {
-                    if (!result.isRebuilding) {
-                        $('#RebuildIndex_Button').text('Rebuild Index')
-                                                 .removeClass('disabled');
-                    }
-                    else {
-                        var percent = (parseFloat(result.currentItems) / parseFloat(result.totalItems)) * 100.0;
-                        $('#PB_IndexStatus').css('width', percent + '%');
-                    }
-                    $('#T_IndexStatus > tbody > tr').remove();
-
-                    $('#T_IndexStatus').append('<tr><td>Total Entries       </td><td>' + result.totalEntries + '</td></tr>')
-                                       .append('<tr><td>Processing (Total)  </td><td>' + result.totalItems + '</td></tr>')
-                                       .append('<tr><td>Processing (Current)</td><td>' + result.currentItems + '</td></tr>');
-                });
-            }, 1000);
-        });
-    </script>
- }
+@section Scripts {
+    <script src="~/Scripts/acp.js" type="text/javascript"></script>
+}

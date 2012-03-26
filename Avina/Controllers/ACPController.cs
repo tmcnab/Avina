@@ -57,6 +57,13 @@
             return Json(true);
         }
 
+        [HttpGet]
+        [Authorize(Users = "tristan@seditious-tech.com")]
+        public ActionResult FiltersGet()
+        {
+            return Json(SubmissionModel.RegexFilters, JsonRequestBehavior.AllowGet);
+        }
+
         [Authorize(Users = "tristan@seditious-tech.com")]
         [HttpPost]
         public ActionResult RebuildIndex()
