@@ -82,14 +82,17 @@
         {
             return (new string(s.ToArray()
                                 .Where(c => !char.IsSymbol(c)).ToArray()))
+                        .Trim()
+                        .Trim(TrimChars)
                         .ToLowerInvariant()
                         .Replace("-", string.Empty)
                         .Replace("...", string.Empty)
-                        .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                        .Split(new char[] { ' ' , ',' }, StringSplitOptions.RemoveEmptyEntries)
                         .Where(t => t.Length > 2)
-                        .ToList()
                         .ToArray();
         }
+
+        private static char[] TrimChars = new char[] { ' ', '{', '(', ':', '`'};
 
         public class InvertedIndexModel
         {
