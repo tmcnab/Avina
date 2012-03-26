@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ACPController.cs" />
+    <Compile Include="Controllers\Attributes\AllowCORSAttribute.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SubmitController.cs" />
@@ -145,6 +146,7 @@
     </Compile>
     <Compile Include="Models\DataTableParameterModel.cs" />
     <Compile Include="Models\DataTableParameterModelBinder.cs" />
+    <Compile Include="Models\InvertedIndex.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Models\SiteRecord.cs" />
     <Compile Include="Models\SubmissionModel.cs" />
@@ -249,18 +251,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Content\Site.css" />
-    <Content Include="Images\accent.png" />
-    <Content Include="Images\aspNetHome.png" />
-    <Content Include="Images\bullet.png" />
-    <Content Include="Images\facebook.png" />
-    <Content Include="Images\findHosting.png" />
-    <Content Include="Images\heroAccent.png" />
-    <Content Include="Images\NuGetGallery.png" />
-    <Content Include="Images\orderedListOne.png" />
-    <Content Include="Images\orderedListTwo.png" />
-    <Content Include="Images\orderedListThree.png" />
-    <Content Include="Images\twitter.png" />
-    <Content Include="Images\windowsLive.png" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -272,6 +262,7 @@
     <Content Include="Views\ACP\SignIn.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\AboutModal.cshtml" />
+    <Content Include="Views\ACP\ViewIndex.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -280,7 +271,6 @@
   <ItemGroup>
     <Content Include="Content\extensions\safari\avina.safariextension\Info.plist" />
     <Content Include="Views\Home\Index.cshtml" />
-    <None Include="readme.md" />
     <None Include="Scripts\DataTables-1.9.0\extras\AutoFill\media\js\AutoFill.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\ColReorder\media\js\ColReorder.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\ColVis\media\js\ColVis.min.js.gz" />

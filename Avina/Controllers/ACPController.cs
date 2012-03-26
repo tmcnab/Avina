@@ -6,6 +6,7 @@
     using Avina.Extensions;
     using Avina.Models;
     using NBrowserID;
+    using System.Threading.Tasks;
 
     [HandleError]
     public class ACPController : Controller
@@ -54,6 +55,37 @@
         {
             repository.ApplyFiltersRetro();
             return Json(true);
+        }
+
+        [Authorize(Users = "tristan@seditious-tech.com")]
+        [HttpPost]
+        public ActionResult RebuildIndex()
+        {
+            if (!InvertedIndex.Rebuilding)
+            {
+                Task.Factory.StartNew(() => InvertedIndex.Rebuild(true));
+                return Json(true);
+            }
+            else
+            {
+                return Json(false);
+            }
+        }
+
+        [Authorize(Users = "tristan@seditious-tech.com")]
+        [HttpGet]
+        public ActionResult IndexStatus()
+        {
+            return Json(new { 
+                totalItems = InvertedIndex.Total,
+                currentItems = InvertedIndex.Current,
+                isRebuilding = InvertedIndex.Rebuilding
+            } , JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ViewIndex()
+        {
+            return View(InvertedIndex.GetIndex());
         }
     }
 }

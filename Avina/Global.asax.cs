@@ -5,6 +5,8 @@
     using System.Web.Optimization;
     using System.Web.Routing;
     using Avina.Models;
+    using System.Diagnostics;
+    using System.Reflection;
 
     public class WebApiApplication : System.Web.HttpApplication
     {
@@ -42,6 +44,12 @@
 
             // Clean the DB
             new Repository().ApplyFiltersRetro();
+        }
+
+        protected void Application_End()
+        {
+            // Clean up any outstanding operations
+
         }
     }
 }

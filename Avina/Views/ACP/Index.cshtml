@@ -19,6 +19,17 @@
         </div>
         <a id="FilterPurge_Button" class="btn btn-large btn-danger">Purge this Shit</a>
     </div>
+    <div class="span6">
+        <hr />
+        <h3>Search Engine Index</h3>
+        <div>
+            <a id="RebuildIndex_Button" class="btn btn-large btn-danger">Rebuild Index</a>
+        </div>
+        <table id="T_IndexStatus" class="table table-condensed table-bordered"></table>
+        <div class="progress">
+            <div id="PB_IndexStatus" class="bar" style="width:0%;"></div>
+        </div>
+    </div>
  </div>
 
  @section Scripts {
@@ -41,6 +52,30 @@
                 if (result) $('#PurgeFilters_Button').text('Purged').delay(2500).text('Purge');
                 else        $('#PurgeFilters_Button').text('Error').delay(2500).text('Purge');
             });
+        });
+
+        $('#RebuildIndex_Button').click(function () {
+            $.post('/ACP/RebuildIndex', null, function (result) {
+                if (result) $('#RebuildIndex_Button').text('Rebuilding');
+            });
+        });
+
+        $().ready(function () {
+            setInterval(function () {
+                $.getJSON('/ACP/IndexStatus', function (result) {
+                    if (!result.isRebuilding) {
+                        $('#RebuildIndex_Button').text('Rebuild Index');
+                    }
+                    else {
+                        var percent = parseFloat(result.currentItems) / parseFloat(result.totalItems);
+                        $('#PB_IndexStatus').css('width', percent + '%');
+                    }
+                    $('#T_IndexStatus > tbody > tr').remove();
+
+                    $('#T_IndexStatus').append('<tr><td>Total Items  </td><td>' + result.totalItems + '</td></tr>')
+                                       .append('<tr><td>Current Items</td><td>' + result.currentItems + '</td></tr>');
+                });
+            }, 1000);
         });
     </script>
  }

@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
+    using Avina.Controllers.Attributes;
     using Avina.Extensions;
     using Avina.Models;
 
@@ -10,11 +11,11 @@
     public class SubmitController : Controller
     {
         /// <summary>
-        /// When the browser extension fires, it sends a packet of JSON here to be (possibly)
+        /// When the browser extension fires, it sends a packet of JSONP here to be (possibly)
         /// added to the index.
         /// </summary>
         [HttpPost]
-        [AllowCrossSiteJson]
+        [AllowCORS]
         public ActionResult Index()
         {
             Task.Factory.StartNew(() =>
@@ -40,17 +41,6 @@
             });
 
             return new HttpStatusCodeResult(200);
-        }
-    }
-
-    public class AllowCrossSiteJsonAttribute : ActionFilterAttribute
-    {
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Origin", "*");
-            filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Credentials", "true");
-            
-            base.OnActionExecuting(filterContext);
         }
     }
 }

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Avina.Models.InvertedIndex.InvertedIndexModel>
+@{
+    ViewBag.Title = "ViewIndex";
+    Layout = "~/Views/Shared/_PrivateLayout.cshtml";
+}
+<h1>Search Index List</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Keyword</th>
+            <th>#Relations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr>
+            <td>@item.kw</td>
+            <td>@item.srIds.Count</td>
+        </tr>
+        }
+    </tbody>
+
+</table>
