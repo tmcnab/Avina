@@ -1,14 +1,13 @@
 ﻿namespace Avina.Models
 {
+    using System;
+    using System.Collections.Generic;
     using System.Configuration;
+    using System.Diagnostics;
+    using System.Linq;
     using MongoDB.Bson;
     using MongoDB.Driver;
-    using System.Linq;
-    using MongoDB.Driver.Wrappers;
     using MongoDB.Driver.Builders;
-    using System.Collections.Generic;
-    using System;
-    using System.Diagnostics;
 
     public static class InvertedIndex
     {
@@ -88,6 +87,7 @@
                         .Replace("...", string.Empty)
                         .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                         .Where(t => t.Length > 2)
+                        .ToList()
                         .ToArray();
         }
 

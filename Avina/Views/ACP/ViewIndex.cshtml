@@ -2,13 +2,15 @@
 @{
     ViewBag.Title = "ViewIndex";
     Layout = "~/Views/Shared/_PrivateLayout.cshtml";
+    double max = Model.First().srIds.Count;
 }
 <h1>Search Index List</h1>
-<table>
+<table class="table table-condensed">
     <thead>
         <tr>
-            <th>Keyword</th>
-            <th>#Relations</th>
+            <th style="width:25%">Keyword</th>
+            <th style="width:10%">N</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -16,8 +18,27 @@
         <tr>
             <td>@item.kw</td>
             <td>@item.srIds.Count</td>
+            <td class="progress">
+                <div class="bar" style="width: @(((double)item.srIds.Count/(double)max)*100)%"></div>
+            </td>
         </tr>
         }
     </tbody>
-
 </table>
+@section Styles {
+    <link href="~/Content/css/bootstrap.datatables.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    <script src="~/Scripts/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="~/Scripts/bootstrap.datatables.js" type="text/javascript"></script>
+    <script>
+        $().ready(function () {
+            $('table').dataTable({
+                "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+                "aaSorting": [[1, "desc"]],
+                "sPaginationType": "bootstrap",
+                "iDisplayLength": 25
+            });
+        });
+    </script>
+}

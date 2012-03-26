@@ -67,7 +67,7 @@
                         $('#RebuildIndex_Button').text('Rebuild Index');
                     }
                     else {
-                        var percent = parseFloat(result.currentItems) / parseFloat(result.totalItems);
+                        var percent = (parseFloat(result.currentItems) / parseFloat(result.totalItems)) * 100;
                         $('#PB_IndexStatus').css('width', percent + '%');
                     }
                     $('#T_IndexStatus > tbody > tr').remove();
