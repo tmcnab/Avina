@@ -273,9 +273,7 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\AboutModal.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

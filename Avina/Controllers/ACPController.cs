@@ -47,5 +47,13 @@
             repository.Remove(url);
             return Json(true);
         }
+
+        [Authorize(Users = "tristan@seditious-tech.com")]
+        [HttpPost]
+        public ActionResult PurgeWithFilters()
+        {
+            repository.ApplyFiltersRetro();
+            return Json(true);
+        }
     }
 }

@@ -13,6 +13,12 @@
             <button type="submit" class="btn btn-danger"><i class="icon-remove icon-white"></i> Kill</button>
         </form>
     </div>
+    <div class="span6">
+        <div class="page-header">
+            <h3>Filter/Purge Bad Entries</h3>
+        </div>
+        <a id="FilterPurge_Button" class="btn btn-large btn-danger">Purge this Shit</a>
+    </div>
  </div>
 
  @section Scripts {
@@ -27,6 +33,13 @@
                 else {
                     $('#removeListingUrl').attr('placeholder', 'Error Deleting Url').val();
                 }
+            });
+        });
+
+        $('#FilterPurge_Button').click(function () {
+            $.post('/ACP/PurgeWithFilters', null, function (result) {
+                if (result) $('#PurgeFilters_Button').text('Purged').delay(2500).text('Purge');
+                else        $('#PurgeFilters_Button').text('Error').delay(2500).text('Purge');
             });
         });
     </script>
