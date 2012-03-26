@@ -2,12 +2,10 @@
 {
     using System;
     using System.Collections.Specialized;
+    using System.Net;
     using System.Text.RegularExpressions;
     using Avina.Extensions;
-    using System.Web;
-    using System.Net;
     using HtmlAgilityPack;
-    using System.Linq;
 
     public class SubmissionModel
     {
@@ -102,7 +100,7 @@
             @"(http|https):\/\/[w.]+bing.com\/search",
             @"(http|https):\/\/[A-Za-z].yahoo.com\/search",
             @"(http|https):\/\/platform.twitter",
-            @"(http|https):\/\/duckduckgo.com\/?q=",
+            @"(http|https):\/\/duckduckgo.com\/\?q=",
             @"(http|https):\/\/[A-Za-z0.9\-\.]+\/search",
             @"(http|https):\/\/stackoverflow.com\/questions\/tagged"
         };
