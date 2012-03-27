@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Avina.Models;
-
-namespace Avina.Controllers
+﻿namespace Avina.Controllers
 {
-    [HandleError]
+    using System.Web.Mvc;
+    using Avina.Models;
+    
     public class SearchController : Controller
     {
         Repository repository = new Repository();

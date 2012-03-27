@@ -1,14 +1,13 @@
 ﻿namespace Avina.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using System.Web.Security;
     using Avina.Extensions;
     using Avina.Models;
     using NBrowserID;
-    using System.Threading.Tasks;
 
-    [HandleError]
     public class ACPController : Controller
     {
         Repository repository = new Repository();

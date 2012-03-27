@@ -1,10 +1,9 @@
 ﻿namespace Avina.Controllers
 {
-    using System.Web.Mvc;
-    using Avina.Models;
-    using Avina.Extensions;
-    using System.Linq;
     using System.Collections.Generic;
+    using System.Web.Mvc;
+    using Avina.Extensions;
+    using Avina.Models;
 
     public class HomeController : Controller
     {
