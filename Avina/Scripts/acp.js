@@ -46,7 +46,8 @@ function IndexStatus() {
 
         $('#T_IndexStatus').append('<tr><td>Total Keywords   </td><td>' + result.totalEntries + '</td></tr>')
                                 .append('<tr><td>Total Records    </td><td>' + result.totalItems + '</td></tr>')
-                                .append('<tr><td>Records Processed</td><td>' + result.currentItems + '</td></tr>');
+                                .append('<tr><td>Records Processed</td><td>' + result.currentItems + '</td></tr>')
+                                .append('<tr><td>Average Query Time (ms)</td><td>' + result.avgQueryTime + '</td></tr>');
     });
 }
 

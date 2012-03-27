@@ -83,11 +83,12 @@
         [HttpGet]
         public ActionResult IndexStatus()
         {
-            return Json(new { 
+            return Json(new {
                 totalEntries = InvertedIndex.TotalEntries,
                 totalItems = InvertedIndex.ProcessingTotal,
                 currentItems = InvertedIndex.ProcessingCurrent,
-                isRebuilding = InvertedIndex.Rebuilding
+                isRebuilding = InvertedIndex.Rebuilding,
+                avgQueryTime = InvertedIndex.TAverageQueryTime
             } , JsonRequestBehavior.AllowGet);
         }
 

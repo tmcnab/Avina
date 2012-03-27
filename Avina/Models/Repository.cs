@@ -117,18 +117,10 @@
 
         public IEnumerable<SiteRecord> Search(string sSearch)
         {
-            #if DEBUG
-            var t1 = DateTime.UtcNow;
-            #endif
-
-            var results = InvertedIndex.ApplyTerms(sSearch.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList());
+            if (sSearch.IsNullEmptyOrWhitespace())
+                return new List<SiteRecord>();
             
-            #if DEBUG
-            var t2 = DateTime.UtcNow;
-            Debug.WriteLine(string.Format("Query Time: {0}ms", (t2 - t1).TotalMilliseconds));
-            #endif
-
-            return results;
+            return InvertedIndex.ApplyTerms(sSearch.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList());
         }
 
         public object DataTableQuery(DataTableParameterModel model)
