@@ -115,20 +115,20 @@
                        .ToList();
         }
 
-        public IOrderedQueryable<SiteRecord> Search(string sSearch)
+        public IEnumerable<SiteRecord> Search(string sSearch)
         {
-            var records = from r in this.Database.GetCollection<SiteRecord>("UrlList").FindAll().AsQueryable()
-                          select r;
+            #if DEBUG
+            var t1 = DateTime.UtcNow;
+            #endif
 
-            if (!sSearch.IsNullEmptyOrWhitespace())
-            {
-                records = this.SearchQuery(records, sSearch);
-            }
+            var results = InvertedIndex.ApplyTerms(sSearch.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList());
+            
+            #if DEBUG
+            var t2 = DateTime.UtcNow;
+            Debug.WriteLine(string.Format("Query Time: {0}ms", (t2 - t1).TotalMilliseconds));
+            #endif
 
-            records = this.SortQuery(records, sSearch);
-            records = this.PagedQuery(records, 0, 50);
-
-            return records as IOrderedQueryable<SiteRecord>;
+            return results;
         }
 
         public object DataTableQuery(DataTableParameterModel model)

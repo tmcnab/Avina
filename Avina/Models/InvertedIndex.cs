@@ -11,6 +11,14 @@
 
     public static class InvertedIndex
     {
+        static InvertedIndex()
+        {
+            Database = MongoDatabase.Create(ConfigurationManager.AppSettings.Get("MONGOLAB_URI"));
+            Rebuilding = false;
+        }
+
+        #region Properties
+
         private static MongoDatabase Database { get; set; }
 
         public static bool Rebuilding { get; private set; }
@@ -27,11 +35,7 @@
             }
         }
 
-        static InvertedIndex()
-        {
-            Database = MongoDatabase.Create(ConfigurationManager.AppSettings.Get("MONGOLAB_URI"));
-            Rebuilding = false;
-        }
+        #endregion
 
         public static List<InvertedIndexModel> GetIndex()
         {
@@ -81,6 +85,55 @@
             Rebuilding = false;
         }
 
+        public static IEnumerable<SiteRecord> ApplyTerms(List<string> terms)
+        {
+            
+            var iidx = Database.GetCollection<InvertedIndexModel>("InvertedIndex").FindAll();
+            var iidxReduceResults = new List<ObjectId>();
+
+            // For every keyword, add the ObjectId's to a pool
+            terms.ForEach((keyword) =>
+            {
+                iidxReduceResults.AddRange(iidx.SingleOrDefault(a => a.kw == keyword).srIds ?? new List<ObjectId>());
+            });
+
+            #if DEBUG
+            foreach (var item in iidxReduceResults)
+            {
+                Debug.WriteLine(string.Format("iidx1\t{0}", item));
+            }
+            #endif
+
+            if (terms.Count > 1)
+            {
+                iidxReduceResults.GroupBy(g => g)
+                                 .Where(g => g.Count() > 1)
+                                 .Select(g => g.Key)
+                                 .ToList();
+            }
+            else
+            {
+                iidxReduceResults.GroupBy(g => g)
+                                 //.OrderByDescending(g => iidxReduceResults.Where(p => p == g.Key).Count())
+                                 .Select(g => g.Key)
+                                 .ToList();
+            }
+            #if DEBUG
+            foreach (var item in iidxReduceResults)
+            {
+                Debug.WriteLine(string.Format("iidx2\t{0}", item));
+            }
+            #endif
+
+            var resultsIndex = Database.GetCollection<SiteRecord>("UrlList");
+            foreach (var id in iidxReduceResults.OrderByDescending(p => iidxReduceResults.Where(q => q == p).Count()).Distinct())
+	        {
+                yield return resultsIndex.FindOneById(id);
+	        }
+        }
+
+        #region Backend Methods
+
         private static void Purge()
         {
             Database.GetCollection<InvertedIndexModel>("InvertedIndex").Drop();
@@ -101,6 +154,8 @@
         }
 
         private static char[] TrimChars = new char[] { ' ', '{', '(', ':', '`'};
+
+        #endregion
 
         public class InvertedIndexModel
         {
