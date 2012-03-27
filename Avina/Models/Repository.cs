@@ -5,12 +5,10 @@
     using System.Configuration;
     using System.Diagnostics;
     using System.Linq;
-    using System.Linq.Expressions;
+    using System.Text.RegularExpressions;
     using Avina.Extensions;
     using MongoDB.Driver;
     using MongoDB.Driver.Builders;
-    using System.Text;
-    using System.Text.RegularExpressions;
 
     public class Repository
     {
@@ -139,210 +137,35 @@
             else
             {
                 var keywords = model.sSearch.Split(new[]{' '}, StringSplitOptions.RemoveEmptyEntries).ToList();
-
-                if (model.sSortDir != null && model.sSortDir.Length >= 3)
-                {
-                    bool clickSort = string.Equals("asc", model.sSortDir[1], StringComparison.OrdinalIgnoreCase);
-                    bool dupSort   = string.Equals("asc", model.sSortDir[2], StringComparison.OrdinalIgnoreCase);
-                    searchResults  = InvertedIndex.ApplyTerms(keywords, dupSort, clickSort);
-                }
-                else
-                {
-                    searchResults = InvertedIndex.ApplyTerms(keywords);
-                }
+                bool clickSort, dupSort;
+                this.ParseSorting(model, out clickSort, out dupSort);
+                searchResults  = InvertedIndex.ApplyTerms(keywords, dupSort, clickSort);
             }
             nRecords = searchResults.Count();
             return this.PagedQuery(searchResults, model);
-            /*
-
-
-            var records = from r in this.Database.GetCollection<SiteRecord>("UrlList").FindAll().AsQueryable()
-                          select r;
-                          
-            if (!model.sSearch.IsNullEmptyOrWhitespace())
-            {
-                records = this.SearchQuery(records, model.sSearch);
-            }
-
-            var nRecords = records.Count();
-
-            records = this.SortQuery(records, model);
-            records = this.PagedQuery(records, model.iDisplayStart, model.iDisplayLength);
-
-            var aaData = new List<object>();
-            foreach (var item in records)
-            {
-                aaData.Add(new object[] {
-                    new[] { item.url, item.title, item.textPreview ?? string.Empty },
-                    item.hits,
-                    item.duplicates
-                });
-            }
-
-            return new
-            {
-                sEcho = model.sEcho,
-                iTotalRecords = nRecords,
-                iTotalDisplayRecords = nRecords,
-                aaData = aaData.ToArray()
-            };*/
         }
 
         #region DataTable Backend Methods
 
-        /// <summary>
-        /// This is a horrible, horrible way of doing a keyword search
-        /// </summary>
-        private IQueryable<SiteRecord> SearchQuery(IQueryable<SiteRecord> records, string sSearch)
+        private void ParseSorting(DataTableParameterModel model, out bool clickSort, out bool dupSort)
         {
-            // Split keywords into tokens
-            var keywords = sSearch.Split(new[]{' '}, StringSplitOptions.RemoveEmptyEntries);
+            clickSort = false;
+            dupSort = false;
 
-            // Grab all the records the (partially) contain the keyword
-            foreach (var word in keywords)
+            if (model.sSortDir == null)
             {
-                if (!word.StartsWith("-")){
-                    records = records.Where(k => k.title.ToLowerInvariant().Contains(word.ToLowerInvariant()));
-                }
+                return;
             }
 
-            // This lower refinement don't work.
-            foreach (var item in keywords)
+            // This totally needs refactoring
+            for (int i = 0; i < model.iSortingCols; ++i)
             {
-                if (item.StartsWith("-"))
-                {
-                    records = records.Where(k => !(k.title.ToLowerInvariant().Contains(item.TrimStart('-').ToLowerInvariant())));
-                }
-            }
-
-            return records;
-        }
-
-        private IOrderedQueryable<SiteRecord> SortQuery(IQueryable<SiteRecord> records, string sSearch)
-        {
-            if (records.Count() > 1 && !sSearch.IsNullEmptyOrWhitespace())
-            {
-                var keywords = sSearch.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var table = new Dictionary<string, long>();
-
-                foreach (var item in records)
-                {
-                    long n = 0;
-                    foreach (var keyword in keywords)
-                    {
-                        if (!keyword.StartsWith("-"))
-                        {
-                            if (item.title.ToLowerInvariant().Contains(keyword.ToLowerInvariant())) n += 1;
-                        }
-                    }
-                    table.Add(item.url, n);
-                }
-
-                var sortedTable = table.OrderByDescending(d => d.Value)
-                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).duplicates)
-                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).hits)
-                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).submitted);
-
-
-                var sortedRecords = new List<SiteRecord>();
-                foreach (var kvp in sortedTable)
-                {
-                    sortedRecords.Add(records.Single(u => u.url == kvp.Key));
-                    
-                }
-
-                return (IOrderedQueryable<SiteRecord>)sortedRecords.AsQueryable<SiteRecord>();
-            }
-            else
-            {
-                return records as IOrderedQueryable<SiteRecord>;
-            }
-        }
-
-        private IOrderedQueryable<SiteRecord> SortQuery(IQueryable<SiteRecord> records, DataTableParameterModel parameters)
-        {
-            if (records.Count() > 1 && !parameters.sSearch.IsNullEmptyOrWhitespace())
-            {
-                var keywords = parameters.sSearch.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var table = new Dictionary<string,long>();
-
-                foreach (var item in records)
-                {
-                    long n = 0;
-                    foreach (var keyword in keywords)
-                    {
-                        if (!keyword.StartsWith("-"))
-                        {
-                            if (item.title.ToLowerInvariant().Contains(keyword.ToLowerInvariant())) n += 1;
-                        }
-                    }
-                    table.Add(item.url, n);
-                }
-
-                var sortedTable = table.OrderByDescending(d => d.Value)
-                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).duplicates)
-                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).hits)
-                                       .ThenByDescending(d => records.Single(r => r.url == d.Key).submitted);
-
-
-                var sortedRecords = new List<SiteRecord>();
-                foreach (var kvp in sortedTable)
-                {
-                    sortedRecords.Add(records.Single(u => u.url == kvp.Key));
-                }
-
-                return (IOrderedQueryable<SiteRecord>)sortedRecords.AsQueryable<SiteRecord>();
-            }
-
-
-            var orderedQuery = (IOrderedQueryable<SiteRecord>)records.OrderByDescending(d => d.submitted);
-            if (parameters.sSortDir == null) return orderedQuery;
-
-            for (int i = 0; i < parameters.iSortingCols; ++i)
-            {
-                var ascending = string.Equals("asc", parameters.sSortDir[i], StringComparison.OrdinalIgnoreCase);
-                int sortCol = parameters.iSortCol[i];
-
-                Expression<Func<SiteRecord, long>> orderByExpression = GetOrderByExpression(sortCol);
-
-                if (ascending)
-                {
-                    orderedQuery = (i == 0)
-                        ? orderedQuery.OrderBy(orderByExpression)
-                        : orderedQuery.ThenBy(orderByExpression);
-                }
-                else
-                {
-                    orderedQuery = (i == 0)
-                        ? orderedQuery.OrderByDescending(orderByExpression)
-                        : orderedQuery.ThenByDescending(orderByExpression);
-                }
-            }
-            return orderedQuery;
-        }
-
-        private Expression<Func<SiteRecord, long>> GetOrderByExpression(int column)
-        {
-            Expression<Func<SiteRecord, long>> orderBy;
-
-            switch (column)
-            {
-                case 1:
-                    orderBy = e => e.hits; break;
-
-                case 2:
-                    orderBy = e => e.duplicates; break;
+                var ascending = string.Equals("asc", model.sSortDir[i], StringComparison.OrdinalIgnoreCase);
+                int sortCol = model.iSortCol[i];
                 
-                default:
-                    throw new ArgumentException();
+                if (sortCol == 1) clickSort = ascending;
+                if (sortCol == 2) dupSort = ascending;
             }
-            return orderBy;
-        }
-
-        private IQueryable<SiteRecord> PagedQuery(IQueryable<SiteRecord> records, int displayStart, int displayLength)
-        {
-            return records.Skip(displayStart)
-                          .Take(displayLength);
         }
 
         private IEnumerable<SiteRecord> PagedQuery(IEnumerable<SiteRecord> records, DataTableParameterModel model)
