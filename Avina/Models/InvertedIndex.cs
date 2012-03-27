@@ -132,12 +132,44 @@
             });
 
 
-            // A stupid way of creating a relevance based search. It is probably stupidly slow.
+            // A fucking retarded way to get my column sorting useful for DataTables. Talk about 
+            // putting the cart before the horse!
             var resultsIndex = Database.GetCollection<SiteRecord>("UrlList");
-            var iidxFinalSorted = iidxReduceResults.OrderByDescending(p => iidxReduceResults.Where(q => q == p).Count())
-                                                   .ThenByDescending(p => resultsIndex.FindOneById(p).duplicates)
+            IEnumerable<ObjectId> iidxFinalSorted;
+            if (dupSort)
+            {
+                if (hitSort)
+                {
+                    iidxFinalSorted = iidxReduceResults.OrderByDescending(p => iidxReduceResults.Where(q => q == p).Count())
+                                                   .ThenBy(p => resultsIndex.FindOneById(p).duplicates)
+                                                   .ThenBy(p => resultsIndex.FindOneById(p).hits)
+                                                   .Distinct();
+                }
+                else
+                {
+                    iidxFinalSorted = iidxReduceResults.OrderByDescending(p => iidxReduceResults.Where(q => q == p).Count())
+                                                   .ThenBy(p => resultsIndex.FindOneById(p).duplicates)
                                                    .ThenByDescending(p => resultsIndex.FindOneById(p).hits)
                                                    .Distinct();
+                }
+            }
+            else
+            {
+                if (hitSort)
+                {
+                    iidxFinalSorted = iidxReduceResults.OrderByDescending(p => iidxReduceResults.Where(q => q == p).Count())
+                                                   .ThenByDescending(p => resultsIndex.FindOneById(p).duplicates)
+                                                   .ThenBy(p => resultsIndex.FindOneById(p).hits)
+                                                   .Distinct();
+                }
+                else
+                {
+                    iidxFinalSorted = iidxReduceResults.OrderByDescending(p => iidxReduceResults.Where(q => q == p).Count())
+                                                       .ThenByDescending(p => resultsIndex.FindOneById(p).duplicates)
+                                                       .ThenByDescending(p => resultsIndex.FindOneById(p).hits)
+                                                       .Distinct();
+                }
+            }
 
             // Transmute the sorted index into SiteRecords yielded as a result
             foreach (var id in iidxFinalSorted)

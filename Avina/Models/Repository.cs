@@ -123,9 +123,38 @@
             return InvertedIndex.ApplyTerms(sSearch.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList());
         }
 
-        public object DataTableQuery(DataTableParameterModel model)
+        public IEnumerable<SiteRecord> DataTableQuery(DataTableParameterModel model, out long nRecords)
         {
             model = model ?? new DataTableParameterModel();
+
+            IEnumerable<SiteRecord> searchResults;
+            if (model.sSearch.IsNullEmptyOrWhitespace())
+            {
+                // Search string is no good, so it's not a query. Retrieve popular shit
+                searchResults = this.Database.GetCollection<SiteRecord>("UrlList")
+                                    .FindAll()
+                                    .OrderByDescending(r => r.hits)
+                                    .ThenByDescending(r => r.duplicates);
+            }
+            else
+            {
+                var keywords = model.sSearch.Split(new[]{' '}, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                if (model.sSortDir != null && model.sSortDir.Length >= 3)
+                {
+                    bool clickSort = string.Equals("asc", model.sSortDir[1], StringComparison.OrdinalIgnoreCase);
+                    bool dupSort   = string.Equals("asc", model.sSortDir[2], StringComparison.OrdinalIgnoreCase);
+                    searchResults  = InvertedIndex.ApplyTerms(keywords, dupSort, clickSort);
+                }
+                else
+                {
+                    searchResults = InvertedIndex.ApplyTerms(keywords);
+                }
+            }
+            nRecords = searchResults.Count();
+            return this.PagedQuery(searchResults, model);
+            /*
+
 
             var records = from r in this.Database.GetCollection<SiteRecord>("UrlList").FindAll().AsQueryable()
                           select r;
@@ -139,7 +168,6 @@
 
             records = this.SortQuery(records, model);
             records = this.PagedQuery(records, model.iDisplayStart, model.iDisplayLength);
-            records = records.Take(500);
 
             var aaData = new List<object>();
             foreach (var item in records)
@@ -157,7 +185,7 @@
                 iTotalRecords = nRecords,
                 iTotalDisplayRecords = nRecords,
                 aaData = aaData.ToArray()
-            };
+            };*/
         }
 
         #region DataTable Backend Methods
@@ -315,6 +343,12 @@
         {
             return records.Skip(displayStart)
                           .Take(displayLength);
+        }
+
+        private IEnumerable<SiteRecord> PagedQuery(IEnumerable<SiteRecord> records, DataTableParameterModel model)
+        {
+            return records.Skip(model.iDisplayStart)
+                          .Take(model.iDisplayLength);
         }
 
         #endregion
