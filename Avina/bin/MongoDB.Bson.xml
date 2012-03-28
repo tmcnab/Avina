@@ -38,6 +38,12 @@
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.IBsonSerializer.GetDefaultSerializationOptions">
+            <summary>
+            Gets the default serialization options for this serializer.
+            </summary>
+            <returns>The default serialization options for this serializer.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.IBsonSerializer.GetDocumentId(System.Object,System.Object@,System.Type@,MongoDB.Bson.Serialization.IIdGenerator@)">
             <summary>
             Gets the document Id.
@@ -47,6 +53,19 @@
             <param name="idNominalType">The nominal type of the Id.</param>
             <param name="idGenerator">The IdGenerator for the Id type.</param>
             <returns>True if the document has an Id.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.IBsonSerializer.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.IBsonSerializer.GetMemberSerializationInfo(System.String)">
+            <summary>
+            Gets the serialization info for a member.
+            </summary>
+            <param name="memberName">The member name.</param>
+            <returns>The serialization info for the member.</returns>
         </member>
         <member name="M:MongoDB.Bson.Serialization.IBsonSerializer.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
@@ -69,6 +88,12 @@
             Initializes a new instance of the BsonBaseSerializer class.
             </summary>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.BsonBaseSerializer.#ctor(MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Initializes a new instance of the BsonBaseSerializer class.
+            </summary>
+            <param name="defaultSerializationOptions">The default serialization options for this serializer.</param>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.BsonBaseSerializer.Deserialize(MongoDB.Bson.IO.BsonReader,System.Type,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
             Deserializes an object from a BsonReader.
@@ -88,6 +113,12 @@
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.BsonBaseSerializer.GetDefaultSerializationOptions">
+            <summary>
+            Gets the default serialization options for this serializer.
+            </summary>
+            <returns>The default serialization options for this serializer.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.BsonBaseSerializer.GetDocumentId(System.Object,System.Object@,System.Type@,MongoDB.Bson.Serialization.IIdGenerator@)">
             <summary>
             Gets the document Id.
@@ -97,6 +128,19 @@
             <param name="idNominalType">The nominal type of the Id.</param>
             <param name="idGenerator">The IdGenerator for the Id type.</param>
             <returns>True if the document has an Id.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.BsonBaseSerializer.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.BsonBaseSerializer.GetMemberSerializationInfo(System.String)">
+            <summary>
+            Gets the serialization info for a member.
+            </summary>
+            <param name="memberName">The member name.</param>
+            <returns>The serialization info for the member.</returns>
         </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.BsonBaseSerializer.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
@@ -114,6 +158,14 @@
             <param name="document">The document.</param>
             <param name="id">The Id.</param>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.BsonBaseSerializer.EnsureSerializationOptions``1(MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Ensures that the serializer has serialization options of the right type (replacing null with the default serialization options if necessary).
+            </summary>
+            <typeparam name="TSerializationOptions">The required serialization options type.</typeparam>
+            <param name="options">The serialization options.</param>
+            <returns>The serialization options (or the defaults if null) cast to the required type.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.BsonBaseSerializer.VerifyTypes(System.Type,System.Type,System.Type)">
             <summary>
             Verifies the nominal and actual types against the expected type.
@@ -121,6 +173,11 @@
             <param name="nominalType">The nominal type.</param>
             <param name="actualType">The actual type.</param>
             <param name="expectedType">The expected type.</param>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.Serializers.BsonBaseSerializer.DefaultSerializationOptions">
+            <summary>
+            Gets the default serialization options.
+            </summary>
         </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.BitArraySerializer.#ctor">
             <summary>
@@ -773,11 +830,6 @@
             Represents a BSON value (this is an abstract class, see the various subclasses).
             </summary>
         </member>
-        <member name="F:MongoDB.Bson.BsonValue.bsonType">
-            <summary>
-            The BsonType of this BsonValue.
-            </summary>
-        </member>
         <member name="M:MongoDB.Bson.BsonValue.#ctor(MongoDB.Bson.BsonType)">
             <summary>
             Initializes a new instance of the BsonValue class.
@@ -1256,7 +1308,7 @@
         </member>
         <member name="P:MongoDB.Bson.BsonValue.AsDateTime">
             <summary>
-            Casts the BsonValue to a DateTime (throws an InvalidCastException if the cast is not valid).
+            Casts the BsonValue to a DateTime in UTC (throws an InvalidCastException if the cast is not valid).
             </summary>
         </member>
         <member name="P:MongoDB.Bson.BsonValue.AsDouble">
@@ -1272,6 +1324,11 @@
         <member name="P:MongoDB.Bson.BsonValue.AsInt32">
             <summary>
             Casts the BsonValue to an Int32 (throws an InvalidCastException if the cast is not valid).
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.BsonValue.AsLocalTime">
+            <summary>
+            Casts the BsonValue to a DateTime in the local timezone (throws an InvalidCastException if the cast is not valid).
             </summary>
         </member>
         <member name="P:MongoDB.Bson.BsonValue.AsInt64">
@@ -1327,6 +1384,11 @@
         <member name="P:MongoDB.Bson.BsonValue.AsString">
             <summary>
             Casts the BsonValue to a String (throws an InvalidCastException if the cast is not valid).
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.BsonValue.AsUniversalTime">
+            <summary>
+            Casts the BsonValue to a DateTime in UTC (throws an InvalidCastException if the cast is not valid).
             </summary>
         </member>
         <member name="P:MongoDB.Bson.BsonValue.BsonType">
@@ -1947,6 +2009,16 @@
             Indicates that a field or property is required.
             </summary>
         </member>
+        <member name="T:MongoDB.Bson.Serialization.Attributes.BsonSerializationOptionsAttribute">
+            <summary>
+            Abstract base class for serialization options attributes.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Attributes.BsonSerializationOptionsAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the BsonSerializationOptionsAttribute class.
+            </summary>
+        </member>
         <member name="T:MongoDB.Bson.Serialization.Serializers.NullableSerializer`1">
             <summary>
             Represents a serializer for nullable values.
@@ -1968,6 +2040,12 @@
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.NullableSerializer`1.GetDefaultSerializationOptions">
+            <summary>
+            Gets the default serialization options for this serializer.
+            </summary>
+            <returns>The default serialization options for this serializer.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.NullableSerializer`1.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
             Serializes an object to a BsonWriter.
@@ -1976,6 +2054,83 @@
             <param name="nominalType">The nominal type.</param>
             <param name="value">The object.</param>
             <param name="options">The serialization options.</param>
+        </member>
+        <member name="T:MongoDB.Bson.Serialization.Serializers.ImageSerializer">
+            <summary>
+            Represents a serializer for Images.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.ImageSerializer.#ctor">
+            <summary>
+            Initializes a new instance of the ImageSerializer class.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.ImageSerializer.Deserialize(MongoDB.Bson.IO.BsonReader,System.Type,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Deserializes an Image from a BsonReader.
+            </summary>
+            <param name="bsonReader">The BsonReader.</param>
+            <param name="nominalType">The nominal type of the Image.</param>
+            <param name="options">The serialization options.</param>
+            <returns>An Image.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.ImageSerializer.Deserialize(MongoDB.Bson.IO.BsonReader,System.Type,System.Type,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Deserializes an Image from a BsonReader.
+            </summary>
+            <param name="bsonReader">The BsonReader.</param>
+            <param name="nominalType">The nominal type of the Image.</param>
+            <param name="actualType">The actual type of the Image.</param>
+            <param name="options">The serialization options.</param>
+            <returns>An Image.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.ImageSerializer.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Serializes an Image to a BsonWriter.
+            </summary>
+            <param name="bsonWriter">The BsonWriter.</param>
+            <param name="nominalType">The nominal type.</param>
+            <param name="value">The Image.</param>
+            <param name="options">The serialization options.</param>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.Serializers.ImageSerializer.Instance">
+            <summary>
+            Gets an instance of the ImageSerializer class.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Bson.Serialization.Serializers.BitmapSerializer">
+            <summary>
+            Represents a serializer for Bitmaps.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.BitmapSerializer.#ctor">
+            <summary>
+            Initializes a new instance of the BitmapSerializer class.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.BitmapSerializer.Deserialize(MongoDB.Bson.IO.BsonReader,System.Type,System.Type,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Deserializes an Bitmap from a BsonReader.
+            </summary>
+            <param name="bsonReader">The BsonReader.</param>
+            <param name="nominalType">The nominal type of the Bitmap.</param>
+            <param name="actualType">The actual type of the Bitmap.</param>
+            <param name="options">The serialization options.</param>
+            <returns>A Bitmap.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.BitmapSerializer.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Serializes a Bitmap to a BsonWriter.
+            </summary>
+            <param name="bsonWriter">The BsonWriter.</param>
+            <param name="nominalType">The nominal type.</param>
+            <param name="value">The Bitmap.</param>
+            <param name="options">The serialization options.</param>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.Serializers.BitmapSerializer.Instance">
+            <summary>
+            Gets an instance of the BitmapSerializer class.
+            </summary>
         </member>
         <member name="T:MongoDB.Bson.Serialization.Conventions.ConventionProfile">
             <summary>
@@ -1993,13 +2148,6 @@
             Merges another convention profile into this one (only missing conventions are merged).
             </summary>
             <param name="other">The other convention profile.</param>
-        </member>
-        <member name="M:MongoDB.Bson.Serialization.Conventions.ConventionProfile.SetIdGeneratorConvention(MongoDB.Bson.Serialization.Conventions.IIdGeneratorConvention)">
-            <summary>
-            Sets the Id generator convention.
-            </summary>
-            <param name="convention">An Id generator convention.</param>
-            <returns>The convention profile.</returns>
         </member>
         <member name="M:MongoDB.Bson.Serialization.Conventions.ConventionProfile.SetDefaultValueConvention(MongoDB.Bson.Serialization.Conventions.IDefaultValueConvention)">
             <summary>
@@ -2022,6 +2170,13 @@
             <param name="convention">An extra elements member convention.</param>
             <returns>The convention profile.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Conventions.ConventionProfile.SetIdGeneratorConvention(MongoDB.Bson.Serialization.Conventions.IIdGeneratorConvention)">
+            <summary>
+            Sets the Id generator convention.
+            </summary>
+            <param name="convention">An Id generator convention.</param>
+            <returns>The convention profile.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Conventions.ConventionProfile.SetIdMemberConvention(MongoDB.Bson.Serialization.Conventions.IIdMemberConvention)">
             <summary>
             Sets the Id member convention.
@@ -2034,6 +2189,13 @@
             Sets the ignore extra elements convention.
             </summary>
             <param name="convention">An ignore extra elements convention.</param>
+            <returns>The convention profile.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Conventions.ConventionProfile.SetIgnoreIfDefaultConvention(MongoDB.Bson.Serialization.Conventions.IIgnoreIfDefaultConvention)">
+            <summary>
+            Sets the ignore if default convention.
+            </summary>
+            <param name="convention">An ignore if default convention.</param>
             <returns>The convention profile.</returns>
         </member>
         <member name="M:MongoDB.Bson.Serialization.Conventions.ConventionProfile.SetIgnoreIfNullConvention(MongoDB.Bson.Serialization.Conventions.IIgnoreIfNullConvention)">
@@ -2050,17 +2212,19 @@
             <param name="convention">A member finder convention.</param>
             <returns>The convention profile.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Conventions.ConventionProfile.SetSerializationOptionsConvention(MongoDB.Bson.Serialization.Conventions.ISerializationOptionsConvention)">
+            <summary>
+            Sets the serialization options convention.
+            </summary>
+            <param name="convention">A serialization options convention.</param>
+            <returns>The convention profile.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Conventions.ConventionProfile.SetSerializeDefaultValueConvention(MongoDB.Bson.Serialization.Conventions.ISerializeDefaultValueConvention)">
             <summary>
             Sets the serialize default value convention.
             </summary>
             <param name="convention">A serialize default value convention.</param>
             <returns>The convention profile.</returns>
-        </member>
-        <member name="P:MongoDB.Bson.Serialization.Conventions.ConventionProfile.IdGeneratorConvention">
-            <summary>
-            Gets the Id generator convention.
-            </summary>
         </member>
         <member name="P:MongoDB.Bson.Serialization.Conventions.ConventionProfile.DefaultValueConvention">
             <summary>
@@ -2077,6 +2241,11 @@
             Gets the extra elements member convention.
             </summary>
         </member>
+        <member name="P:MongoDB.Bson.Serialization.Conventions.ConventionProfile.IdGeneratorConvention">
+            <summary>
+            Gets the Id generator convention.
+            </summary>
+        </member>
         <member name="P:MongoDB.Bson.Serialization.Conventions.ConventionProfile.IdMemberConvention">
             <summary>
             Gets the Id member convention.
@@ -2085,6 +2254,11 @@
         <member name="P:MongoDB.Bson.Serialization.Conventions.ConventionProfile.IgnoreExtraElementsConvention">
             <summary>
             Gets the ignore extra elements convention.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.Conventions.ConventionProfile.IgnoreIfDefaultConvention">
+            <summary>
+            Gets the ignore if default convention.
             </summary>
         </member>
         <member name="P:MongoDB.Bson.Serialization.Conventions.ConventionProfile.IgnoreIfNullConvention">
@@ -2097,6 +2271,11 @@
             Gets the member finder convention.
             </summary>
         </member>
+        <member name="P:MongoDB.Bson.Serialization.Conventions.ConventionProfile.SerializationOptionsConvention">
+            <summary>
+            Gets the BSON serialization options convention.
+            </summary>
+        </member>
         <member name="P:MongoDB.Bson.Serialization.Conventions.ConventionProfile.SerializeDefaultValueConvention">
             <summary>
             Gets the default value convention.
@@ -2106,6 +2285,25 @@
             <summary>
             A marker interface that represents serialization options.
             </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.IBsonSerializationOptions.ApplyAttribute(MongoDB.Bson.Serialization.IBsonSerializer,System.Attribute)">
+            <summary>
+            Apply an attribute to these serialization options and modify the options accordingly.
+            </summary>
+            <param name="serializer">The serializer that these serialization options are for.</param>
+            <param name="attribute">The serialization options attribute.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.IBsonSerializationOptions.Clone">
+            <summary>
+            Clones the serialization options.
+            </summary>
+            <returns>A cloned copy of the serialization options.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.IBsonSerializationOptions.Freeze">
+            <summary>
+            Freezes the serialization options.
+            </summary>
+            <returns>The frozen serialization options.</returns>
         </member>
         <member name="T:MongoDB.Bson.Serialization.IBsonSerializable">
             <summary>
@@ -2173,6 +2371,12 @@
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.BsonIBsonSerializableSerializer.GetDefaultSerializationOptions">
+            <summary>
+            Gets the default serialization options for this serializer.
+            </summary>
+            <returns>The default serialization options for this serializer.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.BsonIBsonSerializableSerializer.GetDocumentId(System.Object,System.Object@,System.Type@,MongoDB.Bson.Serialization.IIdGenerator@)">
             <summary>
             Gets the document Id.
@@ -2182,6 +2386,19 @@
             <param name="idNominalType">The nominal type of the Id.</param>
             <param name="idGenerator">The IdGenerator for the Id type.</param>
             <returns>True if the document has an Id.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.BsonIBsonSerializableSerializer.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.BsonIBsonSerializableSerializer.GetMemberSerializationInfo(System.String)">
+            <summary>
+            Gets the serialization info for a member.
+            </summary>
+            <param name="memberName">The member name.</param>
+            <returns>The serialization info for the member.</returns>
         </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.BsonIBsonSerializableSerializer.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
@@ -2699,6 +2916,46 @@
             <param name="info">The SerializationInfo.</param>
             <param name="context">The StreamingContext.</param>
         </member>
+        <member name="T:MongoDB.Bson.Serialization.Options.TimeSpanUnits">
+            <summary>
+            Represents the units a TimeSpan is serialized in.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Bson.Serialization.Options.TimeSpanUnits.Ticks">
+            <summary>
+            Use ticks as the units.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Bson.Serialization.Options.TimeSpanUnits.Days">
+            <summary>
+            Use days as the units.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Bson.Serialization.Options.TimeSpanUnits.Hours">
+            <summary>
+            Use hours as the units.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Bson.Serialization.Options.TimeSpanUnits.Minutes">
+            <summary>
+            Use minutes as the units.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Bson.Serialization.Options.TimeSpanUnits.Seconds">
+            <summary>
+            Use seconds as the units.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Bson.Serialization.Options.TimeSpanUnits.Milliseconds">
+            <summary>
+            Use milliseconds as the units.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Bson.Serialization.Options.TimeSpanUnits.Nanoseconds">
+            <summary>
+            Use nanoseconds as the units.
+            </summary>
+        </member>
         <member name="T:MongoDB.Bson.Serialization.Conventions.IMemberFinderConvention">
             <summary>
             Represents a member finder convention.
@@ -2800,6 +3057,27 @@
             </summary>
             <param name="buffer">The buffer.</param>
             <returns>The next token.</returns>
+        </member>
+        <member name="T:MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute">
+            <summary>
+            Indicates whether a field or property equal to the default value should be ignored when serializing this class.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the BsonIgnoreIfDefaultAttribute class.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the BsonIgnoreIfDefaultAttribute class.
+            </summary>
+            <param name="value">Whether a field or property equal to the default value should be ignored when serializing this class.</param>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.Value">
+            <summary>
+            Gets whether a field or property equal to the default value should be ignored when serializing this class.
+            </summary>
         </member>
         <member name="T:MongoDB.Bson.BsonInt64">
             <summary>
@@ -2911,22 +3189,6 @@
             Specifies serialization options for a Dictionary field or property.
             </summary>
         </member>
-        <member name="T:MongoDB.Bson.Serialization.Attributes.BsonSerializationOptionsAttribute">
-            <summary>
-            Specifies the serialization options for this class (see derived attributes).
-            </summary>
-        </member>
-        <member name="M:MongoDB.Bson.Serialization.Attributes.BsonSerializationOptionsAttribute.#ctor">
-            <summary>
-            Initializes a new instance of the BsonSerializationOptionsAttribute class.
-            </summary>
-        </member>
-        <member name="M:MongoDB.Bson.Serialization.Attributes.BsonSerializationOptionsAttribute.GetOptions">
-            <summary>
-            Gets the serialization options specified by this attribute.
-            </summary>
-            <returns>The serialization options.</returns>
-        </member>
         <member name="M:MongoDB.Bson.Serialization.Attributes.BsonDictionaryOptionsAttribute.#ctor">
             <summary>
             Initializes a new instance of the BsonDictionaryOptionsAttribute class.
@@ -2937,12 +3199,6 @@
             Initializes a new instance of the BsonDictionaryOptionsAttribute class.
             </summary>
             <param name="representation">The representation to use for the Dictionary.</param>
-        </member>
-        <member name="M:MongoDB.Bson.Serialization.Attributes.BsonDictionaryOptionsAttribute.GetOptions">
-            <summary>
-            Gets the serialization options specified by this attribute.
-            </summary>
-            <returns>The serialization options.</returns>
         </member>
         <member name="P:MongoDB.Bson.Serialization.Attributes.BsonDictionaryOptionsAttribute.Representation">
             <summary>
@@ -2958,12 +3214,6 @@
             <summary>
             Initializes a new instance of the BsonDateTimeOptionsAttribute class.
             </summary>
-        </member>
-        <member name="M:MongoDB.Bson.Serialization.Attributes.BsonDateTimeOptionsAttribute.GetOptions">
-            <summary>
-            Gets the serialization options specified by this attribute.
-            </summary>
-            <returns>The serialization options.</returns>
         </member>
         <member name="P:MongoDB.Bson.Serialization.Attributes.BsonDateTimeOptionsAttribute.DateOnly">
             <summary>
@@ -3102,11 +3352,6 @@
         <member name="T:MongoDB.Bson.BsonJavaScript">
             <summary>
             Represents a BSON JavaScript value.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.BsonJavaScript.code">
-            <summary>
-            The JavaScript code.
             </summary>
         </member>
         <member name="M:MongoDB.Bson.BsonJavaScript.#ctor(System.String)">
@@ -3965,36 +4210,6 @@
             Represents a BSON writer for some external format (see subclasses).
             </summary>
         </member>
-        <member name="F:MongoDB.Bson.IO.BsonWriter.disposed">
-            <summary>
-            Whether the object has been disposed.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonWriter.settings">
-            <summary>
-            The settings of the writer.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonWriter.state">
-            <summary>
-            The current state of the writer.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonWriter.name">
-            <summary>
-            The name of the current element.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonWriter.checkElementNames">
-            <summary>
-            Whether to check element names (no periods or leading $).
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonWriter.checkUpdateDocument">
-            <summary>
-            Whether to check an update document (turns CheckElementNames on if first element name does *not* start with $).
-            </summary>
-        </member>
         <member name="M:MongoDB.Bson.IO.BsonWriter.#ctor(MongoDB.Bson.IO.BsonWriterSettings)">
             <summary>
             Initializes a new instance of the BsonWriter class.
@@ -4408,6 +4623,16 @@
             Gets the current state of the writer.
             </summary>
         </member>
+        <member name="P:MongoDB.Bson.IO.BsonWriter.Disposed">
+            <summary>
+            Gets whether the BsonWriter has been disposed.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.IO.BsonWriter.Name">
+            <summary>
+            Gets the name of the element being written.
+            </summary>
+        </member>
         <member name="M:MongoDB.Bson.IO.BsonDocumentWriter.#ctor(MongoDB.Bson.BsonDocument,MongoDB.Bson.IO.BsonDocumentWriterSettings)">
             <summary>
             Initializes a new instance of the BsonDocumentWriter class.
@@ -4576,31 +4801,6 @@
             Represents a BSON reader for some external format (see subclasses).
             </summary>
         </member>
-        <member name="F:MongoDB.Bson.IO.BsonReader.disposed">
-            <summary>
-            Whether the reader has been disposed.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonReader.settings">
-            <summary>
-            The settings of the reader.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonReader.state">
-            <summary>
-            The current state of the reader.
-            </summary>  
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonReader.currentBsonType">
-            <summary>
-            The current BSON type.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonReader.currentName">
-            <summary>
-            The name of the current element.
-            </summary>
-        </member>
         <member name="M:MongoDB.Bson.IO.BsonReader.#ctor(MongoDB.Bson.IO.BsonReaderSettings)">
             <summary>
             Initializes a new instance of the BsonReader class.
@@ -4710,6 +4910,12 @@
             Gets a bookmark to the reader's current position and state.
             </summary>
             <returns>A bookmark.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.IO.BsonReader.GetCurrentBsonType">
+            <summary>
+            Gets the current BsonType (calls ReadBsonType if necessary).
+            </summary>
+            <returns>The current BsonType.</returns>
         </member>
         <member name="M:MongoDB.Bson.IO.BsonReader.ReadBinaryData(System.Byte[]@,MongoDB.Bson.BsonBinarySubType@)">
             <summary>
@@ -5059,6 +5265,16 @@
             Gets the current state of the reader.
             </summary>
         </member>
+        <member name="P:MongoDB.Bson.IO.BsonReader.CurrentName">
+            <summary>
+            Gets the current name.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.IO.BsonReader.Disposed">
+            <summary>
+            Gets whether the BsonReader has been disposed.
+            </summary>
+        </member>
         <member name="M:MongoDB.Bson.IO.BsonDocumentReader.#ctor(MongoDB.Bson.BsonDocument,MongoDB.Bson.IO.BsonDocumentReaderSettings)">
             <summary>
             Initializes a new instance of the BsonDocumentReader class.
@@ -5239,16 +5455,6 @@
             Represents settings for a BsonWriter.
             </summary>
         </member>
-        <member name="F:MongoDB.Bson.IO.BsonWriterSettings.guidRepresentation">
-            <summary>
-            The representation for Guids.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonWriterSettings.isFrozen">
-            <summary>
-            Whether the settings are frozen.
-            </summary>
-        </member>
         <member name="M:MongoDB.Bson.IO.BsonWriterSettings.#ctor">
             <summary>
             Initializes a new instance of the BsonWriterSettings class.
@@ -5335,16 +5541,6 @@
         <member name="T:MongoDB.Bson.IO.BsonReaderSettings">
             <summary>
             Represents settings for a BsonReader.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonReaderSettings.guidRepresentation">
-            <summary>
-            The representation for Guids.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonReaderSettings.isFrozen">
-            <summary>
-            Whether the settings are frozen.
             </summary>
         </member>
         <member name="M:MongoDB.Bson.IO.BsonReaderSettings.#ctor">
@@ -6012,91 +6208,6 @@
             Represents a mapping between a class and a BSON document.
             </summary>
         </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.frozen">
-            <summary>
-            Whether the class map has been frozen.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.baseClassMap">
-            <summary>
-            The class map for the base class.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.classType">
-            <summary>
-            The class that this class map is for.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.creator">
-            <summary>
-            A function that creates a new instance of the class.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.conventions">
-            <summary>
-            The convention profile used by this class map.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.discriminator">
-            <summary>
-            The discriminator value.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.discriminatorIsRequired">
-            <summary>
-            Whether a discriminator is required.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.hasRootClass">
-            <summary>
-            Whether this class is descended from a root class.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.isRootClass">
-            <summary>
-            Whether this class is a root class.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.isAnonymous">
-            <summary>
-            Whether this class is an anonymous class.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.idMemberMap">
-            <summary>
-            The member map for the id property or field.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.allMemberMaps">
-            <summary>
-            A list of all the member maps for this class map (including member maps for inherited properties and fields).
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.declaredMemberMaps">
-            <summary>
-            A list of member maps for properties or fields declared in this class.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.elementDictionary">
-            <summary>
-            A dictionary mapping element names to the corresponding member map.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.ignoreExtraElements">
-            <summary>
-            Whether to ignore extra elements during deserialization.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.extraElementsMemberMap">
-            <summary>
-            The member map for the property or field (if any) used to hold any extra elements found during deserialization.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.Serialization.BsonClassMap.knownTypes">
-            <summary>
-            A list of known types derived from this class.
-            </summary>
-        </member>
         <member name="M:MongoDB.Bson.Serialization.BsonClassMap.#ctor(System.Type)">
             <summary>
             Initializes a new instance of the BsonClassMap class.
@@ -6290,6 +6401,12 @@
             </summary>
             <param name="ignoreExtraElements">Whether extra elements should be ignored when deserializing.</param>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.BsonClassMap.SetIgnoreExtraElementsIsInherited(System.Boolean)">
+            <summary>
+            Sets whether the IgnoreExtraElements value should be inherited by derived classes.
+            </summary>
+            <param name="ignoreExtraElementsIsInherited">Whether the IgnoreExtraElements value should be inherited by derived classes.</param>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.BsonClassMap.SetIsRootClass(System.Boolean)">
             <summary>
             Sets whether this class is a root class.
@@ -6324,6 +6441,11 @@
             Gets the class type.
             </summary>
         </member>
+        <member name="P:MongoDB.Bson.Serialization.BsonClassMap.Conventions">
+            <summary>
+            Gets the conventions used with this class.
+            </summary>
+        </member>
         <member name="P:MongoDB.Bson.Serialization.BsonClassMap.Discriminator">
             <summary>
             Gets the discriminator.
@@ -6352,6 +6474,11 @@
         <member name="P:MongoDB.Bson.Serialization.BsonClassMap.IgnoreExtraElements">
             <summary>
             Gets whether extra elements should be ignored when deserializing.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.BsonClassMap.IgnoreExtraElementsIsInherited">
+            <summary>
+            Gets whether the IgnoreExtraElements value should be inherited by derived classes.
             </summary>
         </member>
         <member name="P:MongoDB.Bson.Serialization.BsonClassMap.IsAnonymous">
@@ -6523,11 +6650,73 @@
             Represents serialization options for a document.
             </summary>
         </member>
+        <member name="T:MongoDB.Bson.Serialization.Options.BsonBaseSerializationOptions">
+            <summary>
+            Abstract base class for serialization options.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.BsonBaseSerializationOptions.#ctor">
+            <summary>
+            Initializes a new instance of the BsonBaseSerializationOptions class.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.BsonBaseSerializationOptions.ApplyAttribute(MongoDB.Bson.Serialization.IBsonSerializer,System.Attribute)">
+            <summary>
+            Apply an attribute to these serialization options and modify the options accordingly.
+            </summary>
+            <param name="serializer">The serializer that these serialization options are for.</param>
+            <param name="attribute">The serialization options attribute.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.BsonBaseSerializationOptions.Clone">
+            <summary>
+            Clones the serialization options.
+            </summary>
+            <returns>A cloned copy of the serialization options.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.BsonBaseSerializationOptions.Freeze">
+            <summary>
+            Freezes the serialization options.
+            </summary>
+            <returns>The frozen serialization options.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.BsonBaseSerializationOptions.EnsureNotFrozen">
+            <summary>
+            Ensures that this instance is not frozen.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.Options.BsonBaseSerializationOptions.IsFrozen">
+            <summary>
+            Gets whether the serialization options are frozen.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.DocumentSerializationOptions.#ctor">
+            <summary>
+            Initializes a new instance of the DocumentSerializationOptions class.
+            </summary>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Options.DocumentSerializationOptions.#ctor(System.Boolean)">
             <summary>
             Initializes a new instance of the DocumentSerializationOptions class.
             </summary>
             <param name="serializeIdFirst">Whether to serialize the Id as the first element.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.DocumentSerializationOptions.ApplyAttribute(MongoDB.Bson.Serialization.IBsonSerializer,System.Attribute)">
+            <summary>
+            Apply an attribute to these serialization options and modify the options accordingly.
+            </summary>
+            <param name="serializer">The serializer that these serialization options are for.</param>
+            <param name="attribute">The serialization options attribute.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.DocumentSerializationOptions.Clone">
+            <summary>
+            Clones the serialization options.
+            </summary>
+            <returns>A cloned copy of the serialization options.</returns>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.Options.DocumentSerializationOptions.AllowDuplicateNamesInstance">
+            <summary>
+            Gets an instance of DocumentSerializationOptions that specifies that duplicate names are allowed.
+            </summary>
         </member>
         <member name="P:MongoDB.Bson.Serialization.Options.DocumentSerializationOptions.Defaults">
             <summary>
@@ -6539,10 +6728,51 @@
             Gets an instance of DocumentSerializationOptions that specifies to serialize the Id as the first element.
             </summary>
         </member>
+        <member name="P:MongoDB.Bson.Serialization.Options.DocumentSerializationOptions.AllowDuplicateNames">
+            <summary>
+            Gets whether to allow duplicate names.
+            </summary>
+        </member>
         <member name="P:MongoDB.Bson.Serialization.Options.DocumentSerializationOptions.SerializeIdFirst">
             <summary>
             Gets whether to serialize the Id as the first element.
             </summary>
+        </member>
+        <member name="T:MongoDB.Bson.Serialization.Conventions.IIgnoreIfDefaultConvention">
+            <summary>
+            Represents an ignore if default convention.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Conventions.IIgnoreIfDefaultConvention.IgnoreIfDefault(System.Reflection.MemberInfo)">
+            <summary>
+            Determines whether to ignore nulls for a member.
+            </summary>
+            <param name="memberInfo">The member.</param>
+            <returns>Whether to ignore nulls.</returns>
+        </member>
+        <member name="T:MongoDB.Bson.Serialization.Conventions.NeverIgnoreIfDefaultConvention">
+            <summary>
+            Represents an ignore if default convention where default values are never ignored.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Conventions.NeverIgnoreIfDefaultConvention.IgnoreIfDefault(System.Reflection.MemberInfo)">
+            <summary>
+            Determines whether to ignore nulls for a member.
+            </summary>
+            <param name="memberInfo">The member.</param>
+            <returns>Whether to ignore nulls.</returns>
+        </member>
+        <member name="T:MongoDB.Bson.Serialization.Conventions.AlwaysIgnoreIfDefaultConvention">
+            <summary>
+            Represents an ignore if default convention where default values are always ignored.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Conventions.AlwaysIgnoreIfDefaultConvention.IgnoreIfDefault(System.Reflection.MemberInfo)">
+            <summary>
+            Determines whether to ignore nulls for a member.
+            </summary>
+            <param name="memberInfo">The member.</param>
+            <returns>Whether to ignore nulls.</returns>
         </member>
         <member name="T:MongoDB.Bson.IO.JsonReaderSettings">
             <summary>
@@ -7184,6 +7414,19 @@
             <param name="kind">The DateTimeKind (Local, Unspecified or Utc).</param>
             <param name="representation">The external representation.</param>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.DateTimeSerializationOptions.ApplyAttribute(MongoDB.Bson.Serialization.IBsonSerializer,System.Attribute)">
+            <summary>
+            Apply an attribute to these serialization options and modify the options accordingly.
+            </summary>
+            <param name="serializer">The serializer that these serialization options are for.</param>
+            <param name="attribute">The serialization options attribute.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.DateTimeSerializationOptions.Clone">
+            <summary>
+            Clones the serialization options.
+            </summary>
+            <returns>A cloned copy of the serialization options.</returns>
+        </member>
         <member name="P:MongoDB.Bson.Serialization.Options.DateTimeSerializationOptions.DateOnlyInstance">
             <summary>
             Gets an instance of DateTimeSerializationOptions with DateOnly=true.
@@ -7229,6 +7472,15 @@
             Initializes a new instance of the ObjectId class.
             </summary>
             <param name="bytes">The value.</param>
+        </member>
+        <member name="M:MongoDB.Bson.ObjectId.#ctor(System.DateTime,System.Int32,System.Int16,System.Int32)">
+            <summary>
+            Initializes a new instance of the ObjectId class.
+            </summary>
+            <param name="timestamp">The timestamp (expressed as a DateTime).</param>
+            <param name="machine">The machine hash.</param>
+            <param name="pid">The PID.</param>
+            <param name="increment">The increment.</param>
         </member>
         <member name="M:MongoDB.Bson.ObjectId.#ctor(System.Int32,System.Int32,System.Int16,System.Int32)">
             <summary>
@@ -7297,7 +7549,21 @@
             <summary>
             Generates a new ObjectId with a unique value.
             </summary>
-            <returns>A ObjectId.</returns>
+            <returns>An ObjectId.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.ObjectId.GenerateNewId(System.DateTime)">
+            <summary>
+            Generates a new ObjectId with a unique value (with the timestamp component based on a given DateTime).
+            </summary>
+            <param name="timestamp">The timestamp component (expressed as a DateTime).</param>
+            <returns>An ObjectId.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.ObjectId.GenerateNewId(System.Int32)">
+            <summary>
+            Generates a new ObjectId with a unique value (with the given timestamp).
+            </summary>
+            <param name="timestamp">The timestamp component.</param>
+            <returns>An ObjectId.</returns>
         </member>
         <member name="M:MongoDB.Bson.ObjectId.Pack(System.Int32,System.Int32,System.Int16,System.Int32)">
             <summary>
@@ -7498,6 +7764,18 @@
             </summary>
             <returns>The hash code.</returns>
         </member>
+        <member name="M:MongoDB.Bson.BsonDateTime.ToLocalTime">
+            <summary>
+            Converts the BsonDateTime value to a .NET DateTime value in the local timezone.
+            </summary>
+            <returns>A DateTime in the local timezone.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.BsonDateTime.ToUniversalTime">
+            <summary>
+            Converts the BsonDateTime value to a .NET DateTime value in UTC.
+            </summary>
+            <returns>A DateTime in UTC.</returns>
+        </member>
         <member name="M:MongoDB.Bson.BsonDateTime.ToString">
             <summary>
             Returns a string representation of the value.
@@ -7535,9 +7813,49 @@
             </summary>
             <param name="knownTypes">One or more known types.</param>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Attributes.BsonKnownTypesAttribute.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the BsonKnownTypesAttribute class.
+            </summary>
+            <param name="knownType">A known types.</param>
+        </member>
         <member name="P:MongoDB.Bson.Serialization.Attributes.BsonKnownTypesAttribute.KnownTypes">
             <summary>
             Gets a list of the known types.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Bson.Serialization.BsonSerializationInfo">
+            <summary>
+            Represents the information needed to serialize a member.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.BsonSerializationInfo.#ctor(System.String,MongoDB.Bson.Serialization.IBsonSerializer,System.Type,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Initializes a new instance of the BsonSerializationInfo class.
+            </summary>
+            <param name="elementName">The element name.</param>
+            <param name="serializer">The serializer.</param>
+            <param name="nominalType">The nominal type.</param>
+            <param name="serializationOptions">The serialization options.</param>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.BsonSerializationInfo.ElementName">
+            <summary>
+            Gets or sets the dotted element name.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.BsonSerializationInfo.Serializer">
+            <summary>
+            Gets or sets the serializer.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.BsonSerializationInfo.NominalType">
+            <summary>
+            Gets or sets the nominal type.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.BsonSerializationInfo.SerializationOptions">
+            <summary>
+            Gets or sets the serialization options.
             </summary>
         </member>
         <member name="T:MongoDB.Bson.IO.BsonBinaryReaderSettings">
@@ -7626,6 +7944,12 @@
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.ObjectSerializer.GetDefaultSerializationOptions">
+            <summary>
+            Gets the default serialization options for this serializer.
+            </summary>
+            <returns>The default serialization options for this serializer.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.ObjectSerializer.GetDocumentId(System.Object,System.Object@,System.Type@,MongoDB.Bson.Serialization.IIdGenerator@)">
             <summary>
             Gets the document Id.
@@ -7635,6 +7959,19 @@
             <param name="idNominalType">The nominal type of the Id.</param>
             <param name="idGenerator">The IdGenerator for the Id type.</param>
             <returns>True if the document has an Id.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.ObjectSerializer.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.ObjectSerializer.GetMemberSerializationInfo(System.String)">
+            <summary>
+            Gets the serialization info for a member.
+            </summary>
+            <param name="memberName">The member name.</param>
+            <returns>The serialization info for the member.</returns>
         </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.ObjectSerializer.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
@@ -7678,6 +8015,12 @@
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.EnumerableSerializer`1.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.EnumerableSerializer`1.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
             Serializes an object to a BsonWriter.
@@ -7708,6 +8051,12 @@
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.QueueSerializer`1.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.QueueSerializer`1.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
             Serializes an object to a BsonWriter.
@@ -7737,6 +8086,12 @@
             <param name="actualType">The actual type of the object.</param>
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.StackSerializer`1.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
         </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.StackSerializer`1.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
@@ -7797,21 +8152,6 @@
         <member name="T:MongoDB.Bson.IO.BsonReaderBookmark">
             <summary>
             Represents a bookmark that can be used to return a reader to the current position and state.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonReaderBookmark.state">
-            <summary>
-            The state of the reader.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonReaderBookmark.currentBsonType">
-            <summary>
-            The current BSON type.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Bson.IO.BsonReaderBookmark.currentName">
-            <summary>
-            The name of the current element.
             </summary>
         </member>
         <member name="M:MongoDB.Bson.IO.BsonReaderBookmark.#ctor(MongoDB.Bson.IO.BsonReaderState,MongoDB.Bson.BsonType,System.String)">
@@ -8710,12 +9050,19 @@
             A static class containing BSON utility methods.
             </summary>
         </member>
+        <member name="M:MongoDB.Bson.BsonUtils.GetFriendlyTypeName(System.Type)">
+            <summary>
+            Gets a friendly class name suitable for use in error messages.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>A friendly class name.</returns>
+        </member>
         <member name="M:MongoDB.Bson.BsonUtils.ParseHexString(System.String)">
             <summary>
-            Parses a hex string to a byte array.
+            Parses a hex string into its equivalent byte array.
             </summary>
-            <param name="s">The hex string.</param>
-            <returns>A byte array.</returns>
+            <param name="s">The hex string to parse.</param>
+            <returns>The byte equivalent of the hex string.</returns>
         </member>
         <member name="M:MongoDB.Bson.BsonUtils.ToDateTimeFromMillisecondsSinceEpoch(System.Int64)">
             <summary>
@@ -8731,12 +9078,11 @@
             <param name="bytes">The byte array.</param>
             <returns>A hex string.</returns>
         </member>
-        <member name="M:MongoDB.Bson.BsonUtils.ToLocalTime(System.DateTime,System.DateTimeKind)">
+        <member name="M:MongoDB.Bson.BsonUtils.ToLocalTime(System.DateTime)">
             <summary>
             Converts a DateTime to local time (with special handling for MinValue and MaxValue).
             </summary>
             <param name="dateTime">A DateTime.</param>
-            <param name="kind">A DateTimeKind.</param>
             <returns>The DateTime in local time.</returns>
         </member>
         <member name="M:MongoDB.Bson.BsonUtils.ToMillisecondsSinceEpoch(System.DateTime)">
@@ -8914,6 +9260,11 @@
         <member name="P:MongoDB.Bson.Serialization.Attributes.BsonDefaultValueAttribute.SerializeDefaultValue">
             <summary>
             Gets or sets whether to serialize the default value.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.Attributes.BsonDefaultValueAttribute.SerializeDefaultValueWasSet">
+            <summary>
+            Gets whether SerializeDefaultValue was set.
             </summary>
         </member>
         <member name="T:MongoDB.Bson.Serialization.Conventions.IElementNameConvention">
@@ -9390,7 +9741,23 @@
         </member>
         <member name="T:MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute">
             <summary>
-            Indicates that a field or property should be ignored if its value is null when this class is serialized.
+            Indicates whether a field or property equal to null should be ignored when serializing this class.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the BsonIgnoreIfNullAttribute class.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the BsonIgnoreIfNullAttribute class.
+            </summary>
+            <param name="value">Whether a field or property equal to null should be ignored when serializing this class.</param>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute.Value">
+            <summary>
+            Gets whether a field or property equal to null should be ignored when serializing this class.
             </summary>
         </member>
         <member name="T:MongoDB.Bson.Serialization.Serializers.DictionarySerializer`2">
@@ -9415,6 +9782,12 @@
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.DictionarySerializer`2.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.DictionarySerializer`2.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
             Serializes an object to a BsonWriter.
@@ -9423,6 +9796,47 @@
             <param name="nominalType">The nominal type.</param>
             <param name="value">The object.</param>
             <param name="options">The serialization options.</param>
+        </member>
+        <member name="T:MongoDB.Bson.Serialization.Options.TimeSpanSerializationOptions">
+            <summary>
+            Represents serialization options for a TimeSpan value.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.TimeSpanSerializationOptions.#ctor(MongoDB.Bson.BsonType)">
+            <summary>
+            Initializes a new instance of the TimeSpanSerializationOptions class.
+            </summary>
+            <param name="representation">The representation for serialized TimeSpans.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.TimeSpanSerializationOptions.#ctor(MongoDB.Bson.BsonType,MongoDB.Bson.Serialization.Options.TimeSpanUnits)">
+            <summary>
+            Initializes a new instance of the TimeSpanSerializationOptions class.
+            </summary>
+            <param name="representation">The representation for serialized TimeSpans.</param>
+            <param name="units">The units for serialized TimeSpans.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.TimeSpanSerializationOptions.ApplyAttribute(MongoDB.Bson.Serialization.IBsonSerializer,System.Attribute)">
+            <summary>
+            Apply an attribute to these serialization options and modify the options accordingly.
+            </summary>
+            <param name="serializer">The serializer that these serialization options are for.</param>
+            <param name="attribute">The serialization options attribute.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.TimeSpanSerializationOptions.Clone">
+            <summary>
+            Clones the serialization options.
+            </summary>
+            <returns>A cloned copy of the serialization options.</returns>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.Options.TimeSpanSerializationOptions.Representation">
+            <summary>
+            Gets the representation for serialized TimeSpans.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.Options.TimeSpanSerializationOptions.Units">
+            <summary>
+            Gets the units for serialized TimeSpans.
+            </summary>
         </member>
         <member name="T:MongoDB.Bson.IO.ContextType">
             <summary>
@@ -9472,6 +9886,19 @@
             <param name="representation">The external representation.</param>
             <param name="allowOverflow">Whether to allow overflow.</param>
             <param name="allowTruncation">Whether to allow truncation.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.RepresentationSerializationOptions.ApplyAttribute(MongoDB.Bson.Serialization.IBsonSerializer,System.Attribute)">
+            <summary>
+            Apply an attribute to these serialization options and modify the options accordingly.
+            </summary>
+            <param name="serializer">The serializer that these serialization options are for.</param>
+            <param name="attribute">The serialization options attribute.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.RepresentationSerializationOptions.Clone">
+            <summary>
+            Clones the serialization options.
+            </summary>
+            <returns>A cloned copy of the serialization options.</returns>
         </member>
         <member name="M:MongoDB.Bson.Serialization.Options.RepresentationSerializationOptions.ToDecimal(System.Double)">
             <summary>
@@ -9844,6 +10271,32 @@
             </summary>
             <param name="representation">The representation to use for a Dictionary.</param>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.DictionarySerializationOptions.#ctor(MongoDB.Bson.Serialization.Options.DictionaryRepresentation,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Initializes a new instance of the DictionarySerializationOptions class.
+            </summary>
+            <param name="representation">The representation to use for a Dictionary.</param>
+            <param name="itemSerializationOptions">The serialization options for the items in the dictionary.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.DictionarySerializationOptions.ApplyAttribute(MongoDB.Bson.Serialization.IBsonSerializer,System.Attribute)">
+            <summary>
+            Apply an attribute to these serialization options and modify the options accordingly.
+            </summary>
+            <param name="serializer">The serializer that these serialization options are for.</param>
+            <param name="attribute">The serialization options attribute.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.DictionarySerializationOptions.Clone">
+            <summary>
+            Clones the serialization options.
+            </summary>
+            <returns>A cloned copy of the serialization options.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.DictionarySerializationOptions.Freeze">
+            <summary>
+            Freezes the serialization options.
+            </summary>
+            <returns>The frozen serialization options.</returns>
+        </member>
         <member name="P:MongoDB.Bson.Serialization.Options.DictionarySerializationOptions.ArrayOfArrays">
             <summary>
             Gets an instance of DictionarySerializationOptions with Representation=ArrayOfArrays.
@@ -9874,6 +10327,11 @@
             Gets the representation to use for a Dictionary.
             </summary>
         </member>
+        <member name="P:MongoDB.Bson.Serialization.Options.DictionarySerializationOptions.ItemSerializationOptions">
+            <summary>
+            Gets or sets the serialization options for the items in the dictionary.
+            </summary>
+        </member>
         <member name="T:MongoDB.Bson.BsonObjectId">
             <summary>
             Represents a BSON ObjectId value (see also ObjectId).
@@ -9890,6 +10348,15 @@
             Initializes a new instance of the BsonObjectId class.
             </summary>
             <param name="value">The value.</param>
+        </member>
+        <member name="M:MongoDB.Bson.BsonObjectId.#ctor(System.DateTime,System.Int32,System.Int16,System.Int32)">
+            <summary>
+            Initializes a new instance of the BsonObjectId class.
+            </summary>
+            <param name="timestamp">The timestamp (expressed as a DateTime).</param>
+            <param name="machine">The machine hash.</param>
+            <param name="pid">The PID.</param>
+            <param name="increment">The increment.</param>
         </member>
         <member name="M:MongoDB.Bson.BsonObjectId.#ctor(System.Int32,System.Int32,System.Int16,System.Int32)">
             <summary>
@@ -9971,6 +10438,20 @@
             <summary>
             Generates a new BsonObjectId with a unique value.
             </summary>
+            <returns>A BsonObjectId.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.BsonObjectId.GenerateNewId(System.DateTime)">
+            <summary>
+            Generates a new BsonObjectId with a unique value (with the timestamp component based on a given DateTime).
+            </summary>
+            <param name="timestamp">The timestamp component (expressed as a DateTime).</param>
+            <returns>A BsonObjectId.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.BsonObjectId.GenerateNewId(System.Int32)">
+            <summary>
+            Generates a new BsonObjectId with a unique value (with the given timestamp).
+            </summary>
+            <param name="timestamp">The timestamp component.</param>
             <returns>A BsonObjectId.</returns>
         </member>
         <member name="M:MongoDB.Bson.BsonObjectId.Parse(System.String)">
@@ -10393,6 +10874,12 @@
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.EnumerableSerializer.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.EnumerableSerializer.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
             Serializes an object to a BsonWriter.
@@ -10427,6 +10914,12 @@
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.QueueSerializer.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.QueueSerializer.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
             Serializes an object to a BsonWriter.
@@ -10460,6 +10953,12 @@
             <param name="actualType">The actual type of the object.</param>
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.StackSerializer.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
         </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.StackSerializer.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
@@ -10889,7 +11388,7 @@
         </member>
         <member name="T:MongoDB.Bson.Serialization.Attributes.BsonExtraElementsAttribute">
             <summary>
-            Indicates that extra elements should be ignored when this class is deserialized.
+            Indicates that this property or field will be used to hold any extra elements found during deserialization.
             </summary>
         </member>
         <member name="T:MongoDB.Bson.Serialization.BsonDefaultSerializer">
@@ -11083,6 +11582,11 @@
         <member name="P:MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElementsAttribute.IgnoreExtraElements">
             <summary>
             Gets whether extra elements should be ignored when this class is deserialized.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElementsAttribute.Inherited">
+            <summary>
+            Gets whether extra elements should also be ignored when any class derived from this one is deserialized.
             </summary>
         </member>
         <member name="T:MongoDB.Bson.IConvertibleToBsonDocument">
@@ -11417,6 +11921,12 @@
             <param name="actualType">The actual type of the object.</param>
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.ArraySerializer`1.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
         </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.ArraySerializer`1.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
@@ -12042,12 +12552,12 @@
             Represents the mapping between a field or property and a BSON element.
             </summary>
         </member>
-        <member name="M:MongoDB.Bson.Serialization.BsonMemberMap.#ctor(System.Reflection.MemberInfo,MongoDB.Bson.Serialization.Conventions.ConventionProfile)">
+        <member name="M:MongoDB.Bson.Serialization.BsonMemberMap.#ctor(MongoDB.Bson.Serialization.BsonClassMap,System.Reflection.MemberInfo)">
             <summary>
             Initializes a new instance of the BsonMemberMap class.
             </summary>
+            <param name="classMap">The class map this member map belongs to.</param>
             <param name="memberInfo">The member info.</param>
-            <param name="conventions">The conventions to use with this member.</param>
         </member>
         <member name="M:MongoDB.Bson.Serialization.BsonMemberMap.ApplyDefaultValue(System.Object)">
             <summary>
@@ -12089,6 +12599,13 @@
             Sets the Id generator.
             </summary>
             <param name="idGenerator">The Id generator.</param>
+            <returns>The member map.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.BsonMemberMap.SetIgnoreIfDefault(System.Boolean)">
+            <summary>
+            Sets whether default values should be ignored when serialized.
+            </summary>
+            <param name="ignoreIfDefault">Whether default values should be ignored when serialized.</param>
             <returns>The member map.</returns>
         </member>
         <member name="M:MongoDB.Bson.Serialization.BsonMemberMap.SetIgnoreIfNull(System.Boolean)">
@@ -12147,6 +12664,19 @@
             <param name="shouldSerializeMethod">The method.</param>
             <returns>The member map.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.BsonMemberMap.ShouldSerialize(System.Object,System.Object)">
+            <summary>
+            Determines whether a value should be serialized
+            </summary>
+            <param name="obj">The object.</param>
+            <param name="value">The value.</param>
+            <returns>True if the value should be serialized.</returns>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.BsonMemberMap.ClassMap">
+            <summary>
+            Gets the class map that this member map belongs to.
+            </summary>
+        </member>
         <member name="P:MongoDB.Bson.Serialization.BsonMemberMap.MemberName">
             <summary>
             Gets the name of the member.
@@ -12197,11 +12727,6 @@
             Gets whether an element is required for this member when deserialized.
             </summary>
         </member>
-        <member name="P:MongoDB.Bson.Serialization.BsonMemberMap.HasDefaultValue">
-            <summary>
-            Gets whether this member has a default value.
-            </summary>
-        </member>
         <member name="P:MongoDB.Bson.Serialization.BsonMemberMap.SerializeDefaultValue">
             <summary>
             Gets whether the default value should be serialized.
@@ -12210,6 +12735,11 @@
         <member name="P:MongoDB.Bson.Serialization.BsonMemberMap.ShouldSerializeMethod">
             <summary>
             Gets the method that will be called to determine whether the member should be serialized.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.BsonMemberMap.IgnoreIfDefault">
+            <summary>
+            Gets whether default values should be ignored when serialized.
             </summary>
         </member>
         <member name="P:MongoDB.Bson.Serialization.BsonMemberMap.IgnoreIfNull">
@@ -12241,6 +12771,12 @@
             <param name="actualType">The actual type of the object.</param>
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Serializers.DictionarySerializer.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
         </member>
         <member name="M:MongoDB.Bson.Serialization.Serializers.DictionarySerializer.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
@@ -12298,6 +12834,46 @@
             </summary>
             <returns>A clone of the context.</returns>
         </member>
+        <member name="T:MongoDB.Bson.Serialization.Options.ArraySerializationOptions">
+            <summary>
+            Represents serialization options for an Array value.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.ArraySerializationOptions.#ctor">
+            <summary>
+            Initializes a new instance of the ArraySerializationOptions class.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.ArraySerializationOptions.#ctor(MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Initializes a new instance of the ArraySerializationOptions class.
+            </summary>
+            <param name="itemSerializationOptions">The serialization options to use for items in the array.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.ArraySerializationOptions.ApplyAttribute(MongoDB.Bson.Serialization.IBsonSerializer,System.Attribute)">
+            <summary>
+            Apply an attribute to these serialization options and modify the options accordingly.
+            </summary>
+            <param name="serializer">The serializer that these serialization options are for.</param>
+            <param name="attribute">The serialization options attribute.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.ArraySerializationOptions.Clone">
+            <summary>
+            Clones the serialization options.
+            </summary>
+            <returns>A cloned copy of the serialization options.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Options.ArraySerializationOptions.Freeze">
+            <summary>
+            Freezes the serialization options.
+            </summary>
+            <returns>The frozen serialization options.</returns>
+        </member>
+        <member name="P:MongoDB.Bson.Serialization.Options.ArraySerializationOptions.ItemSerializationOptions">
+            <summary>
+            Gets or sets the serialization options for the items in the array.
+            </summary>
+        </member>
         <member name="T:MongoDB.Bson.Serialization.Attributes.BsonRepresentationAttribute">
             <summary>
             Specifies the external representation and related options for this field or property.
@@ -12308,12 +12884,6 @@
             Initializes a new instance of the BsonRepresentationAttribute class.
             </summary>
             <param name="representation">The external representation.</param>
-        </member>
-        <member name="M:MongoDB.Bson.Serialization.Attributes.BsonRepresentationAttribute.GetOptions">
-            <summary>
-            Gets the serialization options specified by this attribute.
-            </summary>
-            <returns>The serialization options.</returns>
         </member>
         <member name="P:MongoDB.Bson.Serialization.Attributes.BsonRepresentationAttribute.Representation">
             <summary>
@@ -12337,7 +12907,7 @@
         </member>
         <member name="M:MongoDB.Bson.BsonTypeMapper.MapToBsonValue(System.Object)">
             <summary>
-            Maps an object to a BsonValue.
+            Maps an object to an instance of the closest BsonValue class.
             </summary>
             <param name="value">An object.</param>
             <returns>A BsonValue.</returns>
@@ -12359,7 +12929,7 @@
         </member>
         <member name="M:MongoDB.Bson.BsonTypeMapper.TryMapToBsonValue(System.Object,MongoDB.Bson.BsonValue@)">
             <summary>
-            Tries to map an object to a BsonValue.
+            Tries to map an object to an instance of the closest BsonValue class.
             </summary>
             <param name="value">An object.</param>
             <param name="bsonValue">The BsonValue.</param>
@@ -12383,10 +12953,11 @@
             Represents a serializer for a class map.
             </summary>
         </member>
-        <member name="M:MongoDB.Bson.Serialization.BsonClassMapSerializer.#ctor">
+        <member name="M:MongoDB.Bson.Serialization.BsonClassMapSerializer.#ctor(MongoDB.Bson.Serialization.BsonClassMap)">
             <summary>
             Initializes a new instance of the BsonClassMapSerializer class.
             </summary>
+            <param name="classMap">The class map.</param>
         </member>
         <member name="M:MongoDB.Bson.Serialization.BsonClassMapSerializer.Deserialize(MongoDB.Bson.IO.BsonReader,System.Type,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
@@ -12407,6 +12978,12 @@
             <param name="options">The serialization options.</param>
             <returns>An object.</returns>
         </member>
+        <member name="M:MongoDB.Bson.Serialization.BsonClassMapSerializer.GetDefaultSerializationOptions">
+            <summary>
+            Get the default serialization options for this serializer.
+            </summary>
+            <returns>The default serialization options for this serializer.</returns>
+        </member>
         <member name="M:MongoDB.Bson.Serialization.BsonClassMapSerializer.GetDocumentId(System.Object,System.Object@,System.Type@,MongoDB.Bson.Serialization.IIdGenerator@)">
             <summary>
             Gets the document Id.
@@ -12416,6 +12993,19 @@
             <param name="idNominalType">The nominal type of the Id.</param>
             <param name="idGenerator">The IdGenerator for the Id type.</param>
             <returns>True if the document has an Id.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.BsonClassMapSerializer.GetItemSerializationInfo">
+            <summary>
+            Gets the serialization info for individual items of an enumerable type.
+            </summary>
+            <returns>The serialization info for the items.</returns>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.BsonClassMapSerializer.GetMemberSerializationInfo(System.String)">
+            <summary>
+            Gets the serialization info for a member.
+            </summary>
+            <param name="memberName">The member name.</param>
+            <returns>The serialization info for the member.</returns>
         </member>
         <member name="M:MongoDB.Bson.Serialization.BsonClassMapSerializer.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
             <summary>
@@ -12433,10 +13023,52 @@
             <param name="document">The document.</param>
             <param name="id">The Id.</param>
         </member>
-        <member name="P:MongoDB.Bson.Serialization.BsonClassMapSerializer.Instance">
+        <member name="T:MongoDB.Bson.Serialization.Conventions.ISerializationOptionsConvention">
             <summary>
-            Gets an instance of the BsonClassMapSerializer class.
+            Represents a BSON serialization options convention.
             </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Conventions.ISerializationOptionsConvention.GetSerializationOptions(System.Reflection.MemberInfo)">
+            <summary>
+            Gets the BSON serialization options for a member.
+            </summary>
+            <param name="memberInfo">The member.</param>
+            <returns>The BSON serialization options for the member; or null to use defaults.</returns>
+        </member>
+        <member name="T:MongoDB.Bson.Serialization.Conventions.NullSerializationOptionsConvention">
+            <summary>
+            Represents BSON serialiation options that use default values.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Conventions.NullSerializationOptionsConvention.GetSerializationOptions(System.Reflection.MemberInfo)">
+            <summary>
+            Gets the BSON serialization options for a member.
+            </summary>
+            <param name="memberInfo">The member.</param>
+            <returns>
+            The BSON serialization options for the member; or null to use defaults.
+            </returns>
+        </member>
+        <member name="T:MongoDB.Bson.Serialization.Conventions.TypeRepresentationSerializationOptionsConvention">
+            <summary>
+            Sets serialization options for a member of a given type.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Conventions.TypeRepresentationSerializationOptionsConvention.#ctor(System.Type,MongoDB.Bson.BsonType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MongoDB.Bson.Serialization.Conventions.TypeRepresentationSerializationOptionsConvention"/> class.
+            </summary>
+            <param name="type">The type of the member.</param>
+            <param name="representation">The BSON representation to use for this type.</param>
+        </member>
+        <member name="M:MongoDB.Bson.Serialization.Conventions.TypeRepresentationSerializationOptionsConvention.GetSerializationOptions(System.Reflection.MemberInfo)">
+            <summary>
+            Gets the BSON serialization options for a member.
+            </summary>
+            <param name="memberInfo">The member.</param>
+            <returns>
+            The BSON serialization options for the member; or null to use defaults.
+            </returns>
         </member>
         <member name="T:MongoDB.Bson.BsonBinarySubType">
             <summary>
@@ -12596,22 +13228,19 @@
         </member>
         <member name="T:MongoDB.Bson.BsonDefaults">
             <summary>
-            A static class containing BSON defaults.
+            A static helper class containing BSON defaults.
             </summary>
         </member>
         <member name="P:MongoDB.Bson.BsonDefaults.GuidRepresentation">
             <summary>
-            Gets or sets the default Guid representation.
-            </summary>
-        </member>
-        <member name="P:MongoDB.Bson.BsonDefaults.InitialBsonBufferSize">
-            <summary>
-            Gets or sets the default initial BSON buffer size.
+            Gets or sets the default representation to be used in serialization of 
+            Guids to the database. 
+            <seealso cref="T:MongoDB.Bson.GuidRepresentation"/> 
             </summary>
         </member>
         <member name="P:MongoDB.Bson.BsonDefaults.MaxDocumentSize">
             <summary>
-            Gets or sets the default max document size.
+            Gets or sets the default max document size. The default is 4MiB.
             </summary>
         </member>
         <member name="T:MongoDB.Bson.Serialization.Attributes.BsonIgnoreAttribute">

@@ -27,7 +27,7 @@ $('#RebuildIndex_Button').click(function () {
 
 $().ready(function () {
     setInterval(IndexStatus, 5000);
-    setInterval(FilterStatus, 5000);
+    setInterval(FilterStatus, 60000);
     IndexStatus();
     FilterStatus();
 });

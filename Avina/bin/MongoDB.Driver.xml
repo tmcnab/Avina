@@ -94,6 +94,89 @@
             Gets or sets the wait queue timeout.
             </summary>
         </member>
+        <member name="T:MongoDB.Driver.Linq.SelectQuery">
+            <summary>
+            Represents a LINQ query that has been translated to an equivalent MongoDB Find query.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Linq.TranslatedQuery">
+            <summary>
+            Represents a LINQ query that has been translated to a MongoDB query.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.TranslatedQuery.#ctor(MongoDB.Driver.MongoCollection,System.Type)">
+            <summary>
+            Initializes a new instance of the MongoLinqQuery class.
+            </summary>
+            <param name="collection">The collection being queried.</param>
+            <param name="documentType">The document type being queried.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.TranslatedQuery.Execute">
+            <summary>
+            Executes a query that returns a single result (overridden by subclasses).
+            </summary>
+            <returns>The result of executing the query.</returns>
+        </member>
+        <member name="P:MongoDB.Driver.Linq.TranslatedQuery.Collection">
+            <summary>
+            Gets the collection being queried.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Linq.TranslatedQuery.DocumentType">
+            <summary>
+            Get the document type being queried.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.SelectQuery.#ctor(MongoDB.Driver.MongoCollection,System.Type)">
+            <summary>
+            Initializes a new instance of the MongoLinqFindQuery class.
+            </summary>
+            <param name="collection">The collection being queried.</param>
+            <param name="documentType">The document type.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.SelectQuery.BuildQuery">
+            <summary>
+            Creates an IMongoQuery from the where clause (returns null if no where clause was specified).
+            </summary>
+            <returns>An IMongoQuery.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.SelectQuery.Execute">
+            <summary>
+            Executes the translated Find query.
+            </summary>
+            <returns>The result of executing the translated Find query.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.SelectQuery.Translate(System.Linq.Expressions.Expression)">
+            <summary>
+            Translates a LINQ query expression tree.
+            </summary>
+            <param name="expression">The LINQ query expression tree.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Linq.SelectQuery.OrderBy">
+            <summary>
+            Gets a list of Expressions that defines the sort order (or null if not specified).
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Linq.SelectQuery.Projection">
+            <summary>
+            Gets the Expression that defines the projection (or null if not specified).
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Linq.SelectQuery.Skip">
+            <summary>
+            Gets the Expression that defines how many documents to skip (or null if not specified).
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Linq.SelectQuery.Take">
+            <summary>
+            Gets the Expression that defines how many documents to take (or null if not specified);
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Linq.SelectQuery.Where">
+            <summary>
+            Gets the LambdaExpression that defines the where clause (or null if not specified).
+            </summary>
+        </member>
         <member name="T:MongoDB.Driver.GridFS.MongoGridFSFileInfo">
             <summary>
             Represents information about a GridFS file (patterned after .NET's FileInfo class).
@@ -124,19 +207,27 @@
         </member>
         <member name="M:MongoDB.Driver.GridFS.MongoGridFSFileInfo.op_Inequality(MongoDB.Driver.GridFS.MongoGridFSFileInfo,MongoDB.Driver.GridFS.MongoGridFSFileInfo)">
             <summary>
-            Compares two MongoGridFSFileInfos.
+            Determines whether two specified MongoGridFSFileInfo objects have different values.
             </summary>
-            <param name="lhs">The first MongoGridFSFileInfo.</param>
-            <param name="rhs">The other MongoGridFSFileInfo.</param>
-            <returns>True if the two MongoGridFSFileInfos are not equal (or one is null and the other is not).</returns>
+            <param name="lhs">The first value to compare, or null.</param>
+            <param name="rhs">The second value to compare, or null.</param>
+            <returns>True if the value of lhs is different from the value of rhs; otherwise, false.</returns>
         </member>
         <member name="M:MongoDB.Driver.GridFS.MongoGridFSFileInfo.op_Equality(MongoDB.Driver.GridFS.MongoGridFSFileInfo,MongoDB.Driver.GridFS.MongoGridFSFileInfo)">
             <summary>
-            Compares two MongoGridFSFileInfos.
+            Determines whether two specified MongoGridFSFileInfo objects have the same value.
             </summary>
-            <param name="lhs">The first MongoGridFSFileInfo.</param>
-            <param name="rhs">The other MongoGridFSFileInfo.</param>
-            <returns>True if the two MongoGridFSFileInfos are equal (or both null).</returns>
+            <param name="lhs">The first value to compare, or null.</param>
+            <param name="rhs">The second value to compare, or null.</param>
+            <returns>True if the value of lhs is the same as the value of rhs; otherwise, false.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.GridFS.MongoGridFSFileInfo.Equals(MongoDB.Driver.GridFS.MongoGridFSFileInfo,MongoDB.Driver.GridFS.MongoGridFSFileInfo)">
+            <summary>
+            Determines whether two specified MongoGridFSFileInfo objects have the same value.
+            </summary>
+            <param name="lhs">The first value to compare, or null.</param>
+            <param name="rhs">The second value to compare, or null.</param>
+            <returns>True if the value of lhs is the same as the value of rhs; otherwise, false.</returns>
         </member>
         <member name="M:MongoDB.Driver.GridFS.MongoGridFSFileInfo.AppendText">
             <summary>
@@ -178,23 +269,23 @@
         </member>
         <member name="M:MongoDB.Driver.GridFS.MongoGridFSFileInfo.Equals(MongoDB.Driver.GridFS.MongoGridFSFileInfo)">
             <summary>
-            Compares this MongoGridFSFileInfo to another MongoGridFSFileInfo.
+            Determines whether this instance and another specified MongoGridFSFileInfo object have the same value.
             </summary>
-            <param name="rhs">The other MongoGridFSFileInfo.</param>
-            <returns>True if the two MongoGridFSFileInfos are equal.</returns>
+            <param name="rhs">The MongoGridFSFileInfo object to compare to this instance.</param>
+            <returns>True if the value of the rhs parameter is the same as this instance; otherwise, false.</returns>
         </member>
         <member name="M:MongoDB.Driver.GridFS.MongoGridFSFileInfo.Equals(System.Object)">
             <summary>
-            Compares this MongoGridFSFileInfo to another object.
+            Determines whether this instance and a specified object, which must also be a MongoGridFSFileInfo object, have the same value.
             </summary>
-            <param name="obj">The other object.</param>
-            <returns>True if the other object is a MongoGridFSFileInfo and equal to this one.</returns>
+            <param name="obj">The MongoGridFSFileInfo object to compare to this instance.</param>
+            <returns>True if obj is a MongoGridFSFileInfo object and its value is the same as this instance; otherwise, false.</returns>
         </member>
         <member name="M:MongoDB.Driver.GridFS.MongoGridFSFileInfo.GetHashCode">
             <summary>
-            Gets the hash code.
+            Returns the hash code for this MongoGridFSFileInfo object.
             </summary>
-            <returns>The hash code.</returns>
+            <returns>A 32-bit signed integer hash code.</returns>
         </member>
         <member name="M:MongoDB.Driver.GridFS.MongoGridFSFileInfo.MoveTo(System.String)">
             <summary>
@@ -536,7 +627,7 @@
             Finds a specific version of a GridFS file.
             </summary>
             <param name="query">The GridFS file.</param>
-            <param name="version">The version to find.</param>
+            <param name="version">The version to find (1 is oldest, -1 is newest, 0 is no sort).</param>
             <returns>The matching GridFS file.</returns>
         </member>
         <member name="M:MongoDB.Driver.GridFS.MongoGridFS.FindOne(System.String)">
@@ -696,6 +787,205 @@
             <summary>
             Gets the GridFS settings.
             </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Linq.ExpressionParameterReplacer">
+            <summary>
+            A class that replaces all occurences of one parameter with a different parameter.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Linq.ExpressionVisitor">
+            <summary>
+            An abstract base class for an Expression visitor.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.#ctor">
+            <summary>
+            Initializes a new instance of the ExpressionVisitor class.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.Visit(System.Linq.Expressions.Expression)">
+            <summary>
+            Visits an Expression.
+            </summary>
+            <param name="node">The Expression.</param>
+            <returns>The Expression (posibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.Visit(System.Collections.ObjectModel.ReadOnlyCollection{System.Linq.Expressions.Expression})">
+            <summary>
+            Visits an Expression list.
+            </summary>
+            <param name="nodes">The Expression list.</param>
+            <returns>The Expression list (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitBinary(System.Linq.Expressions.BinaryExpression)">
+            <summary>
+            Visits a BinaryExpression.
+            </summary>
+            <param name="node">The BinaryExpression.</param>
+            <returns>The BinaryExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitConditional(System.Linq.Expressions.ConditionalExpression)">
+            <summary>
+            Visits a ConditionalExpression.
+            </summary>
+            <param name="node">The ConditionalExpression.</param>
+            <returns>The ConditionalExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitConstant(System.Linq.Expressions.ConstantExpression)">
+            <summary>
+            Visits a ConstantExpression.
+            </summary>
+            <param name="node">The ConstantExpression.</param>
+            <returns>The ConstantExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitElementInit(System.Linq.Expressions.ElementInit)">
+            <summary>
+            Visits an ElementInit.
+            </summary>
+            <param name="node">The ElementInit.</param>
+            <returns>The ElementInit (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitElementInitList(System.Collections.ObjectModel.ReadOnlyCollection{System.Linq.Expressions.ElementInit})">
+            <summary>
+            Visits an ElementInit list.
+            </summary>
+            <param name="nodes">The ElementInit list.</param>
+            <returns>The ElementInit list (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitInvocation(System.Linq.Expressions.InvocationExpression)">
+            <summary>
+            Visits an InvocationExpression.
+            </summary>
+            <param name="node">The InvocationExpression.</param>
+            <returns>The InvocationExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitLambda(System.Linq.Expressions.LambdaExpression)">
+            <summary>
+            Visits a LambdaExpression.
+            </summary>
+            <param name="node">The LambdaExpression.</param>
+            <returns>The LambdaExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitListInit(System.Linq.Expressions.ListInitExpression)">
+            <summary>
+            Visits a ListInitExpression.
+            </summary>
+            <param name="node">The ListInitExpression.</param>
+            <returns>The ListInitExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitMember(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            Visits a MemberExpression.
+            </summary>
+            <param name="node">The MemberExpression.</param>
+            <returns>The MemberExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitMemberAssignment(System.Linq.Expressions.MemberAssignment)">
+            <summary>
+            Visits a MemberAssignment.
+            </summary>
+            <param name="node">The MemberAssignment.</param>
+            <returns>The MemberAssignment (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitMemberBinding(System.Linq.Expressions.MemberBinding)">
+            <summary>
+            Visits a MemberBinding.
+            </summary>
+            <param name="node">The MemberBinding.</param>
+            <returns>The MemberBinding (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitMemberBindingList(System.Collections.ObjectModel.ReadOnlyCollection{System.Linq.Expressions.MemberBinding})">
+            <summary>
+            Visits a MemberBinding list.
+            </summary>
+            <param name="nodes">The MemberBinding list.</param>
+            <returns>The MemberBinding list (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitMemberInit(System.Linq.Expressions.MemberInitExpression)">
+            <summary>
+            Visits a MemberInitExpression.
+            </summary>
+            <param name="node">The MemberInitExpression.</param>
+            <returns>The MemberInitExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitMemberListBinding(System.Linq.Expressions.MemberListBinding)">
+            <summary>
+            Visits a MemberListBinding.
+            </summary>
+            <param name="node">The MemberListBinding.</param>
+            <returns>The MemberListBinding (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitMemberMemberBinding(System.Linq.Expressions.MemberMemberBinding)">
+            <summary>
+            Visits a MemberMemberBinding.
+            </summary>
+            <param name="node">The MemberMemberBinding.</param>
+            <returns>The MemberMemberBinding (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitMethodCall(System.Linq.Expressions.MethodCallExpression)">
+            <summary>
+            Visits a MethodCallExpression.
+            </summary>
+            <param name="node">The MethodCallExpression.</param>
+            <returns>The MethodCallExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitNew(System.Linq.Expressions.NewExpression)">
+            <summary>
+            Visits a NewExpression.
+            </summary>
+            <param name="node">The NewExpression.</param>
+            <returns>The NewExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitNewArray(System.Linq.Expressions.NewArrayExpression)">
+            <summary>
+            Visits a NewArrayExpression.
+            </summary>
+            <param name="node">The NewArrayExpression.</param>
+            <returns>The NewArrayExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitParameter(System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            Visits a ParameterExpression.
+            </summary>
+            <param name="node">The ParameterExpression.</param>
+            <returns>The ParameterExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitTypeBinary(System.Linq.Expressions.TypeBinaryExpression)">
+            <summary>
+            Visits a TypeBinaryExpression.
+            </summary>
+            <param name="node">The TypeBinaryExpression.</param>
+            <returns>The TypeBinaryExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionVisitor.VisitUnary(System.Linq.Expressions.UnaryExpression)">
+            <summary>
+            Visits a UnaryExpression.
+            </summary>
+            <param name="node">The UnaryExpression.</param>
+            <returns>The UnaryExpression (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionParameterReplacer.#ctor(System.Linq.Expressions.ParameterExpression,System.Linq.Expressions.Expression)">
+            <summary>
+            Initializes a new instance of the ExpressionParameterReplacer class.
+            </summary>
+            <param name="fromParameter">The parameter to be replaced.</param>
+            <param name="toExpression">The expression that replaces the parameter.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionParameterReplacer.ReplaceParameter(System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression,System.Linq.Expressions.Expression)">
+            <summary>
+            Replaces all occurences of one parameter with a different parameter.
+            </summary>
+            <param name="node">The expression containing the parameter that should be replaced.</param>
+            <param name="fromParameter">The from parameter.</param>
+            <param name="toExpression">The expression that replaces the parameter.</param>
+            <returns>The expression with all occurrences of the parameter replaced.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionParameterReplacer.VisitParameter(System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            Replaces the from parameter with the two parameter if it maches.
+            </summary>
+            <param name="node">The node.</param>
+            <returns>The parameter (replaced if it matched).</returns>
         </member>
         <member name="T:MongoDB.Driver.GeoNearOptionsDocument">
             <summary>
@@ -874,6 +1164,11 @@
             Represents the options to use for an Update operation.
             </summary>
         </member>
+        <member name="M:MongoDB.Driver.MongoUpdateOptions.#ctor">
+            <summary>
+            Initializes a new instance of the MongoUpdateOptions class.
+            </summary>
+        </member>
         <member name="M:MongoDB.Driver.MongoUpdateOptions.#ctor(MongoDB.Driver.MongoCollection)">
             <summary>
             Initializes a new instance of the MongoUpdateOptions class.
@@ -898,36 +1193,6 @@
         <member name="T:MongoDB.Driver.MongoCollectionSettings">
             <summary>
             The settings used to access a collection (an abstract class, see MongoCollectionSettings{TDefaultDocument}).
-            </summary>
-        </member>
-        <member name="F:MongoDB.Driver.MongoCollectionSettings.collectionName">
-            <summary>
-            The name of the collection.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Driver.MongoCollectionSettings.assignIdOnInsert">
-            <summary>
-            Whether to automatically assign a value to an empty document Id on insert.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Driver.MongoCollectionSettings.defaultDocumentType">
-            <summary>
-            The default document type of the collection.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Driver.MongoCollectionSettings.guidRepresentation">
-            <summary>
-            The GUID representation.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Driver.MongoCollectionSettings.safeMode">
-            <summary>
-            The SafeMode.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Driver.MongoCollectionSettings.slaveOk">
-            <summary>
-            Whether to route reads to secondaries.
             </summary>
         </member>
         <member name="M:MongoDB.Driver.MongoCollectionSettings.#ctor(MongoDB.Driver.MongoDatabase,System.String,System.Type)">
@@ -1088,6 +1353,31 @@
         <member name="F:MongoDB.Driver.QueryFlags.Partial">
             <summary>
             Allow partial results in a sharded system if some of the shards are down.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Linq.PartialEvaluator">
+            <summary>
+            A static class with methods to partially evaluate an Expression.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.PartialEvaluator.Evaluate(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Boolean})">
+            <summary>
+            Performs evaluation and replacement of independent sub-trees.
+            </summary>
+            <param name="expression">The root of the expression tree.</param>
+            <param name="fnCanBeEvaluated">A function that decides whether a given expression node can be part of the local function.</param>
+            <returns>A new tree with sub-trees evaluated and replaced.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.PartialEvaluator.Evaluate(System.Linq.Expressions.Expression)">
+            <summary>
+            Performs evaluation and replacement of independent sub-trees
+            </summary>
+            <param name="expression">The root of the expression tree.</param>
+            <returns>A new tree with sub-trees evaluated and replaced.</returns>
+        </member>
+        <member name="T:MongoDB.Driver.Linq.PartialEvaluator.SubtreeEvaluator">
+            <summary>
+            Evaluates and replaces sub-trees when first candidate is reached (top-down)
             </summary>
         </member>
         <member name="T:MongoDB.Driver.Internal.IndexCache">
@@ -1322,7 +1612,7 @@
             <summary>
             Tests that all the subqueries are true (see $and in newer versions of the server).
             </summary>
-            <param name="clauses">A list of subqueries.</param>
+            <param name="queries">A list of subqueries.</param>
             <returns>A query.</returns>
         </member>
         <member name="M:MongoDB.Driver.Builders.Query.ElemMatch(System.String,MongoDB.Driver.IMongoQuery)">
@@ -1608,7 +1898,7 @@
             <param name="nominalType">The nominal type.</param>
             <param name="options">The serialization options.</param>
         </member>
-        <member name="F:MongoDB.Driver.Builders.QueryBuilder.document">
+        <member name="F:MongoDB.Driver.Builders.QueryBuilder._document">
             <summary>
             A BSON document containing the query being built.
             </summary>
@@ -1632,6 +1922,11 @@
             <param name="bsonWriter">The writer.</param>
             <param name="nominalType">The nominal type.</param>
             <param name="options">The serialization options.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Builders.QueryBuilder.Document">
+            <summary>
+            Gets the document containing the query being built.
+            </summary>
         </member>
         <member name="T:MongoDB.Driver.Builders.QueryComplete">
             <summary>
@@ -2263,16 +2558,6 @@
             Represents the result of a command (there are also subclasses for various commands).
             </summary>
         </member>
-        <member name="F:MongoDB.Driver.CommandResult.command">
-            <summary>
-            The command.
-            </summary>
-        </member>
-        <member name="F:MongoDB.Driver.CommandResult.response">
-            <summary>
-            The response.
-            </summary>
-        </member>
         <member name="M:MongoDB.Driver.CommandResult.#ctor">
             <summary>
             Initializes a new instance of the CommandResult class.
@@ -2390,6 +2675,25 @@
             <summary>
             Gets the input count.
             </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Linq.DeserializationProjector`1">
+            <summary>
+            Represents a projection that deserializes BsonValues.
+            </summary>
+            <typeparam name="TResult">The type of the result objects.</typeparam>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.DeserializationProjector`1.#ctor(System.Collections.Generic.IEnumerable{MongoDB.Bson.BsonValue},MongoDB.Bson.Serialization.BsonSerializationInfo)">
+            <summary>
+            Initializes a new instance of the DeserializationProjector class.
+            </summary>
+            <param name="source">The enumerable object that supplies the source objects.</param>
+            <param name="serializationInfo">Serialization info for deserializing source objects into result objects.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.DeserializationProjector`1.GetEnumerator">
+            <summary>
+            Gets an enumerator for the result objects.
+            </summary>
+            <returns>An enumerator for the result objects.</returns>
         </member>
         <member name="T:MongoDB.Driver.GridFS.MongoGridFSException">
             <summary>
@@ -2790,12 +3094,13 @@
             Creates a new instance of MongoServerSettings. Usually you would use a connection string instead.
             </summary>
         </member>
-        <member name="M:MongoDB.Driver.MongoServerSettings.#ctor(MongoDB.Driver.ConnectionMode,System.TimeSpan,MongoDB.Driver.MongoCredentials,MongoDB.Bson.GuidRepresentation,System.Boolean,System.TimeSpan,System.TimeSpan,System.Int32,System.Int32,System.String,MongoDB.Driver.SafeMode,System.Collections.Generic.IEnumerable{MongoDB.Driver.MongoServerAddress},System.Boolean,System.TimeSpan,System.Int32,System.TimeSpan)">
+        <member name="M:MongoDB.Driver.MongoServerSettings.#ctor(MongoDB.Driver.ConnectionMode,System.TimeSpan,MongoDB.Driver.MongoCredentialsStore,MongoDB.Driver.MongoCredentials,MongoDB.Bson.GuidRepresentation,System.Boolean,System.TimeSpan,System.TimeSpan,System.Int32,System.Int32,System.String,MongoDB.Driver.SafeMode,System.Collections.Generic.IEnumerable{MongoDB.Driver.MongoServerAddress},System.Boolean,System.TimeSpan,System.Int32,System.TimeSpan)">
             <summary>
             Creates a new instance of MongoServerSettings. Usually you would use a connection string instead.
             </summary>
             <param name="connectionMode">The connection mode (Direct or ReplicaSet).</param>
             <param name="connectTimeout">The connect timeout.</param>
+            <param name="credentialsStore">The credentials store.</param>
             <param name="defaultCredentials">The default credentials.</param>
             <param name="guidRepresentation">The representation for Guids.</param>
             <param name="ipv6">Whether to use IPv6.</param>
@@ -2836,6 +3141,13 @@
             </summary>
             <returns>A frozen copy of the settings.</returns>
         </member>
+        <member name="M:MongoDB.Driver.MongoServerSettings.GetCredentials(System.String)">
+            <summary>
+            Gets credentials for a particular database.
+            </summary>
+            <param name="databaseName">The database name.</param>
+            <returns>The credentials for that database (or null).</returns>
+        </member>
         <member name="M:MongoDB.Driver.MongoServerSettings.GetHashCode">
             <summary>
             Gets the hash code.
@@ -2861,6 +3173,11 @@
         <member name="P:MongoDB.Driver.MongoServerSettings.ConnectTimeout">
             <summary>
             Gets or sets the connect timeout.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.MongoServerSettings.CredentialsStore">
+            <summary>
+            Gets or sets the credentials store.
             </summary>
         </member>
         <member name="P:MongoDB.Driver.MongoServerSettings.DefaultCredentials">
@@ -2942,6 +3259,69 @@
             <summary>
             Gets or sets the wait queue timeout.
             </summary>
+        </member>
+        <member name="T:MongoDB.Driver.MongoCredentialsStore">
+            <summary>
+            Represents a credentials store that contains credentials for different databases.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.MongoCredentialsStore.#ctor">
+            <summary>
+            Creates a new instance of the MongoCredentialsStore class.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.MongoCredentialsStore.AddCredentials(System.String,MongoDB.Driver.MongoCredentials)">
+            <summary>
+            Adds the credentials for a database to the store.
+            </summary>
+            <param name="databaseName">The database name.</param>
+            <param name="credentials">The credentials.</param>
+        </member>
+        <member name="M:MongoDB.Driver.MongoCredentialsStore.Clone">
+            <summary>
+            Creates a clone of the credentials store.
+            </summary>
+            <returns>A clone of the credentials store.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoCredentialsStore.Equals(MongoDB.Driver.MongoCredentialsStore)">
+            <summary>
+            Compares this credentials store to another credentials store.
+            </summary>
+            <param name="rhs">The other credentials store.</param>
+            <returns>True if the two credentials stores are equal.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoCredentialsStore.Equals(System.Object)">
+            <summary>
+            Compares this credentials store to another credentials store.
+            </summary>
+            <param name="obj">The other credentials store.</param>
+            <returns>True if the two credentials stores are equal.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoCredentialsStore.Freeze">
+            <summary>
+            Freezes the credentials store.
+            </summary>
+            <returns>The frozen credentials store.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoCredentialsStore.GetHashCode">
+            <summary>
+            Gets the hashcode for the credentials store.
+            </summary>
+            <returns>The hashcode.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoCredentialsStore.ToString">
+            <summary>
+            Returns a string representation of the credentials store.
+            </summary>
+            <returns>A string representation of the credentials store.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoCredentialsStore.TryGetCredentials(System.String,MongoDB.Driver.MongoCredentials@)">
+            <summary>
+            Gets the credentials for a database.
+            </summary>
+            <param name="databaseName">The database name.</param>
+            <param name="credentials">The credentials.</param>
+            <returns>True if the store contained credentials for the database. Otherwise false.</returns>
         </member>
         <member name="T:MongoDB.Driver.Builders.Update">
             <summary>
@@ -3375,7 +3755,7 @@
             <summary>
             Combines another UpdateBuilder into this one.
             </summary>
-            <param name="otherUpdate">The UpdateBuilder to combine into this one.</param>
+            <param name="otherUpdateBuilder">The UpdateBuilder to combine into this one.</param>
             <returns>A combined UpdateBuilder.</returns>
         </member>
         <member name="M:MongoDB.Driver.Builders.UpdateBuilder.Inc(System.String,System.Double)">
@@ -3902,7 +4282,7 @@
         </member>
         <member name="F:MongoDB.Driver.ConnectWaitFor.AnySlaveOk">
             <summary>
-            Wait for any slaveOk member of the replica set to be connected (includes primary, secondaries and passives).
+            Wait for any slaveOk member of the replica set to be connected (primary or any secondary).
             </summary>
         </member>
         <member name="T:MongoDB.Driver.GeoNearResult">
@@ -4300,6 +4680,37 @@
             Gets or sets the user.
             </summary>
         </member>
+        <member name="T:MongoDB.Driver.SystemProfileInfoSerializer">
+            <summary>
+            Represents a serializer for SystemProfileInfo.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.SystemProfileInfoSerializer.Deserialize(MongoDB.Bson.IO.BsonReader,System.Type,System.Type,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Deserializes an object from a BsonReader.
+            </summary>
+            <param name="bsonReader">The BsonReader.</param>
+            <param name="nominalType">The nominal type of the object.</param>
+            <param name="actualType">The actual type of the object.</param>
+            <param name="options">The serialization options.</param>
+            <returns>An object.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.SystemProfileInfoSerializer.GetMemberSerializationInfo(System.String)">
+            <summary>
+            Gets the serialization info for a member.
+            </summary>
+            <param name="memberName">The member name.</param>
+            <returns>The serialization info for the member.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.SystemProfileInfoSerializer.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Serializes an object to a BsonWriter.
+            </summary>
+            <param name="bsonWriter">The BsonWriter.</param>
+            <param name="nominalType">The nominal type.</param>
+            <param name="value">The object.</param>
+            <param name="options">The serialization options.</param>
+        </member>
         <member name="T:MongoDB.Driver.MongoDatabaseSettings">
             <summary>
             The settings used to access a database.
@@ -4642,6 +5053,196 @@
             Gets or sets whether to compute and update the MD5 hash for the file when the stream is closed.
             </summary>
         </member>
+        <member name="T:MongoDB.Driver.Linq.Projector`2">
+            <summary>
+            Represents a projection.
+            </summary>
+            <typeparam name="TSource">The type of the source objects.</typeparam>
+            <typeparam name="TResult">The type of the result objects.</typeparam>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.Projector`2.#ctor(MongoDB.Driver.MongoCursor{`0},System.Func{`0,`1})">
+            <summary>
+            Initializes a new instance of the Projector class.
+            </summary>
+            <param name="cursor">The cursor that supplies the source objects.</param>
+            <param name="projection">The projection.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.Projector`2.GetEnumerator">
+            <summary>
+            Gets an enumerator for the result objects.
+            </summary>
+            <returns>An enumerator for the result objects.</returns>
+        </member>
+        <member name="T:MongoDB.Driver.Linq.ExpressionFormatter">
+            <summary>
+            A class that formats an Expression as a string.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.#ctor">
+            <summary>
+            Initializes a new instance of the ExpressionFormatter class.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.ToString(System.Linq.Expressions.Expression)">
+            <summary>
+            Returns a string that represents the Expression.
+            </summary>
+            <param name="node">The Expression to format.</param>
+            <returns>A string that represents the Expression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.ToString">
+            <summary>
+            Returns a string that represents the Expression.
+            </summary>
+            <returns>A string that represents the Expression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitBinary(System.Linq.Expressions.BinaryExpression)">
+            <summary>
+            Visits a BinaryExpression.
+            </summary>
+            <param name="node">The BinaryExpression.</param>
+            <returns>The BinaryExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitConditional(System.Linq.Expressions.ConditionalExpression)">
+            <summary>
+            Visits a ConditionalExpression.
+            </summary>
+            <param name="node">The ConditionalExpression.</param>
+            <returns>The ConditionalExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitConstant(System.Linq.Expressions.ConstantExpression)">
+            <summary>
+            Visits a ConstantExpression.
+            </summary>
+            <param name="node">The ConstantExpression.</param>
+            <returns>The ConstantExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitElementInit(System.Linq.Expressions.ElementInit)">
+            <summary>
+            Visits an ElementInit node.
+            </summary>
+            <param name="node">The ElementInit node.</param>
+            <returns>The ElementInit node.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitElementInitList(System.Collections.ObjectModel.ReadOnlyCollection{System.Linq.Expressions.ElementInit})">
+            <summary>
+            Visits an ElementInit list.
+            </summary>
+            <param name="nodes">The ElementInit list.</param>
+            <returns>The ElementInit list.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitInvocation(System.Linq.Expressions.InvocationExpression)">
+            <summary>
+            Visits an InvocationExpression.
+            </summary>
+            <param name="node">The InvocationExpression.</param>
+            <returns>The InvocationExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitLambda(System.Linq.Expressions.LambdaExpression)">
+            <summary>
+            Visits a LambdaExpression.
+            </summary>
+            <param name="node">The LambdaExpression.</param>
+            <returns>The LambdaExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitListInit(System.Linq.Expressions.ListInitExpression)">
+            <summary>
+            Visits a ListInitExpression.
+            </summary>
+            <param name="node">The ListInitExpression.</param>
+            <returns>The ListInitExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitMember(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            Visits a MemberExpression.
+            </summary>
+            <param name="node">The MemberExpression.</param>
+            <returns>The MemberExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitMemberAssignment(System.Linq.Expressions.MemberAssignment)">
+            <summary>
+            Visits a MemberAssignment.
+            </summary>
+            <param name="node">The MemberAssignment.</param>
+            <returns>The MemberAssignment.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitMemberBinding(System.Linq.Expressions.MemberBinding)">
+            <summary>
+            Visits a MemberBinding.
+            </summary>
+            <param name="node">The MemberBinding.</param>
+            <returns>The MemberBinding (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitMemberBindingList(System.Collections.ObjectModel.ReadOnlyCollection{System.Linq.Expressions.MemberBinding})">
+            <summary>
+            Visits a MemberBinding list.
+            </summary>
+            <param name="nodes">The MemberBinding list.</param>
+            <returns>The MemberBinding list.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitMemberInit(System.Linq.Expressions.MemberInitExpression)">
+            <summary>
+            Visits a MemberInitExpression.
+            </summary>
+            <param name="node">The MemberInitExpression.</param>
+            <returns>The MemberInitExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitMemberListBinding(System.Linq.Expressions.MemberListBinding)">
+            <summary>
+            Visits a MemberListBinding.
+            </summary>
+            <param name="node">The MemberListBinding.</param>
+            <returns>The MemberListBinding.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitMemberMemberBinding(System.Linq.Expressions.MemberMemberBinding)">
+            <summary>
+            Visits a MemberMemberBinding.
+            </summary>
+            <param name="node">The MemberMemberBinding.</param>
+            <returns>The MemberMemberBinding.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitMethodCall(System.Linq.Expressions.MethodCallExpression)">
+            <summary>
+            Visits a MethodCallExpression.
+            </summary>
+            <param name="node">The MethodCallExpression.</param>
+            <returns>The MethodCallExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitNew(System.Linq.Expressions.NewExpression)">
+            <summary>
+            Visits a NewExpression.
+            </summary>
+            <param name="node">The NewExpression.</param>
+            <returns>The NewExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitNewArray(System.Linq.Expressions.NewArrayExpression)">
+            <summary>
+            Visits a NewArrayExpression.
+            </summary>
+            <param name="node">The NewArrayExpression.</param>
+            <returns>The NewArrayExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitParameter(System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            Visits a ParameterExpression.
+            </summary>
+            <param name="node">The ParameterExpression.</param>
+            <returns>The ParameterExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitTypeBinary(System.Linq.Expressions.TypeBinaryExpression)">
+            <summary>
+            Visits a TypeBinaryExpression.
+            </summary>
+            <param name="node">The TypeBinaryExpression.</param>
+            <returns>The TypeBinaryExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionFormatter.VisitUnary(System.Linq.Expressions.UnaryExpression)">
+            <summary>
+            Visits a UnaryExpression.
+            </summary>
+            <param name="node">The UnaryExpression.</param>
+            <returns>The UnaryExpression.</returns>
+        </member>
         <member name="T:MongoDB.Driver.IMongoScope">
             <summary>
             A marker interface that represents a scope (a set of variables with values, see ScopeDocument).
@@ -4933,6 +5534,12 @@
             <param name="gridFSSettings">The GridFS settings to use.</param>
             <returns>An instance of MongoGridFS.</returns>
         </member>
+        <member name="M:MongoDB.Driver.MongoDatabase.GetLastError">
+            <summary>
+            Gets the last error (if any) that occurred on this connection. You MUST be within a RequestStart to call this method.
+            </summary>
+            <returns>The last error (<see cref="T:MongoDB.Driver.GetLastErrorResult"/>)</returns>
+        </member>
         <member name="M:MongoDB.Driver.MongoDatabase.GetProfilingInfo(MongoDB.Driver.IMongoQuery)">
             <summary>
             Gets one or more documents from the system.profile collection.
@@ -4986,6 +5593,25 @@
             <param name="oldCollectionName">The old name for the collection.</param>
             <param name="newCollectionName">The new name for the collection.</param>
             <param name="dropTarget">Whether to drop the target collection first if it already exists.</param>
+            <returns>A CommandResult.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoDatabase.RenameCollection(System.String,System.String,System.Boolean,MongoDB.Driver.MongoCredentials)">
+            <summary>
+            Renames a collection on this database.
+            </summary>
+            <param name="oldCollectionName">The old name for the collection.</param>
+            <param name="newCollectionName">The new name for the collection.</param>
+            <param name="dropTarget">Whether to drop the target collection first if it already exists.</param>
+            <param name="adminCredentials">Credentials for the admin database.</param>
+            <returns>A CommandResult.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoDatabase.RenameCollection(System.String,System.String,MongoDB.Driver.MongoCredentials)">
+            <summary>
+            Renames a collection on this database.
+            </summary>
+            <param name="oldCollectionName">The old name for the collection.</param>
+            <param name="newCollectionName">The new name for the collection.</param>
+            <param name="adminCredentials">Credentials for the admin database.</param>
             <returns>A CommandResult.</returns>
         </member>
         <member name="M:MongoDB.Driver.MongoDatabase.RequestDone">
@@ -5846,6 +6472,19 @@
             <param name="value">The string to camel case.</param>
             <returns>The camel cased string.</returns>
         </member>
+        <member name="T:MongoDB.Driver.Linq.LinqExtensionMethods">
+            <summary>
+            Static class that contains the Mongo Linq extension methods.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.LinqExtensionMethods.AsQueryable``1(MongoDB.Driver.MongoCollection)">
+            <summary>
+            Returns an instance of IQueryable{{T}} for a MongoCollection.
+            </summary>
+            <typeparam name="T">The type of the returned documents.</typeparam>
+            <param name="collection">The name of the collection.</param>
+            <returns>An instance of IQueryable{{T}} for a MongoCollection.</returns>
+        </member>
         <member name="T:MongoDB.Driver.Internal.BlockingQueue`1">
             <summary>
             Represents a thread-safe queue.
@@ -6031,6 +6670,56 @@
             <param name="collectionName">The name of the collection that contains the document.</param>
             <param name="id">The Id of the document.</param>
         </member>
+        <member name="M:MongoDB.Driver.MongoDBRef.op_Inequality(MongoDB.Driver.MongoDBRef,MongoDB.Driver.MongoDBRef)">
+            <summary>
+            Determines whether two specified MongoDBRef objects have different values.
+            </summary>
+            <param name="lhs">The first value to compare, or null.</param>
+            <param name="rhs">The second value to compare, or null.</param>
+            <returns>True if the value of lhs is different from the value of rhs; otherwise, false.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoDBRef.op_Equality(MongoDB.Driver.MongoDBRef,MongoDB.Driver.MongoDBRef)">
+            <summary>
+            Determines whether two specified MongoDBRef objects have the same value.
+            </summary>
+            <param name="lhs">The first value to compare, or null.</param>
+            <param name="rhs">The second value to compare, or null.</param>
+            <returns>True if the value of lhs is the same as the value of rhs; otherwise, false.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoDBRef.Equals(MongoDB.Driver.MongoDBRef,MongoDB.Driver.MongoDBRef)">
+            <summary>
+            Determines whether two specified MongoDBRef objects have the same value.
+            </summary>
+            <param name="lhs">The first value to compare, or null.</param>
+            <param name="rhs">The second value to compare, or null.</param>
+            <returns>True if the value of lhs is the same as the value of rhs; otherwise, false.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoDBRef.Equals(MongoDB.Driver.MongoDBRef)">
+            <summary>
+            Determines whether this instance and another specified MongoDBRef object have the same value.
+            </summary>
+            <param name="rhs">The MongoDBRef object to compare to this instance.</param>
+            <returns>True if the value of the rhs parameter is the same as this instance; otherwise, false.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoDBRef.Equals(System.Object)">
+            <summary>
+            Determines whether this instance and a specified object, which must also be a MongoDBRef object, have the same value.
+            </summary>
+            <param name="obj">The MongoDBRef object to compare to this instance.</param>
+            <returns>True if obj is a MongoDBRef object and its value is the same as this instance; otherwise, false.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoDBRef.GetHashCode">
+            <summary>
+            Returns the hash code for this MongoDBRef object.
+            </summary>
+            <returns>A 32-bit signed integer hash code.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoDBRef.ToString">
+            <summary>
+            Returns a string representation of the value.
+            </summary>
+            <returns>A string representation of the value.</returns>
+        </member>
         <member name="P:MongoDB.Driver.MongoDBRef.DatabaseName">
             <summary>
             Gets the name of the database that contains the document.
@@ -6044,6 +6733,97 @@
         <member name="P:MongoDB.Driver.MongoDBRef.Id">
             <summary>
             Gets the Id of the document.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.MongoDBRefSerializer">
+            <summary>
+            Represents a serializer for MongoDBRefs.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.MongoDBRefSerializer.Deserialize(MongoDB.Bson.IO.BsonReader,System.Type,System.Type,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Deserializes an object from a BsonReader.
+            </summary>
+            <param name="bsonReader">The BsonReader.</param>
+            <param name="nominalType">The nominal type of the object.</param>
+            <param name="actualType">The actual type of the object.</param>
+            <param name="options">The serialization options.</param>
+            <returns>An object.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoDBRefSerializer.GetMemberSerializationInfo(System.String)">
+            <summary>
+            Gets the serialization info for a member.
+            </summary>
+            <param name="memberName">The member name.</param>
+            <returns>The serialization info for the member.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoDBRefSerializer.Serialize(MongoDB.Bson.IO.BsonWriter,System.Type,System.Object,MongoDB.Bson.Serialization.IBsonSerializationOptions)">
+            <summary>
+            Serializes an object to a BsonWriter.
+            </summary>
+            <param name="bsonWriter">The BsonWriter.</param>
+            <param name="nominalType">The nominal type.</param>
+            <param name="value">The object.</param>
+            <param name="options">The serialization options.</param>
+        </member>
+        <member name="T:MongoDB.Driver.Linq.MongoQueryProvider">
+            <summary>
+            An implementation of IQueryProvider for querying a MongoDB collection.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.MongoQueryProvider.#ctor(MongoDB.Driver.MongoCollection)">
+            <summary>
+            Initializes a new instance of the MongoQueryProvider class.
+            </summary>
+            <param name="collection">The collection being queried.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.MongoQueryProvider.BuildMongoQuery``1(MongoDB.Driver.Linq.MongoQueryable{``0})">
+            <summary>
+            Builds the MongoDB query that will be sent to the server when the LINQ query is executed.
+            </summary>
+            <typeparam name="T">The type of the documents being queried.</typeparam>
+            <param name="query">The LINQ query.</param>
+            <returns>The MongoDB query.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.MongoQueryProvider.CreateQuery``1(System.Linq.Expressions.Expression)">
+            <summary>
+            Creates a new instance of MongoQueryable{{T}} for this provider.
+            </summary>
+            <typeparam name="T">The type of the returned elements.</typeparam>
+            <param name="expression">The query expression.</param>
+            <returns>A new instance of MongoQueryable{{T}}.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.MongoQueryProvider.CreateQuery(System.Linq.Expressions.Expression)">
+            <summary>
+            Creates a new instance MongoQueryable{{T}} for this provider. Calls the generic CreateQuery{{T}} 
+            to actually create the new MongoQueryable{{T}} instance.
+            </summary>
+            <param name="expression">The query expression.</param>
+            <returns>A new instance of MongoQueryable{{T}}.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.MongoQueryProvider.Execute``1(System.Linq.Expressions.Expression)">
+            <summary>
+            Executes a query.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="expression">The query expression.</param>
+            <returns>The result of the query.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.MongoQueryProvider.Execute(System.Linq.Expressions.Expression)">
+            <summary>
+            Executes a query. Calls the generic method Execute{{T}} to actually execute the query.
+            </summary>
+            <param name="expression">The query expression.</param>
+            <returns>The result of the query.</returns>
+        </member>
+        <member name="P:MongoDB.Driver.Linq.MongoQueryProvider.Collection">
+            <summary>
+            Gets the Collection.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Linq.Nominator">
+            <summary>
+            Performs bottom-up analysis to find maximal subtrees that satisfy a predicate.
             </summary>
         </member>
         <member name="T:MongoDB.Driver.MongoSafeModeException">
@@ -6113,6 +6893,12 @@
             Represents an instance of a MongoDB server host (in the case of a replica set a MongoServer uses multiple MongoServerInstances).
             </summary>
         </member>
+        <member name="M:MongoDB.Driver.MongoServerInstance.GetIPEndPoint">
+            <summary>
+            Gets the IP end point of this server instance.
+            </summary>
+            <returns>The IP end point of this server instance.</returns>
+        </member>
         <member name="M:MongoDB.Driver.MongoServerInstance.Ping">
             <summary>
             Checks whether the server is alive (throws an exception if not).
@@ -6146,11 +6932,6 @@
         <member name="P:MongoDB.Driver.MongoServerInstance.ConnectionPool">
             <summary>
             Gets the connection pool for this server instance.
-            </summary>
-        </member>
-        <member name="P:MongoDB.Driver.MongoServerInstance.EndPoint">
-            <summary>
-            Gets the IP end point of this server instance.
             </summary>
         </member>
         <member name="P:MongoDB.Driver.MongoServerInstance.IsArbiter">
@@ -6250,33 +7031,33 @@
             <param name="w">The number of write replications that should be completed before server returns.</param>
         </member>
         <member name="M:MongoDB.Driver.SafeMode.#ctor(System.Int32,System.TimeSpan)">
-             <summary>
+            <summary>
             Creates a new instance of the SafeMode class.
-             </summary>
-             <param name="w">The number of write replications that should be completed before server returns.</param>
-             <param name="wtimeout">The timeout for each operation.</param>
+            </summary>
+            <param name="w">The number of write replications that should be completed before server returns.</param>
+            <param name="wtimeout">The timeout for each operation.</param>
         </member>
         <member name="M:MongoDB.Driver.SafeMode.#ctor(MongoDB.Driver.SafeMode)">
-             <summary>
-            Creates a new instance of the SafeMode class.
-             </summary>
-             <param name="other">Another SafeMode to initialize this one from.</param>
-        </member>
-        <member name="M:MongoDB.Driver.SafeMode.op_Equality(MongoDB.Driver.SafeMode,MongoDB.Driver.SafeMode)">
             <summary>
-            Compares two SafeMode values.
+            Creates a new instance of the SafeMode class.
             </summary>
-            <param name="lhs">The first SafeMode value.</param>
-            <param name="rhs">The other SafeMode value.</param>
-            <returns>True if the values are equal (or both null).</returns>
+            <param name="other">Another SafeMode to initialize this one from.</param>
         </member>
         <member name="M:MongoDB.Driver.SafeMode.op_Inequality(MongoDB.Driver.SafeMode,MongoDB.Driver.SafeMode)">
             <summary>
-            Compares two SafeMode values.
+            Determines whether two specified SafeMode objects have different values.
             </summary>
-            <param name="lhs">The first SafeMode value.</param>
-            <param name="rhs">The other SafeMode value.</param>
-            <returns>True if the values are not equal (or one is null and the other is not).</returns>
+            <param name="lhs">The first value to compare, or null.</param>
+            <param name="rhs">The second value to compare, or null.</param>
+            <returns>True if the value of lhs is different from the value of rhs; otherwise, false.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.SafeMode.op_Equality(MongoDB.Driver.SafeMode,MongoDB.Driver.SafeMode)">
+            <summary>
+            Determines whether two specified SafeMode objects have the same value.
+            </summary>
+            <param name="lhs">The first value to compare, or null.</param>
+            <param name="rhs">The second value to compare, or null.</param>
+            <returns>True if the value of lhs is the same as the value of rhs; otherwise, false.</returns>
         </member>
         <member name="M:MongoDB.Driver.SafeMode.Create(System.Boolean)">
             <summary>
@@ -6327,6 +7108,14 @@
             <param name="wtimeout">The timeout for each operation.</param>
             <returns>A SafeMode instance.</returns>
         </member>
+        <member name="M:MongoDB.Driver.SafeMode.Equals(MongoDB.Driver.SafeMode,MongoDB.Driver.SafeMode)">
+            <summary>
+            Determines whether two specified SafeMode objects have the same value.
+            </summary>
+            <param name="lhs">The first value to compare, or null.</param>
+            <param name="rhs">The second value to compare, or null.</param>
+            <returns>True if the value of lhs is the same as the value of rhs; otherwise, false.</returns>
+        </member>
         <member name="M:MongoDB.Driver.SafeMode.Clone">
             <summary>
             Creates a clone of the SafeMode.
@@ -6335,17 +7124,17 @@
         </member>
         <member name="M:MongoDB.Driver.SafeMode.Equals(System.Object)">
             <summary>
-            Compares two SafeMode values.
+            Determines whether this instance and a specified object, which must also be a SafeMode object, have the same value.
             </summary>
-            <param name="obj">The other SafeMode value.</param>
-            <returns>True if the values are equal.</returns>
+            <param name="obj">The SafeMode object to compare to this instance.</param>
+            <returns>True if obj is a SafeMode object and its value is the same as this instance; otherwise, false.</returns>
         </member>
         <member name="M:MongoDB.Driver.SafeMode.Equals(MongoDB.Driver.SafeMode)">
             <summary>
-            Compares two SafeMode values.
+            Determines whether this instance and another specified SafeMode object have the same value.
             </summary>
-            <param name="rhs">The other SafeMode value.</param>
-            <returns>True if the values are equal.</returns>
+            <param name="rhs">The SafeMode object to compare to this instance.</param>
+            <returns>True if the value of the rhs parameter is the same as this instance; otherwise, false.</returns>
         </member>
         <member name="M:MongoDB.Driver.SafeMode.Freeze">
             <summary>
@@ -6601,6 +7390,12 @@
             A new or existing instance of MongoServer.
             </returns>
         </member>
+        <member name="M:MongoDB.Driver.MongoServer.GetAllServers">
+            <summary>
+            Gets an array containing a snapshot of the set of all servers that have been created so far.
+            </summary>
+            <returns>An array containing a snapshot of the set of all servers that have been created so far.</returns>
+        </member>
         <member name="M:MongoDB.Driver.MongoServer.UnregisterAllServers">
             <summary>
             Unregisters all servers from the dictionary used by Create to remember which servers have already been created.
@@ -6662,6 +7457,14 @@
             <param name="databaseName">The name of the database.</param>
             <returns>True if the database exists.</returns>
         </member>
+        <member name="M:MongoDB.Driver.MongoServer.DatabaseExists(System.String,MongoDB.Driver.MongoCredentials)">
+            <summary>
+            Tests whether a database exists.
+            </summary>
+            <param name="databaseName">The name of the database.</param>
+            <param name="adminCredentials">Credentials for the admin database.</param>
+            <returns>True if the database exists.</returns>
+        </member>
         <member name="M:MongoDB.Driver.MongoServer.Disconnect">
             <summary>
             Disconnects from the server. Normally there is no need to call this method so
@@ -6673,6 +7476,14 @@
             Drops a database.
             </summary>
             <param name="databaseName">The name of the database to be dropped.</param>
+            <returns>A <see cref="T:MongoDB.Driver.CommandResult"/>.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoServer.DropDatabase(System.String,MongoDB.Driver.MongoCredentials)">
+            <summary>
+            Drops a database.
+            </summary>
+            <param name="databaseName">The name of the database to be dropped.</param>
+            <param name="credentials">Credentials for the database to be dropped (or admin credentials).</param>
             <returns>A <see cref="T:MongoDB.Driver.CommandResult"/>.</returns>
         </member>
         <member name="M:MongoDB.Driver.MongoServer.FetchDBRef(MongoDB.Driver.MongoDBRef)">
@@ -6697,31 +7508,6 @@
             <param name="documentType">The nominal type of the document to fetch.</param>
             <param name="dbRef">The <see cref="T:MongoDB.Driver.MongoDBRef"/> to fetch.</param>
             <returns>The document (or null if the document was not found).</returns>
-        </member>
-        <member name="M:MongoDB.Driver.MongoServer.GetAdminDatabase(MongoDB.Driver.MongoCredentials)">
-            <summary>
-            Gets a MongoDatabase instance representing the admin database on this server. Only one instance
-            is created for each combination of database settings.
-            </summary>
-            <param name="credentials">The credentials to use with the admin database.</param>
-            <returns>A new or existing instance of MongoDatabase.</returns>
-        </member>
-        <member name="M:MongoDB.Driver.MongoServer.GetAdminDatabase(MongoDB.Driver.MongoCredentials,MongoDB.Driver.SafeMode)">
-            <summary>
-            Gets a MongoDatabase instance representing the admin database on this server. Only one instance
-            is created for each combination of database settings.
-            </summary>
-            <param name="credentials">The credentials to use with the admin database.</param>
-            <param name="safeMode">The safe mode to use with the admin database.</param>
-            <returns>A new or existing instance of MongoDatabase.</returns>
-        </member>
-        <member name="M:MongoDB.Driver.MongoServer.GetAdminDatabase(MongoDB.Driver.SafeMode)">
-            <summary>
-            Gets a MongoDatabase instance representing the admin database on this server. Only one instance
-            is created for each combination of database settings.
-            </summary>
-            <param name="safeMode">The safe mode to use with the admin database.</param>
-            <returns>A new or existing instance of MongoDatabase.</returns>
         </member>
         <member name="M:MongoDB.Driver.MongoServer.GetDatabase(MongoDB.Driver.MongoDatabaseSettings)">
             <summary>
@@ -6773,10 +7559,24 @@
             </summary>
             <returns>A list of database names.</returns>
         </member>
+        <member name="M:MongoDB.Driver.MongoServer.GetDatabaseNames(MongoDB.Driver.MongoCredentials)">
+            <summary>
+            Gets the names of the databases on this server.
+            </summary>
+            <param name="adminCredentials">Credentials for the admin database.</param>
+            <returns>A list of database names.</returns>
+        </member>
         <member name="M:MongoDB.Driver.MongoServer.GetLastError">
             <summary>
             Gets the last error (if any) that occurred on this connection. You MUST be within a RequestStart to call this method.
             </summary>
+            <returns>The last error (<see cref="T:MongoDB.Driver.GetLastErrorResult"/>)</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoServer.GetLastError(MongoDB.Driver.MongoCredentials)">
+            <summary>
+            Gets the last error (if any) that occurred on this connection. You MUST be within a RequestStart to call this method.
+            </summary>
+            <param name="adminCredentials">Credentials for the admin database.</param>
             <returns>The last error (<see cref="T:MongoDB.Driver.GetLastErrorResult"/>)</returns>
         </member>
         <member name="M:MongoDB.Driver.MongoServer.Ping">
@@ -6816,6 +7616,16 @@
             <param name="slaveOk">Whether queries should be sent to secondary servers.</param>
             <returns>A helper object that implements IDisposable and calls <see cref="M:MongoDB.Driver.MongoServer.RequestDone"/> from the Dispose method.</returns>
         </member>
+        <member name="M:MongoDB.Driver.MongoServer.RequestStart(MongoDB.Driver.MongoDatabase,MongoDB.Driver.MongoServerInstance)">
+            <summary>
+            Lets the server know that this thread is about to begin a series of related operations that must all occur
+            on the same connection. The return value of this method implements IDisposable and can be placed in a
+            using statement (in which case RequestDone will be called automatically when leaving the using statement).
+            </summary>
+            <param name="initialDatabase">One of the databases involved in the related operations.</param>
+            <param name="serverInstance">The server instance this request should be tied to.</param>
+            <returns>A helper object that implements IDisposable and calls <see cref="M:MongoDB.Driver.MongoServer.RequestDone"/> from the Dispose method.</returns>
+        </member>
         <member name="M:MongoDB.Driver.MongoServer.ResetIndexCache">
             <summary>
             Removes all entries in the index cache used by EnsureIndex. Call this method
@@ -6823,56 +7633,16 @@
             more indexes.
             </summary>
         </member>
-        <member name="M:MongoDB.Driver.MongoServer.RunAdminCommand(MongoDB.Driver.IMongoCommand)">
-            <summary>
-            Runs a command on the admin database.
-            </summary>
-            <param name="command">The command to run.</param>
-            <returns>The result of the command (see <see cref="T:MongoDB.Driver.CommandResult"/>).</returns>
-        </member>
-        <member name="M:MongoDB.Driver.MongoServer.RunAdminCommand(System.String)">
-            <summary>
-            Runs a command on the admin database.
-            </summary>
-            <param name="commandName">The name of the command to run.</param>
-            <returns>The result of the command (as a <see cref="T:MongoDB.Driver.CommandResult"/>).</returns>
-        </member>
-        <member name="M:MongoDB.Driver.MongoServer.RunAdminCommandAs``1(MongoDB.Driver.IMongoCommand)">
-            <summary>
-            Runs a command on the admin database.
-            </summary>
-            <typeparam name="TCommandResult">The type to use for the command result.</typeparam>
-            <param name="command">The command to run.</param>
-            <returns>The result of the command (as a <typeparamref name="TCommandResult"/>).</returns>
-        </member>
-        <member name="M:MongoDB.Driver.MongoServer.RunAdminCommandAs``1(System.String)">
-            <summary>
-            Runs a command on the admin database.
-            </summary>
-            <typeparam name="TCommandResult">The type to use for the command result.</typeparam>
-            <param name="commandName">The name of the command to run.</param>
-            <returns>The result of the command (as a <typeparamref name="TCommandResult"/>).</returns>
-        </member>
-        <member name="M:MongoDB.Driver.MongoServer.RunAdminCommandAs(System.Type,MongoDB.Driver.IMongoCommand)">
-            <summary>
-            Runs a command on the admin database.
-            </summary>
-            <param name="commandResultType">The type to use for the command result.</param>
-            <param name="command">The command to run.</param>
-            <returns>The result of the command.</returns>
-        </member>
-        <member name="M:MongoDB.Driver.MongoServer.RunAdminCommandAs(System.Type,System.String)">
-            <summary>
-            Runs a command on the admin database.
-            </summary>
-            <param name="commandResultType">The type to use for the command result.</param>
-            <param name="commandName">The name of the command to run.</param>
-            <returns>The result of the command.</returns>
-        </member>
         <member name="M:MongoDB.Driver.MongoServer.Shutdown">
             <summary>
             Shuts down the server.
             </summary>
+        </member>
+        <member name="M:MongoDB.Driver.MongoServer.Shutdown(MongoDB.Driver.MongoCredentials)">
+            <summary>
+            Shuts down the server.
+            </summary>
+            <param name="adminCredentials">Credentials for the admin database.</param>
         </member>
         <member name="M:MongoDB.Driver.MongoServer.VerifyState">
             <summary>
@@ -6887,11 +7657,6 @@
         <member name="P:MongoDB.Driver.MongoServer.ServerCount">
             <summary>
             Gets the number of instances of MongoServer that have been created.
-            </summary>
-        </member>
-        <member name="P:MongoDB.Driver.MongoServer.AdminDatabase">
-            <summary>
-            Gets the admin database for this server.
             </summary>
         </member>
         <member name="P:MongoDB.Driver.MongoServer.Arbiters">
@@ -7012,6 +7777,38 @@
             <param name="databaseName">The name of the database.</param>
             <param name="safeMode">The safe mode to use with this database.</param>
             <returns>A new or existing instance of MongoDatabase.</returns>
+        </member>
+        <member name="T:MongoDB.Driver.Linq.MongoQueryable`1">
+            <summary>
+            An implementation of IQueryable{{T}} for querying a MongoDB collection.
+            This class has been named MongoQueryable instead of MongoQuery to avoid confusion with IMongoQuery.
+            </summary>
+            <typeparam name="T">The type of the documents being queried.</typeparam>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.MongoQueryable`1.#ctor(MongoDB.Driver.Linq.MongoQueryProvider)">
+            <summary>
+            Initializes a new instance of the MongoQueryable class.
+            </summary>
+            <param name="provider">The query provider.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.MongoQueryable`1.#ctor(MongoDB.Driver.Linq.MongoQueryProvider,System.Linq.Expressions.Expression)">
+            <summary>
+            Initializes a new instance of the MongoQueryable class.
+            </summary>
+            <param name="provider">The query provider.</param>
+            <param name="expression">The expression.</param>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.MongoQueryable`1.GetEnumerator">
+            <summary>
+            Gets an enumerator for the results of a MongoDB LINQ query.
+            </summary>
+            <returns>An enumerator for the results of a MongoDB LINQ query.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.MongoQueryable`1.GetMongoQuery">
+            <summary>
+            Gets the MongoDB query that will be sent to the server when this LINQ query is executed.
+            </summary>
+            <returns>The MongoDB query.</returns>
         </member>
         <member name="T:MongoDB.Driver.SortByDocument">
             <summary>
@@ -7408,6 +8205,43 @@
             Disconnecting from the server (in progress).
             </summary>
         </member>
+        <member name="T:MongoDB.Driver.Linq.OrderByClause">
+            <summary>
+            Represents an order by clause.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.OrderByClause.#ctor(System.Linq.Expressions.LambdaExpression,MongoDB.Driver.Linq.OrderByDirection)">
+            <summary>
+            Initializes an instance of the OrderByClause class.
+            </summary>
+            <param name="key">An expression identifying the key of the order by clause.</param>
+            <param name="direction">The direction of the order by clause.</param>
+        </member>
+        <member name="P:MongoDB.Driver.Linq.OrderByClause.Key">
+            <summary>
+            Gets the lambda expression identifying the key of the order by clause.
+            </summary>
+        </member>
+        <member name="P:MongoDB.Driver.Linq.OrderByClause.Direction">
+            <summary>
+            Gets the direction of the order by clause.
+            </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Linq.OrderByDirection">
+            <summary>
+            Represents the direction of an order by clause.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Linq.OrderByDirection.Ascending">
+            <summary>
+            Ascending order.
+            </summary>
+        </member>
+        <member name="F:MongoDB.Driver.Linq.OrderByDirection.Descending">
+            <summary>
+            Descending order.
+            </summary>
+        </member>
         <member name="T:MongoDB.Driver.Internal.MongoConnectionState">
             <summary>
             Represents the state of a connection.
@@ -7622,6 +8456,215 @@
             <param name="name">The name of the element to add to the document.</param>
             <param name="value">The value of the element to add to the document.</param>
         </member>
+        <member name="T:MongoDB.Driver.Linq.ExpressionPrettyPrinter">
+            <summary>
+            A class that pretty prints an Expression.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.#ctor">
+            <summary>
+            Initializes a new instance of the ExpressionPrettyPrinter class.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.PrettyPrint(System.Linq.Expressions.Expression)">
+            <summary>
+            Pretty prints an Expression.
+            </summary>
+            <param name="node">The Expression to pretty print.</param>
+            <returns>A string containing the pretty printed Expression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.ToString">
+            <summary>
+            Returns the pretty printed string representation of the Expression.
+            </summary>
+            <returns>The pretty printed string representation of the Expression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitBinary(System.Linq.Expressions.BinaryExpression)">
+            <summary>
+            Visits a BinaryExpression.
+            </summary>
+            <param name="node">The BinaryExpression.</param>
+            <returns>The BinaryExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitConditional(System.Linq.Expressions.ConditionalExpression)">
+            <summary>
+            Visits a ConditionalExpression.
+            </summary>
+            <param name="node">The ConditionalExpression.</param>
+            <returns>The ConditionalExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitConstant(System.Linq.Expressions.ConstantExpression)">
+            <summary>
+            Visits a ConstantExpression.
+            </summary>
+            <param name="node">The ConstantExpression.</param>
+            <returns>The ConstantExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitElementInit(System.Linq.Expressions.ElementInit)">
+            <summary>
+            Visits an ElementInit node.
+            </summary>
+            <param name="node">The ElementInit node.</param>
+            <returns>The ElementInit node.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitElementInitList(System.Collections.ObjectModel.ReadOnlyCollection{System.Linq.Expressions.ElementInit})">
+            <summary>
+            Visits an ElementInit list.
+            </summary>
+            <param name="nodes">The ElementInit list.</param>
+            <returns>The ElementInit list.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitInvocation(System.Linq.Expressions.InvocationExpression)">
+            <summary>
+            Visits an InvocationExpression.
+            </summary>
+            <param name="node">The InvocationExpression.</param>
+            <returns>The InvocationExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitLambda(System.Linq.Expressions.LambdaExpression)">
+            <summary>
+            Visits a LambdaExpression.
+            </summary>
+            <param name="node">The LambdaExpression.</param>
+            <returns>The LambdaExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitListInit(System.Linq.Expressions.ListInitExpression)">
+            <summary>
+            Visits a ListInitExpression.
+            </summary>
+            <param name="node">The ListInitExpression.</param>
+            <returns>The ListInitExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitMember(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            Visits a MemberExpression.
+            </summary>
+            <param name="node">The MemberExpression.</param>
+            <returns>The MemberExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitMemberAssignment(System.Linq.Expressions.MemberAssignment)">
+            <summary>
+            Visits a MemberAssignment.
+            </summary>
+            <param name="node">The MemberAssignment.</param>
+            <returns>The MemberAssignment.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitMemberBinding(System.Linq.Expressions.MemberBinding)">
+            <summary>
+            Visits a MemberBinding.
+            </summary>
+            <param name="node">The MemberBinding.</param>
+            <returns>The MemberBinding (possibly modified).</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitMemberBindingList(System.Collections.ObjectModel.ReadOnlyCollection{System.Linq.Expressions.MemberBinding})">
+            <summary>
+            Visits a MemberBinding list.
+            </summary>
+            <param name="nodes">The MemberBinding list.</param>
+            <returns>The MemberBinding list.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitMemberInit(System.Linq.Expressions.MemberInitExpression)">
+            <summary>
+            Visits a MemberInitExpression.
+            </summary>
+            <param name="node">The MemberInitExpression.</param>
+            <returns>The MemberInitExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitMemberListBinding(System.Linq.Expressions.MemberListBinding)">
+            <summary>
+            Visits a MemberListBinding.
+            </summary>
+            <param name="node">The MemberListBinding.</param>
+            <returns>The MemberListBinding.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitMemberMemberBinding(System.Linq.Expressions.MemberMemberBinding)">
+            <summary>
+            Visits a MemberMemberBinding.
+            </summary>
+            <param name="node">The MemberMemberBinding.</param>
+            <returns>The MemberMemberBinding.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitMethodCall(System.Linq.Expressions.MethodCallExpression)">
+            <summary>
+            Visits a MethodCallExpression.
+            </summary>
+            <param name="node">The MethodCallExpression.</param>
+            <returns>The MethodCallExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitNew(System.Linq.Expressions.NewExpression)">
+            <summary>
+            Visits a NewExpression.
+            </summary>
+            <param name="node">The NewExpression.</param>
+            <returns>The NewExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitNewArray(System.Linq.Expressions.NewArrayExpression)">
+            <summary>
+            Visits a NewArrayExpression.
+            </summary>
+            <param name="node">The NewArrayExpression.</param>
+            <returns>The NewArrayExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitParameter(System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            Visits a ParameterExpression.
+            </summary>
+            <param name="node">The ParameterExpression.</param>
+            <returns>The ParameterExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitTypeBinary(System.Linq.Expressions.TypeBinaryExpression)">
+            <summary>
+            Visits a TypeBinaryExpression.
+            </summary>
+            <param name="node">The TypeBinaryExpression.</param>
+            <returns>The TypeBinaryExpression.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.ExpressionPrettyPrinter.VisitUnary(System.Linq.Expressions.UnaryExpression)">
+            <summary>
+            Visits a UnaryExpression.
+            </summary>
+            <param name="node">The UnaryExpression.</param>
+            <returns>The UnaryExpression.</returns>
+        </member>
+        <member name="T:MongoDB.Driver.Linq.LinqToMongo">
+            <summary>
+            This static class holds methods that can be used to express MongoDB specific query operations in LINQ queries.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.LinqToMongo.ContainsAll``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Determines whether a sequence contains all of the specified values.
+            </summary>
+            <typeparam name="TSource">The type of the elements of source.</typeparam>
+            <param name="source">A sequence in which to locate the values.</param>
+            <param name="values">The values to locate in the sequence.</param>
+            <returns>True if the sequence contains all of the specified values.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.LinqToMongo.ContainsAny``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Determines whether a sequence contains any of the specified values.
+            </summary>
+            <typeparam name="TSource">The type of the elements of source.</typeparam>
+            <param name="source">A sequence in which to locate the values.</param>
+            <param name="values">The values to locate in the sequence.</param>
+            <returns>True if the sequence contains any of the specified values.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.LinqToMongo.In``1(``0,System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Determines whether a specified value is contained in a sequence.
+            </summary>
+            <typeparam name="TSource">The type of the elements of source.</typeparam>
+            <param name="value">The value to locate in the sequence.</param>
+            <param name="source">A sequence in which to locate the values.</param>
+            <returns>True if the value is contained in the sequence.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.LinqToMongo.Inject(MongoDB.Driver.IMongoQuery)">
+            <summary>
+            Injects a low level IMongoQuery into a LINQ where clause. Can only be used in LINQ queries.
+            </summary>
+            <param name="query">The low level query.</param>
+            <returns>Throws an InvalidOperationException if called.</returns>
+        </member>
         <member name="T:MongoDB.Driver.IndexKeysDocument">
             <summary>
             Represents a BSON document that can be used where an IMongoIndexKeys is expected.
@@ -7723,6 +8766,30 @@
             <param name="passwordHash">The password hash.</param>
             <param name="isReadOnly">Whether the user has read-only access.</param>
         </member>
+        <member name="M:MongoDB.Driver.MongoUser.op_Inequality(MongoDB.Driver.MongoUser,MongoDB.Driver.MongoUser)">
+            <summary>
+            Determines whether two specified MongoUser objects have different values.
+            </summary>
+            <param name="lhs">The first value to compare, or null.</param>
+            <param name="rhs">The second value to compare, or null.</param>
+            <returns>True if the value of lhs is different from the value of rhs; otherwise, false.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoUser.op_Equality(MongoDB.Driver.MongoUser,MongoDB.Driver.MongoUser)">
+            <summary>
+            Determines whether two specified MongoUser objects have the same value.
+            </summary>
+            <param name="lhs">The first value to compare, or null.</param>
+            <param name="rhs">The second value to compare, or null.</param>
+            <returns>True if the value of lhs is the same as the value of rhs; otherwise, false.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoUser.Equals(MongoDB.Driver.MongoUser,MongoDB.Driver.MongoUser)">
+            <summary>
+            Determines whether two specified MongoUser objects have the same value.
+            </summary>
+            <param name="lhs">The first value to compare, or null.</param>
+            <param name="rhs">The second value to compare, or null.</param>
+            <returns>True if the value of lhs is the same as the value of rhs; otherwise, false.</returns>
+        </member>
         <member name="M:MongoDB.Driver.MongoUser.HashPassword(System.String,System.String)">
             <summary>
             Calculates the password hash.
@@ -7730,6 +8797,26 @@
             <param name="username">The username.</param>
             <param name="password">The password.</param>
             <returns>The password hash.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoUser.Equals(MongoDB.Driver.MongoUser)">
+            <summary>
+            Determines whether this instance and another specified MongoUser object have the same value.
+            </summary>
+            <param name="rhs">The MongoUser object to compare to this instance.</param>
+            <returns>True if the value of the rhs parameter is the same as this instance; otherwise, false.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoUser.Equals(System.Object)">
+            <summary>
+            Determines whether this instance and a specified object, which must also be a MongoUser object, have the same value.
+            </summary>
+            <param name="obj">The MongoUser object to compare to this instance.</param>
+            <returns>True if obj is a MongoUser object and its value is the same as this instance; otherwise, false.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.MongoUser.GetHashCode">
+            <summary>
+            Returns the hash code for this Class1 object.
+            </summary>
+            <returns>A 32-bit signed integer hash code.</returns>
         </member>
         <member name="M:MongoDB.Driver.MongoUser.ToString">
             <summary>
@@ -8370,6 +9457,11 @@
             Represents the options to use for an Insert or InsertBatch operation.
             </summary>
         </member>
+        <member name="M:MongoDB.Driver.MongoInsertOptions.#ctor">
+            <summary>
+            Initializes a new instance of the MongoInsertOptions class.
+            </summary>
+        </member>
         <member name="M:MongoDB.Driver.MongoInsertOptions.#ctor(MongoDB.Driver.MongoCollection)">
             <summary>
             Initializes a new instance of the MongoInsertOptions class.
@@ -8727,6 +9819,26 @@
             <summary>
             Gets the wait queue timeout.
             </summary>
+        </member>
+        <member name="T:MongoDB.Driver.Linq.MongoQueryTranslator">
+            <summary>
+            A translator from LINQ expression queries to Mongo queries.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.MongoQueryTranslator.Translate(System.Linq.IQueryable)">
+            <summary>
+            Translate a MongoDB LINQ query.
+            </summary>
+            <param name="query">The MongoDB LINQ query.</param>
+            <returns>A TranslatedQuery.</returns>
+        </member>
+        <member name="M:MongoDB.Driver.Linq.MongoQueryTranslator.Translate(MongoDB.Driver.Linq.MongoQueryProvider,System.Linq.Expressions.Expression)">
+            <summary>
+            Translate a MongoDB LINQ query.
+            </summary>
+            <param name="provider">The MongoDB query provider.</param>
+            <param name="expression">The LINQ query expression.</param>
+            <returns>A TranslatedQuery.</returns>
         </member>
         <member name="T:MongoDB.Driver.Wrappers.CommandWrapper">
             <summary>

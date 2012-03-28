@@ -22,7 +22,7 @@
                 var result = HttpUtility.UrlDecode(Request.InputStream.AsString());
                 var submission = new SubmissionModel(HttpUtility.ParseQueryString(result), Request.UserHostAddress);
                 (new Repository()).Add(submission);
-            });
+            }, TaskCreationOptions.LongRunning);
             
             return new HttpStatusCodeResult(200);
         }
