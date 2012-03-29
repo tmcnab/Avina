@@ -1,0 +1,57 @@
+﻿@(Layout = null)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avina - Powered by You</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-responsive.css" rel="stylesheet" type="text/css" media="media screen and (max-device-width : 768px)" />
+    <style>
+        
+        footer {
+            position:absolute;
+            bottom:0;
+            width:100%;
+            height:30px;
+            color:#BBB;
+            text-align:center;
+        }
+        
+        footer a {
+            color:#BBB;
+        }
+        
+        #content {
+            margin-top:300px;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="content" class="row">
+            <form method="post" class="span8 offset2" style="text-align:center" action="/">
+                <input class="input-xxlarge" type="search" id="q" name="q" autofocus="true" x-webkit-speech onwebkitspeechchange="document.forms[0].submit();" spellcheck="true" placeholder="Search Avina" />
+                <br />
+                <input class="btn" type="submit" value="Search" />
+                <a href="/LearnMore" class="btn">Learn More</a>
+            </form>
+        </div>
+    </div>
+    <footer>
+        Avina is a <a tabindex="-1" href="http://seditious-tech.com/">Seditious Technologies</a> Experiment. Hosted by <a tabindex="-1" href="http://appharbor.com">AppHarbor</a>.
+    </footer>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-30310300-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function (){
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</body>
+</html>

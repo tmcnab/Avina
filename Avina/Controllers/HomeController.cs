@@ -9,6 +9,12 @@
     {
         Repository repository = new Repository();
 
+        public ActionResult Index()
+        {
+            return View("Landing");
+        }
+
+        [HttpPost]
         public ActionResult Index(string q)
         {
             if (q.IsNullEmptyOrWhitespace())
@@ -19,6 +25,15 @@
             {
                 return RedirectToAction("Index", "Search", new { q = q });
             }
+        }
+
+        public ActionResult Index2(string q)
+        {
+            if (!q.IsNullEmptyOrWhitespace())
+            {
+                ViewBag.SearchTerms = q;
+            }
+            return View("Index");
         }
 
         public ActionResult DataTables(DataTableParameterModel model)

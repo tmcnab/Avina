@@ -1,0 +1,92 @@
+﻿@(Layout = null)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avina - Powered by You</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-responsive.css" rel="stylesheet" type="text/css" media="media screen and (max-device-width : 768px)" />
+    <style>
+        footer {
+            position:absolute;
+            bottom:0;
+            width:100%;
+            height:30px;
+            color:#BBB;
+            text-align:center;
+        }
+        
+        footer a {
+            color:#BBB;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>About Avina <small>(<a href="/">Home</a>)</small></h1>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <h4>Another search engine?</h4>
+                <p>Avina is a different kind of search engine. We don't crawl the web for every web page that has ever existed.
+                   Results that are added to search engine are from users who have installed the 
+                   <a data-dismiss="modal" data-toggle="modal" href="#ExtensionsModal">Browser extension</a>. So if someone
+                    has seen a web page, it's searchable from within Avina.</p>
+                <hr />
+            </div>
+            <div class="span6">
+                <h4>What does this mean?</h4>
+                <ul>
+                    <li>If it's in Avina, a real <em>human user</em> has viewed the page</li>
+                    <li>The more <span class="badge badge-success">clicks</span> a page has, the more useful it has been to people searching for stuff</li>
+                    <li>The more <span class="badge badge-info">submits</span> a page has, the more people have visited it from their browser</li>
+                </ul>
+                <hr />
+            </div>
+            <div class="span6">
+                <h4>How can I help?</h4>
+                <p>The easiest thing you can do is install one of our browser extensions. Anywhere you go on the web, you send us a little chunk of
+                   data that tells us the website, how you got to it (referrer). At any time you can disable or remove this extension, and our extensions
+                   do not log you while in a positive privacy environment (Incognito).</p>
+                <hr />
+            </div>
+            <div class="span6">
+                <h4>What about Google?</h4>
+                <p>Google has it's place as a comprehensive, exacting search engine and it does this through 
+                <abbr title="Crawling is the process of trying to find each and every web site through brute force">crawling</abbr> the web. 
+                Anywhere from zero to millions of people will have viewed a result in their index. </p>
+                <hr />
+            </div>
+            <div class="span6">
+                <h4>How do you make money?</h4>
+                <p>We're not making any money right now. In the future, the only money that can be made is that which does not subtract any rights from
+                   users who share data with us voluntarily or involuntarily.</p>
+                <hr />
+            </div>
+            <div class="span6">
+                <h4>What about privacy?</h4>
+                <p>We do not track you, record your searches or collect uniquely identifying information. 
+                   We do use Google Analytics for the purposes of feedback. We do not nd will not give this
+                   information to any third party.</p>
+                <hr />
+            </div>
+        </div>
+    </div>
+    <footer>
+        Avina is a <a tabindex="-1" href="http://seditious-tech.com/">Seditious Technologies</a> Experiment. Hosted by <a tabindex="-1" href="http://appharbor.com">AppHarbor</a>.
+    </footer>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-30310300-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</body>
+</html>

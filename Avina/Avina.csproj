@@ -140,9 +140,10 @@
     <Compile Include="Controllers\Attributes\AllowCORSAttribute.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IsotopeController.cs" />
+    <Compile Include="Controllers\LearnMoreController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SubmitController.cs" />
+    <Compile Include="Extensions\HtmlHelpers.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringHelper.cs" />
     <Compile Include="Global.asax.cs">
@@ -162,7 +163,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap.datatables.css" />
-    <Content Include="Content\css\jquery.isotope.css" />
     <Content Include="Content\files\avina.safariextz">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -197,7 +197,6 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\acp.js" />
     <Content Include="Scripts\datatables.setFilteringDisplay.js" />
-    <Content Include="Scripts\jquery.hotkeys.min.js" />
     <Content Include="Scripts\jquery.hotkeys.js" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\bootstrap.datatables.js" />
@@ -244,7 +243,6 @@
     <Content Include="Scripts\DataTables-1.9.0\media\js\jquery.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
-    <Content Include="Scripts\jquery.isotope.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -270,7 +268,9 @@
     <Content Include="Views\Shared\AboutModal.cshtml" />
     <Content Include="Views\ACP\ViewIndex.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Isotope\Index.cshtml" />
+    <Content Include="Views\Home\Landing.cshtml" />
+    <Content Include="Views\LearnMore\Index.cshtml" />
+    <Content Include="Views\Search\OldIndex.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
