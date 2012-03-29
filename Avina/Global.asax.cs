@@ -28,7 +28,7 @@
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Search", action = "Index", id = UrlParameter.Optional }
             );
         }
 
@@ -42,8 +42,9 @@
             BundleTable.Bundles.RegisterTemplateBundles();
             ModelBinders.Binders.Add(typeof(DataTableParameterModel), new DataTableParameterModelBinder());
 
-            // Clean the DB
+            // Clean the DB, Rebuild the Index
             new Repository().ApplyFiltersRetro();
+            InvertedIndex.Rebuild();
         }
 
         protected void Application_End()

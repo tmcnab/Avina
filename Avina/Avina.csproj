@@ -268,7 +268,7 @@
     <Content Include="Views\Shared\AboutModal.cshtml" />
     <Content Include="Views\ACP\ViewIndex.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Home\Landing.cshtml" />
+    <Content Include="Views\Search\Landing.cshtml" />
     <Content Include="Views\LearnMore\Index.cshtml" />
     <Content Include="Views\Search\OldIndex.cshtml" />
   </ItemGroup>

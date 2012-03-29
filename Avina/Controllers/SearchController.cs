@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Avina.Models;
+    using Avina.Extensions;
     using System.Linq;
     
     public class SearchController : Controller
@@ -11,11 +12,16 @@
 
         public ActionResult Index(string q)
         {
-            ViewBag.SearchTerm = q ?? string.Empty;
+            if (q.IsNullEmptyOrWhitespace())
+            {
+                return View("Landing");
+            }
+
+            ViewBag.SearchTerm = q;
             return View(repository.Search(q));
         }
 
-        // This whole thing coul be refactored
+        // This whole thing could be refactored
         public ActionResult Ajax(DataTableParameterModel model)
         {
             long nRecords = 0;
@@ -38,7 +44,5 @@
                 aaData = aaData.ToArray()
             }, JsonRequestBehavior.AllowGet);
         }
-
-
     }
 }
