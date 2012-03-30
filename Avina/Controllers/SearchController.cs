@@ -3,10 +3,13 @@
     using System.Web.Mvc;
     using Avina.Extensions;
     using Avina.Models;
+    using System.Diagnostics;
 
+    /// <summary>
+    /// The landing page / results page controller
+    /// </summary>
     public class SearchController : Controller
     {
-        Repository repository = new Repository();
         Index searchIndex = new Index();
 
         public ActionResult Index(string q)

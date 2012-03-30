@@ -139,11 +139,9 @@
     <Compile Include="Controllers\ACPController.cs" />
     <Compile Include="Controllers\Attributes\AllowCORSAttribute.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LearnMoreController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SubmitController.cs" />
-    <Compile Include="Controllers\ExperimentSubmitController.cs" />
     <Compile Include="Extensions\HtmlHelpers.cs" />
     <Compile Include="Extensions\HttpRequestMessageHelpers.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
@@ -151,24 +149,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataTableParameterModel.cs" />
-    <Compile Include="Models\DataTableParameterModelBinder.cs" />
     <Compile Include="Models\ForwardIndex.cs" />
     <Compile Include="Models\Index.cs" />
     <Compile Include="Models\InvertedIndex.cs" />
-    <Compile Include="Models\Repository.cs" />
     <Compile Include="Models\Requests\SiteSubmission.cs" />
     <Compile Include="Models\Search\InvertedIndexModel.cs" />
-    <Compile Include="Models\SiteRecord.cs" />
-    <Compile Include="Models\SubmissionModel.cs" />
+    <Compile Include="Models\Search\SiteRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap-responsive.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\bootstrap-responsive.css" />
+    <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.datatables.css" />
+    <Content Include="Content\css\Views\Search\Landing.css" />
     <Content Include="Content\css\Views\Search\Index.css" />
     <Content Include="Content\files\avina.safariextz">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -263,7 +256,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />

@@ -38,7 +38,6 @@
             RegisterRoutes(RouteTable.Routes);
 
             BundleTable.Bundles.RegisterTemplateBundles();
-            ModelBinders.Binders.Add(typeof(DataTableParameterModel), new DataTableParameterModelBinder());
 
             // Start the Forward Index background processing loop
             ForwardIndex.Start();

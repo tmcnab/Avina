@@ -9,6 +9,7 @@
     using System.Threading.Tasks;
     using Avina.Extensions;
     using Avina.Models.Requests;
+    using Avina.Models.Search;
     using HtmlAgilityPack;
     using MongoDB.Driver;
     using MongoDB.Driver.Builders;
@@ -74,6 +75,21 @@
                     collection.Save(record);
                 }
             });
+        }
+
+        /// <summary>
+        /// Removes a URL from the Forward Index
+        /// </summary>
+        /// <param name="url">The verbatim URL to remove from the index</param>
+        public static void Remove(string url)
+        {
+            try
+            {
+                MongoDatabase.Create(ConfigurationManager.AppSettings.Get("MONGOLAB_URI"))
+                             .GetCollection<SiteRecord>("UrlList")
+                             .Remove(Query.EQ("url", url));
+            }
+            catch { }
         }
 
         private static void Process()

@@ -2,7 +2,9 @@
 
 $('#removeListingForm').submit(function (e) {
     e.preventDefault();
-    $.post('/ACP/DeleteUrl', $('#removeListingUrl').val(), function (stat) {
+    $.post('/ACP/DeleteUrl', {
+        url: $('#removeListingUrl').val()
+    }, function (stat) {
         if (stat) {
             $('#removeListingUrl').attr('placeholder', 'Url Deleted').val('');
         }

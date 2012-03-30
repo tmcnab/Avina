@@ -1,16 +1,12 @@
 ﻿namespace Avina.Controllers
 {
-    using System.Diagnostics;
     using System.Threading.Tasks;
     using System.Web.Mvc;
-    using Avina.Extensions;
     using Avina.Models;
 
     [Authorize(Users = "tristan@seditious-tech.com")]
     public class ACPController : Controller
     {
-        Repository repository = new Repository();
-
         public ActionResult Index()
         {
             return View();
@@ -24,25 +20,16 @@
         #region Ajax Handlers
 
         [HttpPost]
-        public ActionResult DeleteUrl()
+        public ActionResult DeleteUrl(string url)
         {
-            var url = Request.InputStream.AsString();
-            Debug.WriteLine(url);
-            repository.Remove(url);
-            return Json(true);
-        }
-
-        [HttpPost]
-        public ActionResult PurgeWithFilters()
-        {
-            repository.ApplyFiltersRetro();
+            ForwardIndex.Remove(url);
             return Json(true);
         }
 
         [HttpGet]
         public ActionResult FiltersGet()
         {
-            return Json(SubmissionModel.RegexFilters, JsonRequestBehavior.AllowGet);
+            return Json(ForwardIndex.UrlFilters, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

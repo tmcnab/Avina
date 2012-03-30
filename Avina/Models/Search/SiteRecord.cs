@@ -1,4 +1,4 @@
-﻿namespace Avina.Models
+﻿namespace Avina.Models.Search
 {
     using System;
     using System.Collections.Generic;
