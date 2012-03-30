@@ -15,6 +15,8 @@ $('a[rel="popover"]').popover({
     placement: 'left'
 });
 
+$('button[data-toggle="dropdown"]').dropdown();
+
 $('a[data-type="url"]').click(function (e) {
     e.preventDefault();
     $.ajax({

@@ -10,13 +10,14 @@
     <link href="~/Content/css/Views/Search/Index.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <form method="get" action="/" class="form-inline well">
             <div class="control-group">
                 <div class="controls">
                     <div class="input-append">
-                        <input class="input-xxlarge" value="@ViewBag.SearchTerm" type="search" id="q" name="q" autofocus="true" x-webkit-speech onwebkitspeechchange="document.forms[0].submit();" spellcheck="true" placeholder="Search Avina" /><input tabindex="-1" class="btn" type="submit" value="Search" />
+                        <input class="input-xxlarge" value="@ViewBag.SearchTerm" type="search" id="q" name="q" spellcheck="true" x-webkit-speech onwebkitspeechchange="document.forms[0].submit();" placeholder="Search Avina" /><input tabindex="-1" class="btn" type="submit" value="Search" />
                     </div>
+                    <a class="btn"> More</a>
                 </div>
             </div>
         </form>
