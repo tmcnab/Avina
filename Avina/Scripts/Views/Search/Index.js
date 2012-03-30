@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="../../jquery-1.7.1-vsdoc.js" />
+
 $('#T_Results').dataTable({
     "sPaginationType": "bootstrap",
     "bLengthChange": false,
@@ -12,6 +13,19 @@ $('#T_Results').dataTable({
 
 $('a[rel="popover"]').popover({
     placement: 'left'
+});
+
+$('a[data-type="url"]').click(function (e) {
+    e.preventDefault();
+    $.ajax({
+        url: '/submit/click',
+        async: false,
+        type: 'POST',
+        data: {
+            url: $(this).attr('href')
+        }
+    });
+    window.location = $(this).attr('href');
 });
 
 $('a[data-type="url"]').on('focus', function (e) {

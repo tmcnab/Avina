@@ -7,64 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Avina - Powered by You</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
-    <style>
-        td {
-            border-radius:5px;
-            padding:3px;
-        }
-        footer {
-            position:absolute;
-            bottom:0;
-            width:100%;
-            height:30px;
-            color:#BBB;
-            text-align:center;
-        }
-        
-        footer a {
-            color:#BBB;
-        }
-        
-        .record-footer {
-            font-size:smaller;
-            color:#AAA;
-        }
-        
-        .record-url {
-            font-size:smaller;
-            color:Green;
-        }
-        
-        .highlighted {
-            background-color:Aqua;
-        }
-        
-        #T_Results {
-            margin-left:0;
-        }
-        
-        form.well {
-            border-top-left-radius:0;
-            border-top-right-radius:0;
-        }
-        
-        .control-group {
-            margin-bottom:0;
-        }
-        
-        a.thumbnail {
-            text-align:center;
-        }
-        
-        a.thumbnail:hover {
-            text-decoration:none;
-        }
-        
-        .dataTables_info {
-            padding-top:36px;
-            color:#888;
-        }
-    </style>
+    <link href="~/Content/css/Views/Search/Index.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div class="container">
@@ -122,16 +65,6 @@
     <script src="~/Scripts/bootstrap.datatables.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery.hotkeys.js" type="text/javascript"></script>
     <script src="~/Scripts/Views/Search/Index.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-30310300-1']);
-        _gaq.push(['_trackPageview']);
-
-        (function () {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
+    <script src="~/Scripts/Utils/analytics.js" type="text/javascript" ></script>
 </body>
 </html>

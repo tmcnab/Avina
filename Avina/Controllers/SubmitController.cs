@@ -21,7 +21,7 @@
             ForwardIndex.Add(new SiteSubmission(model.url, model.referrer, Request.UserHostAddress));
             
             #if DEBUG
-            Debug.WriteLine(string.Format("POST/api/submit:\t{0}\t{1}", model.url, model.referrer));
+            Debug.WriteLine(string.Format("POST/submit:\t{0}\t{1}", model.url, model.referrer));
             #endif
 
             return new HttpStatusCodeResult(200);
@@ -39,12 +39,13 @@
         /// the link has been click by an Avina user.
         /// </summary>
         [HttpPost]
-        public ActionResult Click()
+        public ActionResult Click(string url)
         {
-            Task.Factory.StartNew(() =>
-            {
-                (new Repository()).IncrementClick(Request.InputStream.AsString());
-            });
+            ForwardIndex.AddClick(url);
+
+            #if DEBUG
+            Debug.WriteLine(string.Format("POST/submit/click:\t{0}", url));
+            #endif
 
             return new HttpStatusCodeResult(200);
         }

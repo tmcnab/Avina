@@ -58,6 +58,24 @@
             ForwardIndex.ProcessingQueue.Enqueue(model);
         }
 
+        public static void AddClick(string url)
+        {
+            if (url.IsNullEmptyOrWhitespace()) return;
+
+            Task.Factory.StartNew(() =>
+            {
+                var database = MongoDatabase.Create(ConfigurationManager.AppSettings.Get("MONGOLAB_URI"));
+                var collection = database.GetCollection<SiteRecord>("UrlList");
+                var record = collection.FindOne(Query.EQ("url", url));
+
+                if (record != null)
+                {
+                    record.hits += 1;
+                    collection.Save(record);
+                }
+            });
+        }
+
         private static void Process()
         {
             while (ForwardIndex.IsProcessing)

@@ -169,6 +169,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap.datatables.css" />
+    <Content Include="Content\css\Views\Search\Index.css" />
     <Content Include="Content\files\avina.safariextz">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -178,7 +179,6 @@
     <None Include="Content\extensions\chrome\manifest.json" />
     <Content Include="Content\extensions\chrome\bg.html" />
     <Content Include="Content\extensions\chrome\avina.js" />
-    <Content Include="Content\extensions\chrome\icon.png" />
     <Content Include="Content\extensions\chrome\zepto.min.js" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\back_disabled.png" />
@@ -254,6 +254,7 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\Utils\analytics.js" />
     <Content Include="Scripts\Views\Search\Index.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
