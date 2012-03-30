@@ -29,7 +29,7 @@
                 {
                 <tr><td>
                     <h3><a data-type="url" href="@record.url">@record.title</a></h3>
-                    <div>@record.textPreview</div>
+                    <div>@Html.Encode(record.textPreview)</div>
                     <div class="record-url">@record.url.ToLowerInvariant()</div>
                     <div class="record-footer">First Submitted @record.submitted.ToShortTimeString() @record.submitted.ToLongDateString() &mdash; @record.hits Hits &mdash; @record.duplicates Submissions</div>
                 </td></tr>
