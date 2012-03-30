@@ -3,12 +3,12 @@
 $('#T_Results').dataTable({
     "sPaginationType": "bootstrap",
     "bLengthChange": false,
-    "iDisplayLength": 5,
+    "iDisplayLength": 10,
     "bFilter": false,
     "bSort":false,
-    "sDom": "<'row'<'span5'l><'span5'f>r>t<'row'<'span5'i><'span5'p>>"
+    "sDom": "<'row'<'span4'l><'span4'f>r>t<'row'<'span4'i><'span4'p>>"
 }).parent()
-          .addClass('span10')
+          .addClass('span9')
           .css('margin-left', 0);
 
 $('a[rel="popover"]').popover({

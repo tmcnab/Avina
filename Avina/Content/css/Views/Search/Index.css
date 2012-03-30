@@ -33,9 +33,13 @@ footer a {
             
 }
         
-form.well {
+#mainHeader {
     border-top-left-radius:0;
     border-top-right-radius:0;
+}
+
+#mainHeader form {
+    margin-bottom:0;
 }
         
 .control-group {
