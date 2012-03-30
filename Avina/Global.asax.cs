@@ -5,8 +5,6 @@
     using System.Web.Optimization;
     using System.Web.Routing;
     using Avina.Models;
-    using System.Diagnostics;
-    using System.Reflection;
 
     public class WebApiApplication : System.Web.HttpApplication
     {
@@ -42,15 +40,14 @@
             BundleTable.Bundles.RegisterTemplateBundles();
             ModelBinders.Binders.Add(typeof(DataTableParameterModel), new DataTableParameterModelBinder());
 
-            // Clean the DB, Rebuild the Index
-            new Repository().ApplyFiltersRetro();
-            InvertedIndex.Rebuild();
+            // Start the Forward Index background processing loop
+            ForwardIndex.Start();
         }
 
         protected void Application_End()
         {
             // Clean up any outstanding operations
-
+            ForwardIndex.Stop();
         }
     }
 }

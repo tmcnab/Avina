@@ -17,7 +17,7 @@
             this.Url = url;
             this.When = DateTime.UtcNow;
             this.HostIP = requestIP;
-            this.GetFirstP();
+            //this.GetFirstP();
         }
 
         public SubmissionModel(NameValueCollection requestCollection, string requestIP)

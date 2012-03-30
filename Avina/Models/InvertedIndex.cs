@@ -8,6 +8,7 @@
     using MongoDB.Bson;
     using MongoDB.Driver;
     using MongoDB.Driver.Builders;
+    using Avina.Models.Search;
 
     public static class InvertedIndex
     {
@@ -185,6 +186,11 @@
             #endif
         }
 
+        public static void Add(SiteRecord record)
+        {
+            // TODO: implement
+        }
+
         #region Backend Methods
 
         private static void Purge()
@@ -209,20 +215,5 @@
         private static char[] TrimChars = new char[] { ' ', '{', '}', '(', ')', ':', '`'};
 
         #endregion
-
-        public class InvertedIndexModel
-        {
-            public ObjectId Id { get; set; }
-
-            /// <summary>
-            /// Keyword
-            /// </summary>
-            public string kw { get; set; }
-
-            /// <summary>
-            /// Object Id's of SiteRecords that have the keyword
-            /// </summary>
-            public List<ObjectId> srIds { get; set; }
-        }
     }
 }

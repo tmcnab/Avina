@@ -1,11 +1,10 @@
 ﻿{
-  "name": "Avina",
-  "version": "1.0",
-  "description": "Avina CrowdSearch Extension",
+              "name": "Avina",
+           "version": "1.0",
+  "manifest_version": 2,
+
+     "description": "Avina Crowd Search Extension",
   "background_page": "bg.html",
-  "browser_action": {
-    "default_icon": "icon.png"
-  },
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*", "ftp://*/*"],

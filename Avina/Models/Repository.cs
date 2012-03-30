@@ -21,19 +21,18 @@
 
         public void Add(SubmissionModel model)
         {
-            if (Regex.IsMatch(model.Referrer, @"(http|https):\/\/avina") || 
-                Regex.IsMatch(model.Referrer, @"(http|https):\/\/localhost")) return;
-
-            if (!model.IsValid)
+            if (!model.IsValid || 
+                Regex.IsMatch(model.Referrer, @"(http|https):\/\/avina") || 
+                Regex.IsMatch(model.Referrer, @"(http|https):\/\/localhost"))
             {
+                #if DEBUG
                 Debug.WriteLine("URL REJECTED (" + model.Url + ")");
+                #endif
                 return;
             }
 
             // Try and see if we've already found this url before
-            var record = this.Database.GetCollection<SiteRecord>("UrlList")
-                             .FindAll()
-                             .SingleOrDefault(u => u.url == model.Url);
+            var record = this.Database.GetCollection<SiteRecord>("UrlList").FindOne(Query.EQ("url", model.Url));
 
             // If it wasn't found, create one (otherwise update it)
             if (record == null)
@@ -118,7 +117,11 @@
             if (sSearch.IsNullEmptyOrWhitespace())
                 return new List<SiteRecord>();
             
-            return InvertedIndex.ApplyTerms(sSearch.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList());
+            #if DEBUG
+            Debug.WriteLine(string.Format("Repository::Search({0})", sSearch));
+            #endif
+
+            return InvertedIndex.ApplyTerms(sSearch.ToLowerInvariant().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList());
         }
 
         public IEnumerable<SiteRecord> DataTableQuery(DataTableParameterModel model, out long nRecords)

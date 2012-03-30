@@ -1,18 +1,19 @@
 ﻿(function () {
+    $.ajaxSettings.beforeSend = function (xhr) {
+        xhr.withCredentials = false;
+    };
     try {
-        $.ajaxSettings.beforeSend = function (xhr) {
-            xhr.withCredentials = true;
-        };
         $.ajax({
             type: 'POST',
+            crossDomain: true,
             data: {
                 url: document.URL,
-                title: document.title,
                 referrer: document.referrer
             },
-            url: 'http://avina.apphb.com/Submit/'
-            //url: 'http://localhost:28462/Submit/'
+            url: 'http://avina.apphb.com/Submit/',
+            //url: 'http://localhost:28462/submit/',
+            error: function () { }
         });
     }
-    catch(e) {}
+    catch (e) { }
 })();

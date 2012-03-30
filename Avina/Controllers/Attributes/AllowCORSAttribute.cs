@@ -2,14 +2,16 @@
 {
     using System.Web.Mvc;
 
+    /// <summary>
+    /// This attribute allows a cross-domain request to happen by wildcarding the domain
+    /// </summary>
     public class AllowCORSAttribute : ActionFilterAttribute
     {
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
-            filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Origin", "*");
-            filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Credentials", "true");
-
-            base.OnActionExecuting(filterContext);
+            filterContext.HttpContext.Response.AddHeader("Access-Control-Allow-Origin", "*");
+            filterContext.HttpContext.Response.AddHeader("Access-Control-Allow-Credentials", "false");
+ 	        base.OnResultExecuted(filterContext);
         }
     }
 }
