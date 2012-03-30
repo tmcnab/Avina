@@ -12,6 +12,13 @@
     {
         Index searchIndex = new Index();
 
+        [OutputCache(Duration=3600)]
+        public ActionResult Index()
+        {
+            return View("Landing");
+        }
+
+        [HttpGet]
         public ActionResult Index(string q)
         {
             if (q.IsNullEmptyOrWhitespace())
