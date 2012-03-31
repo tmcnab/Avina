@@ -7,7 +7,7 @@ $('#T_Results').dataTable({
     "bFilter": false,
     "bSort": false,
     "sDom": "<'row'<'span4'l><'span4'f>r>t<'row datatable-footer'<'span5'p><'span3'i>>"
-}).parent().addClass('span8');
+}).parent().addClass('span9');
 
 $('#T_Results_info').text($('#T_Results_info').text().replace('entries', 'Results'));
 
