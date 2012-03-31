@@ -58,6 +58,9 @@
         </form>
     </div>
  </div>
+ <div class="span12">
+    @System.Configuration.ConfigurationManager.AppSettings.Get("MONGOLAB_URI")
+ </div>
 
 @section Scripts {
     <script src="~/Scripts/acp.js" type="text/javascript"></script>
