@@ -5,11 +5,11 @@ $('#T_Results').dataTable({
     "bLengthChange": false,
     "iDisplayLength": 10,
     "bFilter": false,
-    "bSort":false,
-    "sDom": "<'row'<'span4'l><'span4'f>r>t<'row'<'span4'i><'span4'p>>"
-}).parent()
-          .addClass('span9')
-          .css('margin-left', 0);
+    "bSort": false,
+    "sDom": "<'row'<'span4'l><'span4'f>r>t<'row datatable-footer'<'span5'p><'span3'i>>"
+}).parent().addClass('span8');
+
+$('#T_Results_info').text($('#T_Results_info').text().replace('entries', 'Results'));
 
 $('a[rel="popover"]').popover({
     placement: 'left'
