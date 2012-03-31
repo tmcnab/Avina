@@ -6,15 +6,16 @@ using System.Web.Mvc;
 
 namespace Avina.Controllers
 {
-    public class LearnMoreController : Controller
+    public class InfoController : Controller
     {
-        //
-        // GET: /LearnMore/
-
         public ActionResult Index()
         {
             return View();
         }
 
+        public ActionResult Extensions()
+        {
+            return View();
+        }
     }
 }

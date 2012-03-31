@@ -139,7 +139,7 @@
     <Compile Include="Controllers\ACPController.cs" />
     <Compile Include="Controllers\Attributes\AllowCORSAttribute.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\LearnMoreController.cs" />
+    <Compile Include="Controllers\InfoController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SubmitController.cs" />
     <Compile Include="Extensions\HtmlHelpers.cs" />
@@ -248,6 +248,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\Utils\analytics.js" />
+    <Content Include="Scripts\Views\Search\Layout.js" />
     <Content Include="Scripts\Views\Search\Index.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -265,11 +266,11 @@
     <Content Include="Views\ACP\Index.cshtml" />
     <Content Include="Views\Auth\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
-    <Content Include="Views\Shared\AboutModal.cshtml" />
     <Content Include="Views\ACP\ViewIndex.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Search\Landing.cshtml" />
-    <Content Include="Views\LearnMore\Index.cshtml" />
+    <Content Include="Views\Info\Index.cshtml" />
+    <Content Include="Views\Info\Extensions.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
