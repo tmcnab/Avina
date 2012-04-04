@@ -171,6 +171,8 @@
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(record.url);
+                request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11";
+                
                 var doc = new HtmlDocument();
                 doc.Load(request.GetResponse().GetResponseStream());
 
