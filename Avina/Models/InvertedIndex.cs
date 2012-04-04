@@ -5,11 +5,11 @@
     using System.Configuration;
     using System.Diagnostics;
     using System.Linq;
+    using Avina.Extensions;
+    using Avina.Models.Search;
     using MongoDB.Bson;
     using MongoDB.Driver;
     using MongoDB.Driver.Builders;
-    using Avina.Models.Search;
-    using Avina.Extensions;
 
     public static class InvertedIndex
     {
@@ -105,8 +105,10 @@
             {
                 ex.SendToACP();
             }
-
-            Rebuilding = false;
+            finally
+            {
+                Rebuilding = false;
+            }
         }
 
         /// <summary>
