@@ -9,6 +9,7 @@
     using MongoDB.Driver;
     using MongoDB.Driver.Builders;
     using Avina.Models.Search;
+    using Avina.Extensions;
 
     public static class InvertedIndex
     {
@@ -64,37 +65,45 @@
         {
             Rebuilding = true;
 
-            if (andPurge) Purge();
-
-            var invertedIndex = Database.GetCollection<InvertedIndexModel>("InvertedIndex");
-            var records = Database.GetCollection<SiteRecord>("UrlList").FindAll();
-
-            ProcessingTotal = records.Count();
-            ProcessingCurrent = 0;
-
-            // Iterate over EVERY. SINGLE. ITEM. and apply it to the invidx
-            foreach (var record in records)
+            try
             {
-                // Split the record title into tokens, remove shit characters
-                var keywords = ParseKeywords(record.title);
+                if (andPurge) Purge();
 
-                // Iterate over every keyword
-                for (int i = 0; i < keywords.Length; i++)
+                var invertedIndex = Database.GetCollection<InvertedIndexModel>("InvertedIndex");
+                var records = Database.GetCollection<SiteRecord>("UrlList").FindAll();
+
+                ProcessingTotal = records.Count();
+                ProcessingCurrent = 0;
+
+                // Iterate over EVERY. SINGLE. ITEM. and apply it to the invidx
+                foreach (var record in records)
                 {
-                    var iidxItem = invertedIndex.Find(Query.EQ("kw", keywords[i])).SingleOrDefault();
-                    iidxItem = iidxItem ?? new InvertedIndexModel() {
-                        kw = keywords[i],
-                        srIds = new List<ObjectId>(),
-                        Id = ObjectId.GenerateNewId()
-                    };
-                    Debug.WriteLine(keywords[i]);
-                    
-                    iidxItem.srIds.Add(record.Id);
-                    invertedIndex.Save<InvertedIndexModel>(iidxItem);
-                }
+                    // Split the record title into tokens, remove shit characters
+                    var keywords = ParseKeywords(record.title);
 
-                // Update the number processed
-                ProcessingCurrent += 1;
+                    // Iterate over every keyword
+                    for (int i = 0; i < keywords.Length; i++)
+                    {
+                        var iidxItem = invertedIndex.Find(Query.EQ("kw", keywords[i])).SingleOrDefault();
+                        iidxItem = iidxItem ?? new InvertedIndexModel()
+                        {
+                            kw = keywords[i],
+                            srIds = new List<ObjectId>(),
+                            Id = ObjectId.GenerateNewId()
+                        };
+                        Debug.WriteLine(keywords[i]);
+
+                        iidxItem.srIds.Add(record.Id);
+                        invertedIndex.Save<InvertedIndexModel>(iidxItem);
+                    }
+
+                    // Update the number processed
+                    ProcessingCurrent += 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.SendToACP();
             }
 
             Rebuilding = false;

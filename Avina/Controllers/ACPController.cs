@@ -1,5 +1,7 @@
 ﻿namespace Avina.Controllers
 {
+    using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Avina.Models;
@@ -7,6 +9,8 @@
     [Authorize(Users = "tristan@seditious-tech.com")]
     public class ACPController : Controller
     {
+        public static List<Exception> ExceptionList = new List<Exception>();
+
         public ActionResult Index()
         {
             return View();
@@ -15,6 +19,11 @@
         public ActionResult ViewIndex()
         {
             return View(InvertedIndex.GetIndex());
+        }
+
+        public ActionResult Exceptions()
+        {
+            return View(ExceptionList);
         }
 
         #region Ajax Handlers

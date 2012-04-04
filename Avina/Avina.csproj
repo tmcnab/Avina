@@ -142,6 +142,7 @@
     <Compile Include="Controllers\InfoController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SubmitController.cs" />
+    <Compile Include="Extensions\ExceptionHelpers.cs" />
     <Compile Include="Extensions\HtmlHelpers.cs" />
     <Compile Include="Extensions\HttpRequestMessageHelpers.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
@@ -271,6 +272,7 @@
     <Content Include="Views\Search\Landing.cshtml" />
     <Content Include="Views\Info\Index.cshtml" />
     <Content Include="Views\Info\Extensions.cshtml" />
+    <Content Include="Views\ACP\Exceptions.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
