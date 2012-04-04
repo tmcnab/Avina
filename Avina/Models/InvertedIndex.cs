@@ -79,7 +79,7 @@
                 foreach (var record in records)
                 {
                     // Split the record title into tokens, remove shit characters
-                    var keywords = ParseKeywords(record.title);
+                    var keywords = ParseKeywords(record.title ?? string.Empty);
 
                     // Iterate over every keyword
                     for (int i = 0; i < keywords.Length; i++)
