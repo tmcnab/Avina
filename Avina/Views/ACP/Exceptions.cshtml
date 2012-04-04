@@ -1,0 +1,17 @@
+﻿@model IEnumerable<System.Exception>
+
+@{ 
+    ViewBag.Title = "ACP";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+ }
+
+<table class="table table-condensed">
+    <tbody>
+        @foreach (var ex in Model)
+        {
+        <tr><td><strong>@ex.Message</strong></td></tr>
+        <tr><td><em>@ex.InnerException.Message</em></td></tr>
+        <tr><td><pre>@ex.StackTrace</pre></td></tr>
+        }
+    </tbody>
+</table>
