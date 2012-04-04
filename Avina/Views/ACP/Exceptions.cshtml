@@ -1,7 +1,7 @@
-﻿@model IEnumerable<System.Exception>
+﻿@model List<System.Exception>
 
 @{ 
-    ViewBag.Title = "ACP";
+    ViewBag.Title = "ACP > Exceptions";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
  }
 
@@ -10,7 +10,6 @@
         @foreach (var ex in Model)
         {
         <tr><td><strong>@ex.Message</strong></td></tr>
-        <tr><td><em>@ex.InnerException.Message</em></td></tr>
         <tr><td><pre>@ex.StackTrace</pre></td></tr>
         }
     </tbody>
